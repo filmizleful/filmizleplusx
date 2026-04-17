@@ -8,272 +8,133 @@
 <style>
 body{
     margin:0;
-    font-family:Arial, sans-serif;
-    background:radial-gradient(circle at top, #1a1a1a, #000);
+    font-family:Arial;
+    background:#0c0c14;
     color:white;
 }
-.ustbar{
-    background:#111;
-    padding:18px 30px;
-    display:flex;
-    justify-content:space-between;
-    align-items:center;
-    flex-wrap:wrap;
-    gap:12px;
+.container{
+    max-width:900px;
+    margin:auto;
+    padding:20px;
 }
-.logo{
-    font-size:28px;
-    color:#e50914;
-    font-weight:bold;
-}
-.menu{
-    display:flex;
-    gap:12px;
-    flex-wrap:wrap;
-}
-.menu a{
-    color:white;
-    text-decoration:none;
-    padding:8px 14px;
-    border-radius:8px;
-    background:#1c1c1c;
-    transition:0.3s;
-}
-.menu a:hover{
-    background:#e50914;
-    transform:scale(1.05);
-}
-.hero{
+h1{
     text-align:center;
-    padding:60px 20px 30px 20px;
+    margin-bottom:10px;
 }
-.hero h1{
-    font-size:52px;
-    margin:0 0 15px 0;
-}
-.hero p{
-    font-size:20px;
-    color:#cfcfcf;
-    margin:0 0 25px 0;
+.aciklama{
+    text-align:center;
+    color:#ccc;
+    margin-bottom:30px;
 }
 .kutu{
-    max-width:820px;
-    margin:0 auto 30px auto;
     background:#151515;
-    padding:24px;
-    border-radius:16px;
-    box-shadow:0 8px 20px rgba(0,0,0,0.35);
-    border:1px solid rgba(255,255,255,0.05);
+    padding:20px;
+    border-radius:15px;
+    margin-bottom:20px;
 }
-.kutu h2{
-    margin-top:0;
-    margin-bottom:15px;
-    font-size:28px;
+input{
+    width:100%;
+    padding:12px;
+    border:none;
+    border-radius:10px;
+    background:#1c1c1c;
+    color:white;
+    margin-bottom:10px;
+}
+button{
+    width:100%;
+    padding:12px;
+    border:none;
+    border-radius:10px;
+    background:#e50914;
+    color:white;
+    font-weight:bold;
+    cursor:pointer;
+}
+.oda-list{
+    display:grid;
+    grid-template-columns:repeat(auto-fit,minmax(150px,1fr));
+    gap:10px;
+}
+.oda{
+    background:#1c1c1c;
+    padding:15px;
+    border-radius:10px;
     text-align:center;
+    cursor:pointer;
 }
-.form-alan{
+.oda:hover{
+    background:#e50914;
+}
+.avatarlar{
     display:flex;
     gap:10px;
     flex-wrap:wrap;
     justify-content:center;
 }
-.form-alan input,
-.form-alan select{
-    min-width:140px;
-    padding:14px 18px;
-    border:none;
-    border-radius:12px;
-    font-size:17px;
-    outline:none;
-    background:#1b1b1b;
-    color:white;
-    box-sizing:border-box;
-}
-.form-alan input{
-    flex:1;
-    min-width:220px;
-}
-.form-alan button{
-    padding:14px 20px;
-    border:none;
-    border-radius:12px;
-    background:#e50914;
-    color:white;
-    font-size:16px;
-    font-weight:bold;
+.avatar{
+    font-size:25px;
     cursor:pointer;
-    transition:0.3s;
+    padding:5px;
 }
-.form-alan button:hover{
-    background:#ff1e2d;
-    transform:scale(1.05);
-}
-.uyari{
-    margin-top:14px;
-    font-size:14px;
-    color:#ffb0b0;
-    text-align:center;
-}
-.oda-baslik{
-    text-align:center;
-    font-size:34px;
-    margin:10px 0 25px 0;
-}
-.odalar{
-    display:flex;
-    justify-content:center;
-    flex-wrap:wrap;
-    gap:25px;
-    padding:10px 20px 60px 20px;
-    max-width:1300px;
-    margin:0 auto;
-}
-.oda-kart{
-    width:220px;
-    border-radius:16px;
-    text-align:center;
-    padding:24px 18px;
-    box-shadow:0 8px 20px rgba(0,0,0,0.4);
-    border:1px solid rgba(255,255,255,0.05);
-    transition:0.3s;
-    cursor:pointer;
-    color:white;
-    text-decoration:none;
-}
-.oda-kart:hover{
-    transform:scale(1.08);
-}
-.oda-ikon{
-    font-size:56px;
-    margin-bottom:15px;
-}
-.oda-kart h3{
-    margin:8px 0 10px 0;
-    font-size:26px;
-}
-.oda-aciklama{
-    font-size:15px;
-    color:#f0f0f0;
-    line-height:1.5;
-}
-.genel{
-    background:linear-gradient(180deg, #4db8ff, #0066cc);
-}
-.korku{
-    background:linear-gradient(180deg, #ff5f3a, #d81f26);
-}
-.aksiyon{
-    background:linear-gradient(180deg, #ff4f8b, #b20710);
-}
-.bilim{
-    background:linear-gradient(180deg, #8d7bff, #5a00d1);
-}
-.macera{
-    background:linear-gradient(180deg, #ffd24d, #ff8a00);
-}
-.alt{
-    text-align:center;
-    color:#999;
-    padding:20px;
-    border-top:1px solid #222;
+.secili{
+    border:2px solid #e50914;
+    border-radius:10px;
 }
 </style>
 </head>
+
 <body>
 
-<div class="ustbar">
-    <div class="logo">💬 Filmizleful</div>
-    <div class="menu">
-        <a href="index.html">Ana Sayfa</a>
-        <a href="korku.html">Korku</a>
-        <a href="aksiyon.html">Aksiyon</a>
-        <a href="bilimkurgu.html">Bilim Kurgu</a>
-        <a href="macera.html">Macera</a>
-        <a href="rooms.html">Online Oda</a>
-    </div>
-</div>
+<div class="container">
 
-<div class="hero">
-    <h1>Online Odalar</h1>
-    <p>İsmini kaydet, hazır odaya gir veya kendi şifreli özel odanı oluştur</p>
+<h1>Online Odalar</h1>
+<div class="aciklama">İsmini kaydet, oda seç veya özel oda oluştur</div>
+
+<div class="kutu">
+    <h3>İsmini Kaydet</h3>
+    <input id="isimInput" placeholder="İsmini yaz">
+
+    <div class="avatarlar">
+        <span class="avatar">😀</span>
+        <span class="avatar">😎</span>
+        <span class="avatar">🔥</span>
+        <span class="avatar">👑</span>
+        <span class="avatar">🎬</span>
+        <span class="avatar">🐱</span>
+    </div>
+
+    <button onclick="kaydet()">Kaydet</button>
 </div>
 
 <div class="kutu">
-    <h2>👤 İsmini ve Avatarını Kaydet</h2>
-
-    <div class="form-alan">
-        <input type="text" id="isim" placeholder="Adını yaz...">
-
-        <select id="avatar">
-            <option value="😀">😀</option>
-            <option value="😎">😎</option>
-            <option value="👻">👻</option>
-            <option value="🔥">🔥</option>
-            <option value="🎬">🎬</option>
-            <option value="🚀">🚀</option>
-            <option value="🐱">🐱</option>
-            <option value="🧠">🧠</option>
-        </select>
-
-        <button onclick="ismiKaydet()">Kaydet</button>
-    </div>
-
-    <div class="uyari" id="isimUyari"></div>
+    <h3>Özel Oda Oluştur</h3>
+    <input id="odaInput" placeholder="Oda adı yaz">
+    <input id="sifreInput" placeholder="Oda şifresi (isteğe bağlı)">
+    <button onclick="odaOlustur()">Oda Aç</button>
 </div>
 
 <div class="kutu">
-    <h2>🔒 Şifreli Özel Oda Oluştur</h2>
-
-    <div class="form-alan">
-        <input type="text" id="ozelOda" placeholder="Özel oda adı yaz...">
-        <input type="password" id="ozelSifre" placeholder="Oda şifresi yaz...">
-        <button onclick="ozelOdaAc()">Oda Aç</button>
+    <h3>Hazır Odalar</h3>
+    <div class="oda-list">
+        <div class="oda" onclick="gir('genel')">Genel</div>
+        <div class="oda" onclick="gir('korku')">Korku</div>
+        <div class="oda" onclick="gir('aksiyon')">Aksiyon</div>
+        <div class="oda" onclick="gir('bilim')">Bilim Kurgu</div>
+        <div class="oda" onclick="gir('macera')">Macera</div>
     </div>
-
-    <div class="uyari" id="odaUyari"></div>
 </div>
 
-<div class="oda-baslik">🚪 Hazır Odalar</div>
-
-<div class="odalar">
-    <a href="#" class="oda-kart genel" onclick="odayaGit('genel')">
-        <div class="oda-ikon">🌐</div>
-        <h3>Genel</h3>
-        <div class="oda-aciklama">Herkesin katılabildiği genel sohbet odası</div>
-    </a>
-
-    <a href="#" class="oda-kart korku" onclick="odayaGit('korku')">
-        <div class="oda-ikon">👻</div>
-        <h3>Korku</h3>
-        <div class="oda-aciklama">Korku filmi sevenler için özel oda</div>
-    </a>
-
-    <a href="#" class="oda-kart aksiyon" onclick="odayaGit('aksiyon')">
-        <div class="oda-ikon">🔥</div>
-        <h3>Aksiyon</h3>
-        <div class="oda-aciklama">Aksiyon ve heyecan sevenler için</div>
-    </a>
-
-    <a href="#" class="oda-kart bilim" onclick="odayaGit('bilimkurgu')">
-        <div class="oda-ikon">🚀</div>
-        <h3>Bilim Kurgu</h3>
-        <div class="oda-aciklama">Uzay, teknoloji ve gelecek severler için</div>
-    </a>
-
-    <a href="#" class="oda-kart macera" onclick="odayaGit('macera')">
-        <div class="oda-ikon">🗺️</div>
-        <h3>Macera</h3>
-        <div class="oda-aciklama">Keşif ve yolculuk filmi sevenler için</div>
-    </a>
-</div>
-
-<div class="alt">
-    © 2026 Filmizleful Online Oda Sistemi
 </div>
 
 <script type="module">
 import { initializeApp } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-app.js";
-import { getFirestore, doc, setDoc } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-firestore.js";
+import {
+    getFirestore,
+    doc,
+    setDoc,
+    getDoc
+} from "https://www.gstatic.com/firebasejs/10.7.1/firebase-firestore.js";
 
 const firebaseConfig = {
   apiKey: "AIzaSyBNoenb7tM6mFK8DEruxFtYLo_FwUXY7uc",
@@ -287,90 +148,80 @@ const firebaseConfig = {
 const app = initializeApp(firebaseConfig);
 const db = getFirestore(app);
 
-const kayitliIsim = localStorage.getItem("filmizleful_isim");
-const kayitliAvatar = localStorage.getItem("filmizleful_avatar");
+let seciliAvatar = "😀";
 
-if (kayitliIsim) document.getElementById("isim").value = kayitliIsim;
-if (kayitliAvatar) document.getElementById("avatar").value = kayitliAvatar;
+/* AVATAR SEC */
+document.querySelectorAll(".avatar").forEach(el=>{
+    el.onclick = ()=>{
+        document.querySelectorAll(".avatar").forEach(a=>a.classList.remove("secili"));
+        el.classList.add("secili");
+        seciliAvatar = el.textContent;
+    };
+});
 
-window.ismiKaydet = function() {
-    const isim = document.getElementById("isim").value.trim();
-    const avatar = document.getElementById("avatar").value;
-    const uyari = document.getElementById("isimUyari");
+/* KAYDET */
+window.kaydet = function(){
+    const isim = document.getElementById("isimInput").value.trim();
 
-    if (!isim) {
-        uyari.style.color = "#ffb0b0";
-        uyari.textContent = "Önce ismini yaz.";
+    if(!isim){
+        alert("İsim yaz");
         return;
     }
 
     localStorage.setItem("filmizleful_isim", isim);
-    localStorage.setItem("filmizleful_avatar", avatar);
+    localStorage.setItem("filmizleful_avatar", seciliAvatar);
 
-    uyari.style.color = "#90ffb2";
-    uyari.textContent = "İsmin ve avatarın kaydedildi.";
+    alert("Kaydedildi 👍");
 };
 
-function isimHazirMi() {
-    const isim = document.getElementById("isim").value.trim();
-    const avatar = document.getElementById("avatar").value;
-    const uyari = document.getElementById("isimUyari");
+/* ODAYA GİR */
+window.gir = async function(oda){
+    const isim = localStorage.getItem("filmizleful_isim");
 
-    if (!isim) {
-        uyari.style.color = "#ffb0b0";
-        uyari.textContent = "Odaya girmeden önce ismini yaz.";
-        return false;
-    }
-
-    localStorage.setItem("filmizleful_isim", isim);
-    localStorage.setItem("filmizleful_avatar", avatar);
-    return true;
-}
-
-function temizOdaAdiYap(metin) {
-    return metin
-        .toLowerCase()
-        .trim()
-        .replace(/\s+/g, "-")
-        .replace(/[^a-z0-9-_]/g, "");
-}
-
-window.odayaGit = function(oda) {
-    if (!isimHazirMi()) return;
-    window.location.href = "room.html?oda=" + encodeURIComponent(oda);
-};
-
-window.ozelOdaAc = async function() {
-    const odaInput = document.getElementById("ozelOda").value.trim();
-    const sifre = document.getElementById("ozelSifre").value.trim();
-    const uyari = document.getElementById("odaUyari");
-
-    if (!isimHazirMi()) return;
-
-    if (!odaInput || !sifre) {
-        uyari.style.color = "#ffb0b0";
-        uyari.textContent = "Oda adı ve şifre yazman gerekiyor.";
+    if(!isim){
+        alert("Önce isim kaydet");
         return;
     }
 
-    const temiz = temizOdaAdiYap(odaInput);
+    const odaRef = doc(db, "odalar", oda);
+    const odaDoc = await getDoc(odaRef);
 
-    if (!temiz) {
-        uyari.style.color = "#ffb0b0";
-        uyari.textContent = "Geçerli bir oda adı yaz.";
+    if(odaDoc.exists()){
+        const data = odaDoc.data();
+
+        if(data.sifreli){
+            const girilen = prompt("Oda şifreli, şifre gir:");
+
+            if(girilen !== data.sifre){
+                alert("Yanlış şifre");
+                return;
+            }
+        }
+    }
+
+    window.location.href = "room.html?oda=" + oda;
+};
+
+/* ODA OLUŞTUR */
+window.odaOlustur = async function(){
+    const oda = document.getElementById("odaInput").value.trim();
+    const sifre = document.getElementById("sifreInput").value.trim();
+
+    if(!oda){
+        alert("Oda adı yaz");
         return;
     }
 
-    await setDoc(doc(db, "odalar", temiz), {
-        sahip: localStorage.getItem("filmizleful_isim") || "Misafir",
-        sifre: sifre,
-        sifreli: true
-    }, { merge: true });
+    const odaRef = doc(db, "odalar", oda);
 
-    uyari.style.color = "#90ffb2";
-    uyari.textContent = "Şifreli oda oluşturuldu.";
+    if(sifre){
+        await setDoc(odaRef, {
+            sifre: sifre,
+            sifreli: true
+        }, { merge:true });
+    }
 
-    window.location.href = "room.html?oda=" + encodeURIComponent(temiz);
+    window.location.href = "room.html?oda=" + oda;
 };
 </script>
 

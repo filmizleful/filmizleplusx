@@ -2,65 +2,166 @@
 <html lang="tr">
 <head>
 <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Filmizleful Oda</title>
 
 <style>
 body{
+    margin:0;
+    font-family:Arial;
     background:#0c0c14;
     color:white;
-    font-family:Arial;
-    text-align:center;
+}
+
+/* ÜST */
+.ust{
+    background:#111;
+    padding:15px;
+    display:flex;
+    justify-content:space-between;
+}
+
+/* ANA ALAN */
+.container{
+    display:flex;
+    gap:20px;
+    padding:20px;
+}
+
+/* VIDEO */
+.video-alan{
+    flex:2;
 }
 
 .video{
-    width:90%;
-    max-width:900px;
-    margin:20px auto;
+    width:100%;
     aspect-ratio:16/9;
-    border-radius:18px;
+    border-radius:15px;
     overflow:hidden;
-    background:#000;
+    background:black;
 }
 
-iframe{
+.video iframe{
     width:100%;
     height:100%;
     border:0;
 }
 
-input{
-    padding:10px;
-    width:60%;
-    border-radius:10px;
-    border:none;
+.kontrol{
+    margin-top:10px;
+    display:flex;
+    gap:10px;
 }
 
-button{
-    padding:10px 20px;
+.kontrol input{
+    flex:1;
+    padding:10px;
+    border-radius:10px;
+    border:none;
+    background:#222;
+    color:white;
+}
+
+.kontrol button{
+    padding:10px;
+    background:#e50914;
     border:none;
     border-radius:10px;
-    background:#e50914;
     color:white;
     cursor:pointer;
+}
+
+/* CHAT */
+.chat{
+    flex:1;
+    background:#151515;
+    border-radius:15px;
+    padding:10px;
+    display:flex;
+    flex-direction:column;
+    height:500px;
+}
+
+.mesajlar{
+    flex:1;
+    overflow-y:auto;
+    margin-bottom:10px;
+}
+
+.mesaj{
+    margin-bottom:8px;
+}
+
+.input{
+    display:flex;
+    gap:5px;
+}
+
+.input input{
+    flex:1;
+    padding:10px;
+    border-radius:10px;
+    border:none;
+    background:#222;
+    color:white;
+}
+
+.input button{
+    background:#e50914;
+    border:none;
+    border-radius:10px;
+    padding:10px;
+    color:white;
+}
+
+/* MOBİL */
+@media(max-width:800px){
+    .container{
+        flex-direction:column;
+    }
 }
 </style>
 </head>
 
 <body>
 
-<h1>🎬 Ortak Video</h1>
-
-<input id="link" placeholder="YouTube link yapıştır">
-<button onclick="degistir()">Değiştir</button>
-
-<div class="video">
-<iframe id="oynatici" src="" allowfullscreen></iframe>
+<div class="ust">
+    <div id="odaAdi">📺 Oda</div>
 </div>
 
-<!-- FIREBASE -->
+<div class="container">
+
+<!-- VIDEO -->
+<div class="video-alan">
+
+<div class="video">
+<iframe id="oynatici"></iframe>
+</div>
+
+<div class="kontrol">
+<input id="link" placeholder="YouTube link">
+<button onclick="degistir()">Değiştir</button>
+</div>
+
+</div>
+
+<!-- CHAT -->
+<div class="chat">
+
+<div class="mesajlar" id="mesajlar"></div>
+
+<div class="input">
+<input id="mesajInput" placeholder="Mesaj...">
+<button onclick="gonder()">Gönder</button>
+</div>
+
+</div>
+
+</div>
+
 <script type="module">
 import { initializeApp } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-app.js";
-import { getFirestore, doc, setDoc, onSnapshot } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-firestore.js";
+import { getFirestore, doc, setDoc, onSnapshot, collection, addDoc, query, orderBy } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-firestore.js";
 
 const firebaseConfig = {
   apiKey: "AIzaSyBNoenb7tM6mFK8DEruxFtYLo_FwUXY7uc",
@@ -74,30 +175,57 @@ const firebaseConfig = {
 const app = initializeApp(firebaseConfig);
 const db = getFirestore(app);
 
-// oda ismi
-const url = new URL(window.location.href);
-const oda = url.searchParams.get("oda") || "genel";
+const oda = new URL(window.location.href).searchParams.get("oda") || "genel";
 
-// video değiştir
+document.getElementById("odaAdi").innerText = "📺 Oda: " + oda;
+
+/* VIDEO */
 window.degistir = async function(){
     let link = document.getElementById("link").value;
-
     let id = link.split("v=")[1];
     if(id.includes("&")) id = id.split("&")[0];
 
     let embed = "https://www.youtube.com/embed/" + id;
 
-    await setDoc(doc(db, "odalar", oda), {
-        video: embed
-    });
+    await setDoc(doc(db, "odalar", oda), { video: embed });
 }
 
-// herkese anlık yansıt
-onSnapshot(doc(db, "odalar", oda), (docSnap) => {
+onSnapshot(doc(db, "odalar", oda), (docSnap)=>{
     if(docSnap.exists()){
         document.getElementById("oynatici").src = docSnap.data().video;
     }
 });
+
+/* CHAT */
+const q = query(collection(db, "rooms", oda, "messages"), orderBy("tarih"));
+
+onSnapshot(q, (snapshot)=>{
+    let mesajlar = document.getElementById("mesajlar");
+    mesajlar.innerHTML = "";
+
+    snapshot.forEach(docSnap=>{
+        let data = docSnap.data();
+        let div = document.createElement("div");
+        div.className = "mesaj";
+        div.innerHTML = "<b>"+data.isim+":</b> "+data.mesaj;
+        mesajlar.appendChild(div);
+    });
+
+    mesajlar.scrollTop = mesajlar.scrollHeight;
+});
+
+window.gonder = async function(){
+    let input = document.getElementById("mesajInput");
+    let text = input.value;
+
+    await addDoc(collection(db, "rooms", oda, "messages"), {
+        isim: "Misafir",
+        mesaj: text,
+        tarih: Date.now()
+    });
+
+    input.value="";
+}
 </script>
 
 </body>

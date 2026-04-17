@@ -96,20 +96,49 @@ body{
     cursor:pointer;
 }
 
-.chat{
+.sag-panel{
     flex:1;
+    display:flex;
+    flex-direction:column;
+    gap:16px;
+}
+
+.online-kutu,
+.chat{
     background:#151515;
     border-radius:15px;
     padding:12px;
-    display:flex;
-    flex-direction:column;
-    height:520px;
 }
 
+.online-baslik,
 .chat-baslik{
     font-size:20px;
     font-weight:bold;
     margin-bottom:10px;
+}
+
+.online-sayi{
+    font-size:16px;
+    color:#ffd54a;
+    margin-bottom:10px;
+}
+
+.online-liste{
+    background:#1a1a1a;
+    border-radius:12px;
+    padding:10px;
+    min-height:80px;
+}
+
+.online-kisi{
+    margin-bottom:8px;
+    color:#ddd;
+}
+
+.chat{
+    display:flex;
+    flex-direction:column;
+    height:420px;
 }
 
 .mesajlar{
@@ -156,13 +185,13 @@ body{
     font-size:14px;
 }
 
-@media(max-width:800px){
+@media(max-width:900px){
     .container{
         flex-direction:column;
     }
 
     .chat{
-        height:420px;
+        height:360px;
     }
 }
 </style>
@@ -193,15 +222,25 @@ body{
         <div class="uyari" id="uyari"></div>
     </div>
 
-    <div class="chat">
-        <div class="chat-baslik">💬 Oda Sohbeti</div>
+    <div class="sag-panel">
 
-        <div class="mesajlar" id="mesajlar"></div>
-
-        <div class="input">
-            <input id="mesajInput" placeholder="Mesaj...">
-            <button onclick="gonder()">Gönder</button>
+        <div class="online-kutu">
+            <div class="online-baslik">🟢 Online Kişiler</div>
+            <div class="online-sayi" id="onlineSayi">0 kişi online</div>
+            <div class="online-liste" id="onlineListe"></div>
         </div>
+
+        <div class="chat">
+            <div class="chat-baslik">💬 Oda Sohbeti</div>
+
+            <div class="mesajlar" id="mesajlar"></div>
+
+            <div class="input">
+                <input id="mesajInput" placeholder="Mesaj...">
+                <button onclick="gonder()">Gönder</button>
+            </div>
+        </div>
+
     </div>
 
 </div>
@@ -216,7 +255,8 @@ import {
     collection,
     addDoc,
     query,
-    orderBy
+    orderBy,
+    deleteDoc
 } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-firestore.js";
 
 const firebaseConfig = {
@@ -233,6 +273,7 @@ const db = getFirestore(app);
 
 const oda = new URL(window.location.href).searchParams.get("oda") || "genel";
 let isim = localStorage.getItem("filmizleful_isim") || "Misafir";
+const kullaniciId = "k_" + Date.now() + "_" + Math.floor(Math.random() * 100000);
 
 document.getElementById("odaAdi").innerText = "📺 Oda: " + oda;
 document.getElementById("kullaniciAdi").innerText = "👤 Sen: " + isim;
@@ -318,6 +359,44 @@ window.gonder = async function(){
 
     input.value = "";
 }
+
+/* ONLINE KİŞİLER */
+const kullaniciRef = doc(db, "rooms", oda, "users", kullaniciId);
+
+await setDoc(kullaniciRef, {
+    isim: isim,
+    giris: Date.now()
+});
+
+window.addEventListener("beforeunload", async () => {
+    try {
+        await deleteDoc(kullaniciRef);
+    } catch (e) {}
+});
+
+onSnapshot(collection(db, "rooms", oda, "users"), (snapshot) => {
+    const onlineListe = document.getElementById("onlineListe");
+    const onlineSayi = document.getElementById("onlineSayi");
+
+    onlineListe.innerHTML = "";
+
+    let sayi = 0;
+
+    snapshot.forEach((docSnap) => {
+        sayi++;
+        const data = docSnap.data();
+        const div = document.createElement("div");
+        div.className = "online-kisi";
+        div.textContent = "👤 " + data.isim;
+        onlineListe.appendChild(div);
+    });
+
+    onlineSayi.textContent = sayi + " kişi online";
+
+    if (sayi === 0) {
+        onlineListe.innerHTML = "<div class='online-kisi'>Kimse yok</div>";
+    }
+});
 </script>
 
 </body>

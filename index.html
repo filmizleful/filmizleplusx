@@ -271,27 +271,27 @@ body {
 
 <div class="kategori-baslik">🎭 Kategoriler</div>
 
-<div class="kartlar">
+<div class="kartlar" id="kategoriKartlari">
 
-    <a href="korku.html" class="kart korku" data-ad="korku korku filmleri gerilim korku kategorisi">
+    <a href="korku.html" class="kart korku arama-ogesi" data-ad="korku korku filmleri gerilim it conjuring insidious korku kategorisi">
         <div class="ikon">👻</div>
         <div class="baslik">Korku</div>
         <div class="aciklama">Gerilim ve korku filmleri</div>
     </a>
 
-    <a href="aksiyon.html" class="kart aksiyon" data-ad="aksiyon aksiyon filmleri heyecan hızlı kategori">
+    <a href="aksiyon.html" class="kart aksiyon arama-ogesi" data-ad="aksiyon aksiyon filmleri heyecan hızlı john wick batman joker fast furious kategori">
         <div class="ikon">💥</div>
         <div class="baslik">Aksiyon</div>
         <div class="aciklama">Hızlı ve heyecanlı filmler</div>
     </a>
 
-    <a href="bilimkurgu.html" class="kart bilimkurgu" data-ad="bilim kurgu bilimkurgu uzay gelecek kategori">
+    <a href="bilimkurgu.html" class="kart bilimkurgu arama-ogesi" data-ad="bilim kurgu bilimkurgu uzay gelecek interstellar inception matrix avatar kategori">
         <div class="ikon">🚀</div>
         <div class="baslik">Bilim Kurgu</div>
         <div class="aciklama">Uzay ve gelecek filmleri</div>
     </a>
 
-    <a href="macera.html" class="kart macera" data-ad="macera keşif yolculuk macera filmleri kategori">
+    <a href="macera.html" class="kart macera arama-ogesi" data-ad="macera keşif yolculuk avatar fast furious kategori">
         <div class="ikon">🗺️</div>
         <div class="baslik">Macera</div>
         <div class="aciklama">Keşif ve yolculuk filmleri</div>
@@ -301,72 +301,72 @@ body {
 
 <div class="populer-baslik">🔥 Popüler Filmler</div>
 
-<div class="populer-alan">
+<div class="populer-alan" id="filmKartlari">
 
-    <div class="film-kart">
+    <div class="film-kart arama-ogesi" data-ad="john wick aksiyon gerilim johnwick">
         <div class="film-ikon">🔫</div>
         <h3>John Wick</h3>
         <p>Aksiyon ve gerilim</p>
         <a href="johnwick.html">İzle</a>
     </div>
 
-    <div class="film-kart">
+    <div class="film-kart arama-ogesi" data-ad="interstellar bilim kurgu uzay interstellar">
         <div class="film-ikon">🌌</div>
         <h3>Interstellar</h3>
         <p>Bilim kurgu ve uzay</p>
         <a href="interstellar.html">İzle</a>
     </div>
 
-    <div class="film-kart">
+    <div class="film-kart arama-ogesi" data-ad="matrix bilim kurgu aksiyon matrix">
         <div class="film-ikon">💊</div>
         <h3>Matrix</h3>
         <p>Bilim kurgu ve aksiyon</p>
         <a href="matrix.html">İzle</a>
     </div>
 
-    <div class="film-kart">
+    <div class="film-kart arama-ogesi" data-ad="batman aksiyon karanlik kahraman">
         <div class="film-ikon">🦇</div>
         <h3>Batman</h3>
         <p>Karanlık kahraman hikayesi</p>
         <a href="batman.html">İzle</a>
     </div>
 
-    <div class="film-kart">
+    <div class="film-kart arama-ogesi" data-ad="inception bilim kurgu ruya zihin">
         <div class="film-ikon">🧠</div>
         <h3>Inception</h3>
         <p>Rüya içinde rüya</p>
         <a href="inception.html">İzle</a>
     </div>
 
-    <div class="film-kart">
+    <div class="film-kart arama-ogesi" data-ad="avatar bilim kurgu fantastik macera pandora">
         <div class="film-ikon">🌍</div>
         <h3>Avatar</h3>
         <p>Pandora gezegeni macerası</p>
         <a href="avatar.html">İzle</a>
     </div>
 
-    <div class="film-kart">
+    <div class="film-kart arama-ogesi" data-ad="joker dram psikolojik suc joker">
         <div class="film-ikon">🃏</div>
         <h3>Joker</h3>
         <p>Karanlık karakter hikayesi</p>
         <a href="joker.html">İzle</a>
     </div>
 
-    <div class="film-kart">
+    <div class="film-kart arama-ogesi" data-ad="fast furious hiz araba aksiyon fast">
         <div class="film-ikon">🏎️</div>
         <h3>Fast & Furious</h3>
         <p>Hız ve aksiyon dolu</p>
         <a href="fast.html">İzle</a>
     </div>
 
-    <div class="film-kart">
+    <div class="film-kart arama-ogesi" data-ad="it korku gerilim palyaço">
         <div class="film-ikon">🎈</div>
         <h3>IT</h3>
         <p>Korku ve gerilim</p>
         <a href="it.html">İzle</a>
     </div>
 
-    <div class="film-kart">
+    <div class="film-kart arama-ogesi" data-ad="conjuring korku dogaustu gerilim">
         <div class="film-ikon">🏚️</div>
         <h3>Conjuring</h3>
         <p>Doğaüstü korku filmi</p>
@@ -385,16 +385,16 @@ body {
 
 <script>
 function aramaYap() {
-    let input = document.getElementById("aramaInput").value.toLowerCase();
-    let kartlar = document.querySelectorAll(".kart");
+    let input = document.getElementById("aramaInput").value.toLowerCase().trim();
+    let ogeler = document.querySelectorAll(".arama-ogesi");
 
-    kartlar.forEach(function(kart) {
-        let metin = kart.getAttribute("data-ad").toLowerCase();
+    ogeler.forEach(function(oge) {
+        let metin = oge.getAttribute("data-ad").toLowerCase();
 
-        if (metin.includes(input)) {
-            kart.style.display = "block";
+        if (metin.includes(input) || input === "") {
+            oge.style.display = "";
         } else {
-            kart.style.display = "none";
+            oge.style.display = "none";
         }
     });
 }

@@ -8,177 +8,124 @@
 <style>
 body {
     margin: 0;
-    font-family: Arial, sans-serif;
+    font-family: Arial;
     background: radial-gradient(circle at top, #1a1a1a, #000);
     color: white;
-    min-height: 100vh;
 }
 
+/* üst menü */
 .ustbar {
     background: #111;
     padding: 18px 30px;
     display: flex;
-    justify-content: space-between;
-    align-items: center;
-    flex-wrap: wrap;
-    position: sticky;
-    top: 0;
-    z-index: 999;
-    box-shadow: 0 2px 10px rgba(0,0,0,0.5);
+    justify-content: flex-end;
+    gap: 15px;
 }
 
-.logo {
-    font-size: 28px;
-    color: #e50914;
+.ustbar a {
+    color: white;
+    text-decoration: none;
     font-weight: bold;
 }
 
-.menu {
-    display: flex;
-    gap: 12px;
-    flex-wrap: wrap;
-}
-
-.menu a {
-    color: white;
-    text-decoration: none;
-    padding: 8px 14px;
-    border-radius: 6px;
-    background: #1c1c1c;
-    transition: 0.3s;
-}
-
-.menu a:hover {
-    background: #e50914;
-    transform: scale(1.05);
-}
-
-.anaalan {
-    min-height: calc(100vh - 74px);
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    padding: 20px 20px 60px 20px;
-    box-sizing: border-box;
-}
-
+/* başlık */
 .baslik {
     text-align: center;
-    font-size: 40px;
+    font-size: 48px;
+    margin-top: 70px;
     margin-bottom: 40px;
 }
 
-.filmler {
+/* ORTALI 3 FİLM */
+.film-alani {
     display: flex;
     justify-content: center;
-    gap: 25px;
-    flex-wrap: wrap;
+    gap: 30px;
+    padding: 20px;
 }
 
-.kart {
+/* kart */
+.film-kart {
     width: 220px;
-    background: #111;
-    border-radius: 12px;
-    text-align: center;
+    background: #151515;
+    border-radius: 15px;
     padding: 25px 15px;
-    position: relative;
-    overflow: hidden;
-    transition: 0.3s;
-    box-shadow: 0 8px 20px rgba(0,0,0,0.4);
-    border: 1px solid rgba(255,255,255,0.05);
+    text-align: center;
+    transition: all 0.3s ease;
 }
 
-.kart:hover {
-    transform: scale(1.08);
-    box-shadow: 0 0 25px rgba(255, 0, 0, 0.5);
-}
-
-.kart::after {
-    content: "";
-    position: absolute;
-    width: 100%;
-    height: 100%;
-    background: rgba(0,0,0,0.25);
-    top: 0;
-    left: 0;
-    opacity: 0;
+/* ikon */
+.film-ikon {
+    font-size: 65px;
+    margin-bottom: 10px;
     transition: 0.3s;
 }
 
-.kart:hover::after {
-    opacity: 1;
-}
-
-.filmikon {
-    font-size: 70px;
-    margin-bottom: 15px;
-    position: relative;
-    z-index: 2;
-}
-
-.kart h3 {
-    margin: 10px 0;
-    position: relative;
-    z-index: 2;
-    font-size: 22px;
-}
-
-.izle {
-    display: block;
-    background: #e50914;
-    color: white;
-    padding: 12px;
+/* buton */
+.film-kart a {
+    display: inline-block;
     margin-top: 15px;
-    border-radius: 8px;
+    background: #ff7a59;
+    color: white;
     text-decoration: none;
-    font-weight: bold;
-    position: relative;
-    z-index: 2;
+    padding: 10px 20px;
+    border-radius: 10px;
     transition: 0.3s;
 }
 
-.izle:hover {
-    background: #ff1e2d;
-    transform: scale(1.05);
+/* 👻 KIRMIZI IŞIK EFEKT */
+.film-kart:hover {
+    transform: scale(1.08);
+    background: #1a0000;
+    box-shadow:
+        0 0 15px red,
+        0 0 30px red,
+        0 0 60px rgba(255,0,0,0.6);
+}
+
+/* ikon büyür */
+.film-kart:hover .film-ikon {
+    transform: scale(1.3);
+}
+
+/* buton parlar */
+.film-kart:hover a {
+    background: red;
 }
 </style>
-</head>
 
+</head>
 <body>
 
 <div class="ustbar">
-    <div class="logo">🎬 Filmizleful</div>
-
-    <div class="menu">
-        <a href="index.html">Ana Sayfa</a>
-        <a href="aksiyon.html">Aksiyon</a>
-        <a href="bilimkurgu.html">Bilim Kurgu</a>
-        <a href="macera.html">Macera</a>
-    </div>
+    <a href="index.html">Ana Sayfa</a>
+    <a href="aksiyon.html">Aksiyon</a>
+    <a href="bilimkurgu.html">Bilim Kurgu</a>
+    <a href="macera.html">Macera</a>
 </div>
 
-<div class="anaalan">
-    <div class="baslik">👻 Korku Filmleri</div>
+<div class="baslik">👻 Korku Filmleri</div>
 
-    <div class="filmler">
-        <div class="kart">
-            <div class="filmikon">🎈</div>
-            <h3>IT (O)</h3>
-            <a class="izle" href="it.html">İzle</a>
-        </div>
+<div class="film-alani">
 
-        <div class="kart">
-            <div class="filmikon">🏚️</div>
-            <h3>Conjuring</h3>
-            <a class="izle" href="conjuring.html">İzle</a>
-        </div>
+<div class="film-kart">
+    <div class="film-ikon">🎈</div>
+    <h3>IT</h3>
+    <a href="it.html">İzle</a>
+</div>
 
-        <div class="kart">
-            <div class="filmikon">👁️</div>
-            <h3>Insidious</h3>
-            <a class="izle" href="insidious.html">İzle</a>
-        </div>
-    </div>
+<div class="film-kart">
+    <div class="film-ikon">🏚️</div>
+    <h3>Conjuring</h3>
+    <a href="conjuring.html">İzle</a>
+</div>
+
+<div class="film-kart">
+    <div class="film-ikon">👻</div>
+    <h3>The Nun</h3>
+    <a href="nun.html">İzle</a>
+</div>
+
 </div>
 
 </body>

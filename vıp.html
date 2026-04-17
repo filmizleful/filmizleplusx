@@ -1,0 +1,327 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>VIP - Filmizleful</title>
+
+<style>
+*{
+    box-sizing:border-box;
+}
+
+body{
+    margin:0;
+    font-family:Arial, sans-serif;
+    background:radial-gradient(circle at top, #1d1a33 0%, #0b0b14 55%, #000 100%);
+    color:white;
+}
+
+.ustbar{
+    background:rgba(10,10,16,0.95);
+    padding:18px 28px;
+    display:flex;
+    justify-content:space-between;
+    align-items:center;
+    flex-wrap:wrap;
+    gap:12px;
+    border-bottom:1px solid rgba(255,255,255,0.05);
+}
+
+.logo{
+    font-size:28px;
+    color:#ffcf70;
+    font-weight:bold;
+}
+
+.menu{
+    display:flex;
+    gap:12px;
+    flex-wrap:wrap;
+    align-items:center;
+}
+
+.menu a{
+    color:white;
+    text-decoration:none;
+    padding:8px 14px;
+    border-radius:10px;
+    background:#1c1c2b;
+    transition:0.3s;
+    font-weight:bold;
+}
+
+.menu a:hover{
+    background:#2a2a3b;
+}
+
+.hero{
+    max-width:1100px;
+    margin:0 auto;
+    padding:70px 20px 30px;
+    text-align:center;
+}
+
+.rozet{
+    display:inline-block;
+    padding:10px 18px;
+    border-radius:999px;
+    background:linear-gradient(90deg,#ffd76a,#ffb347);
+    color:#222;
+    font-weight:bold;
+    margin-bottom:18px;
+}
+
+.hero h1{
+    font-size:62px;
+    margin:0 0 14px;
+    color:#ffe7a3;
+}
+
+.hero p{
+    font-size:21px;
+    color:#d7d7e4;
+    margin:0 auto 28px;
+    max-width:760px;
+    line-height:1.6;
+}
+
+.butonlar{
+    display:flex;
+    justify-content:center;
+    gap:14px;
+    flex-wrap:wrap;
+    margin-bottom:38px;
+}
+
+.buton{
+    text-decoration:none;
+    padding:14px 24px;
+    border-radius:14px;
+    font-weight:bold;
+    transition:0.3s;
+}
+
+.buton-ana{
+    background:linear-gradient(90deg,#ffd76a,#ffb347);
+    color:#222;
+}
+
+.buton-ana:hover{
+    transform:scale(1.05);
+}
+
+.buton-iki{
+    background:#1a1a26;
+    color:white;
+    border:1px solid rgba(255,255,255,0.08);
+}
+
+.buton-iki:hover{
+    transform:scale(1.05);
+}
+
+.kutular{
+    display:flex;
+    justify-content:center;
+    gap:22px;
+    flex-wrap:wrap;
+    max-width:1200px;
+    margin:0 auto;
+    padding:0 20px 30px;
+}
+
+.kutu{
+    width:260px;
+    background:rgba(255,255,255,0.05);
+    border-radius:22px;
+    padding:26px 22px;
+    text-align:center;
+    box-shadow:0 10px 25px rgba(0,0,0,0.18);
+    border:1px solid rgba(255,255,255,0.06);
+}
+
+.kutu-ikon{
+    font-size:44px;
+    margin-bottom:12px;
+}
+
+.kutu h3{
+    margin:0 0 10px;
+    font-size:25px;
+    color:#ffe7a3;
+}
+
+.kutu p{
+    margin:0;
+    color:#d7d7e4;
+    line-height:1.6;
+    font-size:15px;
+}
+
+.plan-alani{
+    max-width:1100px;
+    margin:0 auto;
+    padding:30px 20px 60px;
+}
+
+.baslik{
+    text-align:center;
+    font-size:38px;
+    margin:10px 0 28px;
+    color:#fff;
+}
+
+.plan{
+    max-width:700px;
+    margin:0 auto;
+    background:linear-gradient(180deg, rgba(255,215,106,0.14), rgba(255,179,71,0.08));
+    border:1px solid rgba(255,215,106,0.18);
+    border-radius:26px;
+    padding:32px 26px;
+    text-align:center;
+    box-shadow:0 10px 25px rgba(0,0,0,0.18);
+}
+
+.plan h2{
+    margin:0 0 10px;
+    font-size:34px;
+    color:#ffe7a3;
+}
+
+.plan .fiyat{
+    font-size:46px;
+    font-weight:bold;
+    margin:14px 0 16px;
+    color:white;
+}
+
+.plan .fiyat span{
+    font-size:18px;
+    color:#ddd;
+}
+
+.plan ul{
+    list-style:none;
+    padding:0;
+    margin:0 0 24px;
+}
+
+.plan li{
+    padding:9px 0;
+    color:#f1f1f7;
+    font-size:17px;
+}
+
+.not{
+    text-align:center;
+    color:#b9b9c9;
+    font-size:14px;
+    margin-top:18px;
+}
+
+.alt{
+    text-align:center;
+    color:#9ea0b8;
+    padding:22px;
+    border-top:1px solid rgba(255,255,255,0.06);
+}
+
+@media(max-width:700px){
+    .hero h1{
+        font-size:44px;
+    }
+
+    .hero p{
+        font-size:18px;
+    }
+
+    .plan h2{
+        font-size:28px;
+    }
+
+    .plan .fiyat{
+        font-size:38px;
+    }
+}
+</style>
+</head>
+<body>
+
+<div class="ustbar">
+    <div class="logo">👑 Filmizleful VIP</div>
+
+    <div class="menu">
+        <a href="index.html">Ana Sayfa</a>
+        <a href="korku.html">Korku</a>
+        <a href="aksiyon.html">Aksiyon</a>
+        <a href="bilimkurgu.html">Bilim Kurgu</a>
+        <a href="macera.html">Macera</a>
+        <a href="rooms.html">💬 Online Oda</a>
+        <a href="vip.html">👑 VIP</a>
+    </div>
+</div>
+
+<div class="hero">
+    <div class="rozet">Yakında Aktif</div>
+    <h1>Filmizleful VIP</h1>
+    <p>
+        VIP sistemimiz çok yakında açılıyor. Özel odalar, ekstra içerikler,
+        öncelikli erişim ve daha güçlü özellikler tek üyelikte olacak.
+    </p>
+
+    <div class="butonlar">
+        <a href="index.html" class="buton buton-ana">Ana Sayfaya Dön</a>
+        <a href="rooms.html" class="buton buton-iki">Online Odayı Gör</a>
+    </div>
+</div>
+
+<div class="kutular">
+    <div class="kutu">
+        <div class="kutu-ikon">🔒</div>
+        <h3>Özel Odalar</h3>
+        <p>Sadece VIP üyelerin katılabildiği özel film odaları ve şifreli alanlar.</p>
+    </div>
+
+    <div class="kutu">
+        <div class="kutu-ikon">⚡</div>
+        <h3>Öncelikli Erişim</h3>
+        <p>Yeni eklenen içeriklere ve özel bölümlere daha hızlı erişim.</p>
+    </div>
+
+    <div class="kutu">
+        <div class="kutu-ikon">🎬</div>
+        <h3>Özel İçerikler</h3>
+        <p>Normal kullanıcılardan ayrı gösterilecek ekstra film ve oda bölümleri.</p>
+    </div>
+</div>
+
+<div class="plan-alani">
+    <div class="baslik">VIP Plan Hazırlığı</div>
+
+    <div class="plan">
+        <h2>Filmizleful VIP</h2>
+        <div class="fiyat">Yakında <span>/ aktif olacak</span></div>
+
+        <ul>
+            <li>✔ Şifreli özel odalara erişim</li>
+            <li>✔ VIP rozet sistemi</li>
+            <li>✔ Ayrı içerik bölümleri</li>
+            <li>✔ Öncelikli yenilik erişimi</li>
+            <li>✔ İleride ücretli üyelik desteği</li>
+        </ul>
+
+        <a href="index.html" class="buton buton-ana">Şimdilik Ana Sayfaya Dön</a>
+
+        <div class="not">
+            Şu an hazırlık aşamasında. İleride ödeme sistemi bağlanınca aktif olacaktır.
+        </div>
+    </div>
+</div>
+
+<div class="alt">
+    © 2026 Filmizleful VIP Hazırlık Sayfası
+</div>
+
+</body>
+</html>

@@ -1,0 +1,106 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>VIP Özel Oda - Filmizleful</title>
+
+<style>
+*{box-sizing:border-box}
+
+body{
+    margin:0;
+    font-family:Arial, sans-serif;
+    background:#0b0b14;
+    color:white;
+}
+
+.ust{
+    background:#111;
+    padding:14px 20px;
+    display:flex;
+    justify-content:space-between;
+    align-items:center;
+    flex-wrap:wrap;
+    gap:10px;
+    border-bottom:1px solid rgba(255,255,255,0.06);
+}
+
+.logo{
+    color:#ffcf70;
+    font-size:22px;
+    font-weight:bold;
+}
+
+.btn{
+    background:#ff5c74;
+    color:white;
+    text-decoration:none;
+    padding:10px 14px;
+    border-radius:10px;
+    font-weight:bold;
+    display:inline-block;
+}
+
+.bilgi{
+    padding:14px 20px;
+    color:#ddd;
+    line-height:1.6;
+}
+
+#jitsiWrap{
+    width:100%;
+    height:calc(100vh - 110px);
+}
+
+@media(max-width:700px){
+    #jitsiWrap{
+        height:calc(100vh - 130px);
+    }
+}
+</style>
+</head>
+<body>
+
+<div class="ust">
+    <div class="logo">👑 Filmizleful VIP Oda</div>
+    <a href="vip.html" class="btn">← VIP'e Dön</a>
+</div>
+
+<div class="bilgi" id="odaYazi">VIP oda yükleniyor...</div>
+
+<div id="jitsiWrap"></div>
+
+<script src="https://meet.jit.si/external_api.js"></script>
+<script>
+const params = new URLSearchParams(window.location.search);
+const oda = params.get("oda") || "vip_oda";
+const isim =
+  localStorage.getItem("filmizleful_isim") ||
+  localStorage.getItem("kullanici") ||
+  "Misafir";
+const avatar = localStorage.getItem("filmizleful_avatar") || "😎";
+
+document.getElementById("odaYazi").innerText =
+  "Özel oda: " + oda + " • " + avatar + " " + isim;
+
+const api = new JitsiMeetExternalAPI("meet.jit.si", {
+    roomName: "filmizleful_vip_" + oda,
+    parentNode: document.querySelector("#jitsiWrap"),
+    userInfo: {
+        displayName: avatar + " " + isim
+    },
+    configOverwrite: {
+        prejoinPageEnabled: false,
+        startWithAudioMuted: false,
+        startWithVideoMuted: false
+    },
+    interfaceConfigOverwrite: {
+        SHOW_JITSI_WATERMARK: false,
+        SHOW_BRAND_WATERMARK: false
+    }
+});
+</script>
+
+</body>
+</html>

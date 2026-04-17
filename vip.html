@@ -134,10 +134,6 @@ input{
     font-size:16px;
 }
 
-.buton:hover{
-    transform:scale(1.02);
-}
-
 .buton-kirmizi{
     background:#ff5c74;
     color:white;
@@ -243,7 +239,7 @@ input{
 
         <div class="kart">
             <h2>📨 Davet Gönder</h2>
-            <p>Bir kullanıcı adı yaz. Daveti kabul ederse direkt özel görüntülü odaya gireceksiniz.</p>
+            <p>Bir kullanıcı adı yaz. Daveti kabul ederse direkt VIP görüntülü odaya gireceksiniz.</p>
 
             <label>Davet edilecek kullanıcı adı</label>
             <input type="text" id="hedefInput" placeholder="örn: ali34">
@@ -259,7 +255,7 @@ input{
 
         <div class="kart">
             <h2>📥 Gelen Davetler</h2>
-            <p>Biri seni çağırınca burada görünecek. Kabul edince direkt özel odaya gidersin.</p>
+            <p>Biri seni çağırınca burada görünecek. Kabul edince direkt VIP görüntülü odaya gidersin.</p>
 
             <div class="liste" id="gelenListe"></div>
         </div>
@@ -292,7 +288,7 @@ const firebaseConfig = {
 const app = initializeApp(firebaseConfig);
 const db = getFirestore(app);
 
-const kullaniciAdi = (localStorage.getItem("kullanici") || "").trim().toLowerCase();
+const kullaniciAdi = (localStorage.getItem("filmizleful_kullanici") || localStorage.getItem("kullanici") || "").trim().toLowerCase();
 const gorunenAd = localStorage.getItem("filmizleful_isim") || localStorage.getItem("kullanici") || "";
 const avatar = localStorage.getItem("filmizleful_avatar") || "😎";
 
@@ -434,6 +430,9 @@ function gidenleriCiz(liste){
         Oda: <b>${item.oda}</b><br>
         Durum: <b>${item.durum}</b>
       </div>
+      <div class="item-btnler">
+        <button class="buton" onclick="vipOdayaGir('${item.oda}')">Özel Odaya Gir</button>
+      </div>
     </div>
   `).join("");
 }
@@ -456,13 +455,17 @@ window.davetKabul = async function(id, oda){
     durum: "kabul"
   });
 
-  window.location.href = "room.html?oda=" + encodeURIComponent(oda);
+  window.location.href = "vip-room.html?oda=" + encodeURIComponent(oda);
 };
 
 window.davetReddet = async function(id){
   await updateDoc(doc(db, "davetler", id), {
     durum: "red"
   });
+};
+
+window.vipOdayaGir = function(oda){
+  window.location.href = "vip-room.html?oda=" + encodeURIComponent(oda);
 };
 </script>
 

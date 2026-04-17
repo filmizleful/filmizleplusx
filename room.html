@@ -12,7 +12,6 @@ body{
     background:#0c0c14;
     color:white;
 }
-
 .ust{
     background:#111;
     padding:15px;
@@ -22,29 +21,24 @@ body{
     flex-wrap:wrap;
     gap:10px;
 }
-
 .ust-sol{
     display:flex;
     flex-direction:column;
     gap:5px;
 }
-
 .oda-yazi{
     font-weight:bold;
     font-size:20px;
 }
-
 .kullanici-yazi{
     color:#ccc;
     font-size:14px;
 }
-
 .rol-yazi{
     color:#ffd54a;
     font-size:14px;
     font-weight:bold;
 }
-
 .geri-btn{
     color:white;
     text-decoration:none;
@@ -52,18 +46,15 @@ body{
     padding:10px 14px;
     border-radius:10px;
 }
-
 .container{
     display:flex;
     gap:20px;
     padding:20px;
     box-sizing:border-box;
 }
-
 .video-alan{
     flex:2;
 }
-
 .video{
     width:100%;
     aspect-ratio:16/9;
@@ -71,19 +62,16 @@ body{
     overflow:hidden;
     background:black;
 }
-
 #player{
     width:100%;
     height:100%;
 }
-
 .kontrol{
     margin-top:10px;
     display:flex;
     gap:10px;
     flex-wrap:wrap;
 }
-
 .kontrol input{
     flex:1;
     padding:10px;
@@ -93,7 +81,6 @@ body{
     color:white;
     min-width:220px;
 }
-
 .kontrol button{
     padding:10px 14px;
     background:#e50914;
@@ -103,44 +90,37 @@ body{
     cursor:pointer;
     font-weight:bold;
 }
-
 .kontrol button:hover,
 .input button:hover{
     background:#ff1e2d;
 }
-
 .kontrol button:disabled{
     background:#555;
     cursor:not-allowed;
 }
-
 .sag-panel{
     flex:1;
     display:flex;
     flex-direction:column;
     gap:16px;
 }
-
 .online-kutu,
 .chat{
     background:#151515;
     border-radius:15px;
     padding:12px;
 }
-
 .online-baslik,
 .chat-baslik{
     font-size:20px;
     font-weight:bold;
     margin-bottom:10px;
 }
-
 .online-sayi{
     font-size:16px;
     color:#ffd54a;
     margin-bottom:10px;
 }
-
 .online-liste{
     background:#1a1a1a;
     border-radius:12px;
@@ -149,23 +129,19 @@ body{
     max-height:160px;
     overflow-y:auto;
 }
-
 .online-kisi{
     margin-bottom:8px;
     color:#ddd;
 }
-
 .admin-kisi{
     color:#ffd54a;
     font-weight:bold;
 }
-
 .chat{
     display:flex;
     flex-direction:column;
     height:420px;
 }
-
 .mesajlar{
     flex:1;
     overflow-y:auto;
@@ -174,18 +150,15 @@ body{
     border-radius:12px;
     padding:10px;
 }
-
 .mesaj{
     margin-bottom:10px;
     line-height:1.5;
     word-break:break-word;
 }
-
 .input{
     display:flex;
     gap:5px;
 }
-
 .input input{
     flex:1;
     padding:10px;
@@ -194,7 +167,6 @@ body{
     background:#222;
     color:white;
 }
-
 .input button{
     background:#e50914;
     border:none;
@@ -203,26 +175,22 @@ body{
     color:white;
     cursor:pointer;
 }
-
 .uyari{
     margin-top:8px;
     color:#ff9a9a;
     font-size:14px;
     text-align:left;
 }
-
 .video-durum{
     margin-top:10px;
     color:#9fdcff;
     font-size:14px;
     text-align:left;
 }
-
 @media(max-width:900px){
     .container{
         flex-direction:column;
     }
-
     .chat{
         height:360px;
     }
@@ -260,7 +228,6 @@ body{
     </div>
 
     <div class="sag-panel">
-
         <div class="online-kutu">
             <div class="online-baslik">🟢 Online Kişiler</div>
             <div class="online-sayi" id="onlineSayi">0 kişi online</div>
@@ -269,7 +236,6 @@ body{
 
         <div class="chat">
             <div class="chat-baslik">💬 Oda Sohbeti</div>
-
             <div class="mesajlar" id="mesajlar"></div>
 
             <div class="input">
@@ -277,7 +243,6 @@ body{
                 <button onclick="gonder()">Gönder</button>
             </div>
         </div>
-
     </div>
 
 </div>
@@ -329,6 +294,8 @@ let sonAksiyon = "";
 let adminId = "";
 let adminIsim = "";
 let adminMi = false;
+let bekleyenVideo = "";
+let bekleyenAksiyon = "";
 
 window.onYouTubeIframeAPIReady = function () {
     player = new YT.Player("player", {
@@ -342,6 +309,21 @@ window.onYouTubeIframeAPIReady = function () {
         events: {
             onReady: function () {
                 playerReady = true;
+
+                if (bekleyenVideo) {
+                    try {
+                        player.loadVideoById(bekleyenVideo);
+                        sonVideo = bekleyenVideo;
+                    } catch(e) {}
+                }
+
+                if (bekleyenAksiyon === "play") {
+                    try { player.playVideo(); } catch(e) {}
+                }
+
+                if (bekleyenAksiyon === "pause") {
+                    try { player.pauseVideo(); } catch(e) {}
+                }
             }
         }
     });
@@ -384,10 +366,6 @@ function kontrolButonlariniAyarla() {
     } else {
         document.getElementById("rolYazi").textContent = "👤 Admin belirleniyor...";
     }
-}
-
-function playerHazirMi(){
-    return typeof player !== "undefined" && player && typeof player.loadVideoById === "function";
 }
 
 async function adminiBelirle() {
@@ -439,23 +417,31 @@ onSnapshot(odaRef, (snap) => {
 
     if (d.videoId) {
         document.getElementById("videoDurum").textContent = "Şu an seçili video ID: " + d.videoId;
+        bekleyenVideo = d.videoId;
     }
 
-    if (d.videoId && d.videoId !== sonVideo && playerHazirMi()) {
-        sonVideo = d.videoId;
-        player.loadVideoById(d.videoId);
+    if (d.videoId && d.videoId !== sonVideo) {
+        if (playerReady && player) {
+            try {
+                player.loadVideoById(d.videoId);
+                sonVideo = d.videoId;
+            } catch(e) {}
+        }
     }
 
     const aksiyonAnahtar = (d.action || "") + "_" + (d.actionTime || "");
-    if (d.action && aksiyonAnahtar !== sonAksiyon && playerHazirMi()) {
+    if (d.action && aksiyonAnahtar !== sonAksiyon) {
         sonAksiyon = aksiyonAnahtar;
+        bekleyenAksiyon = d.action;
 
-        if (d.action === "play") {
-            try { player.playVideo(); } catch(e) {}
-        }
+        if (playerReady && player) {
+            if (d.action === "play") {
+                try { player.playVideo(); } catch(e) {}
+            }
 
-        if (d.action === "pause") {
-            try { player.pauseVideo(); } catch(e) {}
+            if (d.action === "pause") {
+                try { player.pauseVideo(); } catch(e) {}
+            }
         }
     }
 });

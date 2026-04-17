@@ -59,16 +59,14 @@ body{
 }
 
 .avatar-ust{
-    width:42px;
-    height:42px;
-    border-radius:50%;
-    background:linear-gradient(135deg,#ffcf70,#ff9b47);
-    color:#222;
-    display:flex;
-    align-items:center;
-    justify-content:center;
-    font-size:24px;
+    background:#ff6b81;
+    padding:8px 14px;
+    border-radius:20px;
+    font-size:14px;
+    color:white;
     font-weight:bold;
+    display:inline-block;
+    white-space:nowrap;
 }
 
 .hero{
@@ -344,7 +342,9 @@ body{
         <a href="bilimkurgu.html">Bilim Kurgu</a>
         <a href="macera.html">Macera</a>
         <a href="vip.html">👑 VIP</a>
-        <div class="avatar-ust">😎</div>
+        <a href="giris.html">👤 Giriş</a>
+        <div class="avatar-ust" id="kullaniciYazi">😎</div>
+        
     </div>
 </div>
 
@@ -468,6 +468,12 @@ function filmleriAra() {
     document.getElementById("sonucYok").style.display = gorunen === 0 ? "block" : "none";
 }
 </script>
+<script>
+let ad = localStorage.getItem("kullanici");
 
+if(ad){
+    document.getElementById("kullaniciYazi").innerText = "👤 " + ad;
+}
+</script>
 </body>
 </html>

@@ -13,22 +13,47 @@ body{
     color:white;
 }
 
-/* ÜST */
 .ust{
     background:#111;
     padding:15px;
     display:flex;
     justify-content:space-between;
+    align-items:center;
+    flex-wrap:wrap;
+    gap:10px;
 }
 
-/* ANA ALAN */
+.ust-sol{
+    display:flex;
+    flex-direction:column;
+    gap:5px;
+}
+
+.oda-yazi{
+    font-weight:bold;
+    font-size:20px;
+}
+
+.kullanici-yazi{
+    color:#ccc;
+    font-size:14px;
+}
+
+.geri-btn{
+    color:white;
+    text-decoration:none;
+    background:#2a2a2a;
+    padding:10px 14px;
+    border-radius:10px;
+}
+
 .container{
     display:flex;
     gap:20px;
     padding:20px;
+    box-sizing:border-box;
 }
 
-/* VIDEO */
 .video-alan{
     flex:2;
 }
@@ -71,25 +96,35 @@ body{
     cursor:pointer;
 }
 
-/* CHAT */
 .chat{
     flex:1;
     background:#151515;
     border-radius:15px;
-    padding:10px;
+    padding:12px;
     display:flex;
     flex-direction:column;
-    height:500px;
+    height:520px;
+}
+
+.chat-baslik{
+    font-size:20px;
+    font-weight:bold;
+    margin-bottom:10px;
 }
 
 .mesajlar{
     flex:1;
     overflow-y:auto;
     margin-bottom:10px;
+    background:#1a1a1a;
+    border-radius:12px;
+    padding:10px;
 }
 
 .mesaj{
-    margin-bottom:8px;
+    margin-bottom:10px;
+    line-height:1.5;
+    word-break:break-word;
 }
 
 .input{
@@ -110,58 +145,79 @@ body{
     background:#e50914;
     border:none;
     border-radius:10px;
-    padding:10px;
+    padding:10px 14px;
     color:white;
+    cursor:pointer;
 }
 
-/* MOBİL */
+.uyari{
+    margin-top:8px;
+    color:#ff9a9a;
+    font-size:14px;
+}
+
 @media(max-width:800px){
     .container{
         flex-direction:column;
     }
+
+    .chat{
+        height:420px;
+    }
 }
 </style>
 </head>
-
 <body>
 
 <div class="ust">
-    <div id="odaAdi">📺 Oda</div>
+    <div class="ust-sol">
+        <div class="oda-yazi" id="odaAdi">📺 Oda</div>
+        <div class="kullanici-yazi" id="kullaniciAdi">Kullanıcı</div>
+    </div>
+
+    <a href="rooms.html" class="geri-btn">← Geri</a>
 </div>
 
 <div class="container">
 
-<!-- VIDEO -->
-<div class="video-alan">
+    <div class="video-alan">
+        <div class="video">
+            <iframe id="oynatici" allowfullscreen></iframe>
+        </div>
 
-<div class="video">
-<iframe id="oynatici"></iframe>
-</div>
+        <div class="kontrol">
+            <input id="link" placeholder="YouTube link">
+            <button onclick="degistir()">Değiştir</button>
+        </div>
 
-<div class="kontrol">
-<input id="link" placeholder="YouTube link">
-<button onclick="degistir()">Değiştir</button>
-</div>
+        <div class="uyari" id="uyari"></div>
+    </div>
 
-</div>
+    <div class="chat">
+        <div class="chat-baslik">💬 Oda Sohbeti</div>
 
-<!-- CHAT -->
-<div class="chat">
+        <div class="mesajlar" id="mesajlar"></div>
 
-<div class="mesajlar" id="mesajlar"></div>
-
-<div class="input">
-<input id="mesajInput" placeholder="Mesaj...">
-<button onclick="gonder()">Gönder</button>
-</div>
-
-</div>
+        <div class="input">
+            <input id="mesajInput" placeholder="Mesaj...">
+            <button onclick="gonder()">Gönder</button>
+        </div>
+    </div>
 
 </div>
 
 <script type="module">
 import { initializeApp } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-app.js";
-import { getFirestore, doc, setDoc, onSnapshot, collection, addDoc, query, orderBy } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-firestore.js";
+import {
+    getFirestore,
+    doc,
+    setDoc,
+    onSnapshot,
+    collection,
+    addDoc,
+    query,
+    orderBy
+} from "https://www.gstatic.com/firebasejs/10.7.1/firebase-firestore.js";
 
 const firebaseConfig = {
   apiKey: "AIzaSyBNoenb7tM6mFK8DEruxFtYLo_FwUXY7uc",
@@ -176,22 +232,56 @@ const app = initializeApp(firebaseConfig);
 const db = getFirestore(app);
 
 const oda = new URL(window.location.href).searchParams.get("oda") || "genel";
+let isim = localStorage.getItem("filmizleful_isim") || "Misafir";
 
 document.getElementById("odaAdi").innerText = "📺 Oda: " + oda;
+document.getElementById("kullaniciAdi").innerText = "👤 Sen: " + isim;
 
 /* VIDEO */
-window.degistir = async function(){
-    let link = document.getElementById("link").value;
-    let id = link.split("v=")[1];
-    if(id.includes("&")) id = id.split("&")[0];
+function youtubeIdBul(link){
+    try{
+        if(link.includes("youtu.be/")){
+            let id = link.split("youtu.be/")[1];
+            if(id.includes("?")) id = id.split("?")[0];
+            return id;
+        }
 
+        if(link.includes("youtube.com/watch?v=")){
+            let id = link.split("v=")[1];
+            if(id.includes("&")) id = id.split("&")[0];
+            return id;
+        }
+
+        if(link.includes("youtube.com/embed/")){
+            let id = link.split("embed/")[1];
+            if(id.includes("?")) id = id.split("?")[0];
+            return id;
+        }
+
+        return "";
+    }catch{
+        return "";
+    }
+}
+
+window.degistir = async function(){
+    let link = document.getElementById("link").value.trim();
+    let id = youtubeIdBul(link);
+
+    if(!id){
+        document.getElementById("uyari").textContent = "Geçerli bir YouTube linki yapıştır.";
+        return;
+    }
+
+    document.getElementById("uyari").textContent = "";
     let embed = "https://www.youtube.com/embed/" + id;
 
     await setDoc(doc(db, "odalar", oda), { video: embed });
+    document.getElementById("link").value = "";
 }
 
 onSnapshot(doc(db, "odalar", oda), (docSnap)=>{
-    if(docSnap.exists()){
+    if(docSnap.exists() && docSnap.data().video){
         document.getElementById("oynatici").src = docSnap.data().video;
     }
 });
@@ -207,7 +297,7 @@ onSnapshot(q, (snapshot)=>{
         let data = docSnap.data();
         let div = document.createElement("div");
         div.className = "mesaj";
-        div.innerHTML = "<b>"+data.isim+":</b> "+data.mesaj;
+        div.innerHTML = "<b>"+ data.isim +":</b> " + data.mesaj;
         mesajlar.appendChild(div);
     });
 
@@ -216,15 +306,17 @@ onSnapshot(q, (snapshot)=>{
 
 window.gonder = async function(){
     let input = document.getElementById("mesajInput");
-    let text = input.value;
+    let text = input.value.trim();
+
+    if(!text) return;
 
     await addDoc(collection(db, "rooms", oda, "messages"), {
-        isim: "Misafir",
+        isim: isim,
         mesaj: text,
         tarih: Date.now()
     });
 
-    input.value="";
+    input.value = "";
 }
 </script>
 

@@ -14,10 +14,12 @@ body{
     display:flex;
     align-items:center;
     justify-content:center;
+    padding:20px;
+    box-sizing:border-box;
 }
 .kutu{
     width:100%;
-    max-width:500px;
+    max-width:520px;
     background:rgba(255,255,255,0.05);
     border:1px solid rgba(255,255,255,0.08);
     border-radius:20px;
@@ -62,17 +64,18 @@ button:hover{
 .kucuk{
     margin-top:14px;
     font-size:14px;
+    text-align:center;
 }
 </style>
 </head>
 <body>
 
 <div class="kutu">
-    <h1>🎬 Oda Girişi</h1>
-    <p>İsim yaz, oda adı gir ve odaya katıl.</p>
+    <h1>🎬 Online Oda Girişi</h1>
+    <p>Adını yaz, oda adını gir ve odaya katıl.</p>
 
     <input type="text" id="isim" placeholder="Adın">
-    <input type="text" id="oda" placeholder="Oda adı (mesela korkuodasi)">
+    <input type="text" id="oda" placeholder="Oda adı (mesela korku1)">
 
     <button onclick="odayaGir()">Odaya Gir</button>
 

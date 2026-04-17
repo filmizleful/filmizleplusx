@@ -1,0 +1,178 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>IT (O)</title>
+
+    <style>
+        body {
+            margin: 0;
+            font-family: Arial, sans-serif;
+            background: linear-gradient(180deg, #0f0f0f, #000000);
+            color: white;
+        }
+
+        .ustbar {
+            background: #111;
+            padding: 18px 30px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .logo {
+            font-size: 28px;
+            font-weight: bold;
+            color: #e50914;
+        }
+
+        .menu a {
+            color: white;
+            text-decoration: none;
+            margin-left: 15px;
+        }
+
+        .menu a:hover {
+            color: #e50914;
+        }
+
+        .icerik {
+            max-width: 1100px;
+            margin: 0 auto;
+            padding: 40px 20px;
+            display: flex;
+            gap: 30px;
+            flex-wrap: wrap;
+            justify-content: center;
+            align-items: flex-start;
+        }
+
+        .afis {
+            width: 300px;
+            border-radius: 16px;
+            overflow: hidden;
+            box-shadow: 0 10px 25px rgba(0,0,0,0.5);
+        }
+
+        .afis img {
+            width: 100%;
+            display: block;
+        }
+
+        .bilgi {
+            max-width: 600px;
+        }
+
+        .bilgi h1 {
+            font-size: 42px;
+            margin-top: 0;
+            margin-bottom: 15px;
+        }
+
+        .bilgi p {
+            color: #d0d0d0;
+            font-size: 18px;
+            line-height: 1.7;
+        }
+
+        .butonlar {
+            margin-top: 25px;
+            display: flex;
+            gap: 15px;
+            flex-wrap: wrap;
+        }
+
+        .butonlar a {
+            text-decoration: none;
+            padding: 14px 22px;
+            border-radius: 10px;
+            font-weight: bold;
+        }
+
+        .izle {
+            background: #e50914;
+            color: white;
+        }
+
+        .geri {
+            background: yellow;
+            color: black;
+        }
+
+        .video {
+            max-width: 1100px;
+            margin: 0 auto;
+            padding: 10px 20px 60px 20px;
+        }
+
+        .video h2 {
+            text-align: center;
+            margin-bottom: 20px;
+        }
+
+        .video-kutu {
+            position: relative;
+            width: 100%;
+            max-width: 900px;
+            margin: 0 auto;
+            padding-bottom: 56.25%;
+            height: 0;
+            overflow: hidden;
+            border-radius: 14px;
+            box-shadow: 0 10px 25px rgba(0,0,0,0.5);
+        }
+
+        .video-kutu iframe {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            border: 0;
+        }
+    </style>
+</head>
+<body>
+
+    <div class="ustbar">
+        <div class="logo">🎬 Filmizleful</div>
+        <div class="menu">
+            <a href="index.html">Ana Sayfa</a>
+            <a href="korku.html">Korku</a>
+        </div>
+    </div>
+
+    <div class="icerik">
+        <div class="afis">
+            <img src="https://picsum.photos/400/600?random=101">
+        </div>
+
+        <div class="bilgi">
+            <h1>IT (O)</h1>
+            <p>
+                IT (O), korku ve gerilim türünde ünlü bir filmdir. Kasabada ortaya çıkan gizemli
+                ve korkunç bir varlık, çocukların hayatını tehdit eder. Film boyunca gerilim,
+                karanlık atmosfer ve korku dolu sahneler ön plandadır.
+            </p>
+
+            <p>
+                Eğer gerilim dolu ve ürkütücü filmleri seviyorsan, bu film tam sana göre.
+            </p>
+
+            <div class="butonlar">
+                <a class="izle" href="https://www.youtube.com/watch?v=xKJmEC5ieOk" target="_blank">▶ Fragman İzle</a>
+                <a class="geri" href="korku.html">⬅ Korku Sayfasına Dön</a>
+            </div>
+        </div>
+    </div>
+
+    <div class="video">
+        <h2>Fragman</h2>
+        <div class="video-kutu">
+            <iframe src="https://www.youtube.com/embed/xKJmEC5ieOk" allowfullscreen></iframe>
+        </div>
+    </div>
+
+</body>
+</html>

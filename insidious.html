@@ -1,0 +1,148 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Insidious</title>
+
+    <style>
+        body {
+            margin: 0;
+            font-family: Arial, sans-serif;
+            background: linear-gradient(180deg, #0f0f0f, #000000);
+            color: white;
+        }
+
+        .ustbar {
+            background: #111;
+            padding: 18px 30px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .logo {
+            font-size: 28px;
+            font-weight: bold;
+            color: #e50914;
+        }
+
+        .menu a {
+            color: white;
+            text-decoration: none;
+            margin-left: 15px;
+        }
+
+        .menu a:hover {
+            color: #e50914;
+        }
+
+        .icerik {
+            max-width: 1100px;
+            margin: 0 auto;
+            padding: 40px 20px;
+            display: flex;
+            gap: 30px;
+            flex-wrap: wrap;
+            justify-content: center;
+        }
+
+        .afis {
+            width: 300px;
+            border-radius: 16px;
+            overflow: hidden;
+        }
+
+        .afis img {
+            width: 100%;
+        }
+
+        .bilgi {
+            max-width: 600px;
+        }
+
+        .bilgi h1 {
+            font-size: 42px;
+        }
+
+        .bilgi p {
+            color: #ccc;
+            font-size: 18px;
+            line-height: 1.6;
+        }
+
+        .butonlar {
+            margin-top: 20px;
+        }
+
+        .butonlar a {
+            display: inline-block;
+            padding: 12px 20px;
+            margin-right: 10px;
+            border-radius: 8px;
+            text-decoration: none;
+            font-weight: bold;
+        }
+
+        .izle {
+            background: #e50914;
+            color: white;
+        }
+
+        .geri {
+            background: yellow;
+            color: black;
+        }
+
+        .video {
+            max-width: 900px;
+            margin: 40px auto;
+        }
+
+        iframe {
+            width: 100%;
+            height: 500px;
+            border-radius: 12px;
+        }
+    </style>
+</head>
+<body>
+
+    <div class="ustbar">
+        <div class="logo">🎬 Filmizleful</div>
+        <div class="menu">
+            <a href="index.html">Ana Sayfa</a>
+            <a href="korku.html">Korku</a>
+        </div>
+    </div>
+
+    <div class="icerik">
+        <div class="afis">
+            <img src="https://picsum.photos/400/600?random=5">
+        </div>
+
+        <div class="bilgi">
+            <h1>Insidious</h1>
+
+            <p>
+                Insidious, ruhlar alemi ve doğaüstü olayları konu alan korku filmidir.
+                Bir ailenin başına gelen paranormal olaylar zamanla korkunç bir hal alır.
+            </p>
+
+            <p>
+                Gerilim ve korku dolu sahneleriyle izleyiciyi sürekli diken üstünde tutar.
+            </p>
+
+            <div class="butonlar">
+                <a class="izle" href="https://www.youtube.com/watch?v=zuZnRUcoWos" target="_blank">▶ Fragman İzle</a>
+                <a class="geri" href="korku.html">⬅ Geri Dön</a>
+            </div>
+        </div>
+    </div>
+
+    <div class="video">
+        <iframe src="https://www.youtube.com/embed/zuZnRUcoWos" allowfullscreen></iframe>
+    </div>
+
+</body>
+</html>

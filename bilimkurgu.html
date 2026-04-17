@@ -1,0 +1,185 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Bilim Kurgu Filmleri</title>
+
+<style>
+body {
+    margin: 0;
+    font-family: Arial, sans-serif;
+    background: radial-gradient(circle at top, #1a1a1a, #000);
+    color: white;
+    min-height: 100vh;
+}
+
+.ustbar {
+    background: #111;
+    padding: 18px 30px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    flex-wrap: wrap;
+    position: sticky;
+    top: 0;
+    z-index: 999;
+    box-shadow: 0 2px 10px rgba(0,0,0,0.5);
+}
+
+.logo {
+    font-size: 28px;
+    color: #8d7bff;
+    font-weight: bold;
+}
+
+.menu {
+    display: flex;
+    gap: 12px;
+    flex-wrap: wrap;
+}
+
+.menu a {
+    color: white;
+    text-decoration: none;
+    padding: 8px 14px;
+    border-radius: 6px;
+    background: #1c1c1c;
+    transition: 0.3s;
+}
+
+.menu a:hover {
+    background: #8d7bff;
+    transform: scale(1.05);
+}
+
+.anaalan {
+    min-height: calc(100vh - 74px);
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    padding: 20px 20px 60px 20px;
+    box-sizing: border-box;
+}
+
+.baslik {
+    text-align: center;
+    font-size: 40px;
+    margin-bottom: 40px;
+}
+
+.filmler {
+    display: flex;
+    justify-content: center;
+    gap: 25px;
+    flex-wrap: wrap;
+}
+
+.kart {
+    width: 220px;
+    background: #111;
+    border-radius: 12px;
+    text-align: center;
+    padding: 25px 15px;
+    position: relative;
+    overflow: hidden;
+    transition: 0.3s;
+    box-shadow: 0 8px 20px rgba(0,0,0,0.4);
+    border: 1px solid rgba(255,255,255,0.05);
+}
+
+.kart:hover {
+    transform: scale(1.08);
+    box-shadow: 0 0 25px rgba(140, 120, 255, 0.6);
+}
+
+.kart::after {
+    content: "";
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    background: rgba(0,0,0,0.25);
+    top: 0;
+    left: 0;
+    opacity: 0;
+    transition: 0.3s;
+}
+
+.kart:hover::after {
+    opacity: 1;
+}
+
+.filmikon {
+    font-size: 70px;
+    margin-bottom: 15px;
+    position: relative;
+    z-index: 2;
+}
+
+.kart h3 {
+    margin: 10px 0;
+    position: relative;
+    z-index: 2;
+    font-size: 22px;
+}
+
+.izle {
+    display: block;
+    background: #5a00d1;
+    color: white;
+    padding: 12px;
+    margin-top: 15px;
+    border-radius: 8px;
+    text-decoration: none;
+    font-weight: bold;
+    position: relative;
+    z-index: 2;
+    transition: 0.3s;
+}
+
+.izle:hover {
+    background: #7a2bff;
+    transform: scale(1.05);
+}
+</style>
+</head>
+
+<body>
+
+<div class="ustbar">
+    <div class="logo">🚀 Filmizleful</div>
+
+    <div class="menu">
+        <a href="index.html">Ana Sayfa</a>
+        <a href="korku.html">Korku</a>
+        <a href="aksiyon.html">Aksiyon</a>
+        <a href="macera.html">Macera</a>
+    </div>
+</div>
+
+<div class="anaalan">
+    <div class="baslik">🚀 Bilim Kurgu Filmleri</div>
+
+    <div class="filmler">
+        <div class="kart">
+            <div class="filmikon">🌌</div>
+            <h3>Interstellar</h3>
+            <a class="izle" href="https://www.youtube.com/watch?v=zSWdZVtXT7E" target="_blank">İzle</a>
+        </div>
+
+        <div class="kart">
+            <div class="filmikon">🌀</div>
+            <h3>Inception</h3>
+            <a class="izle" href="https://www.youtube.com/watch?v=YoHD9XEInc0" target="_blank">İzle</a>
+        </div>
+
+        <div class="kart">
+            <div class="filmikon">💊</div>
+            <h3>Matrix</h3>
+            <a class="izle" href="https://www.youtube.com/watch?v=vKQi3bBA1y8" target="_blank">İzle</a>
+        </div>
+    </div>
+</div>
+
+</body>
+</html>

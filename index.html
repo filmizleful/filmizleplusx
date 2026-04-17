@@ -1,0 +1,274 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Filmizleful</title>
+    <meta name="google-site-verification" content="vXu7FVwwA1H0BSVZgzUmd3dcFqlUyZk7DxAAvSj0qWU" />
+
+    <style>
+        body {
+            margin: 0;
+            font-family: Arial, sans-serif;
+            background: radial-gradient(circle at top, #1a1a1a, #000);
+            color: white;
+            min-height: 100vh;
+        }
+
+        .ustbar {
+            background: #111;
+            padding: 18px 30px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            flex-wrap: wrap;
+            position: sticky;
+            top: 0;
+            z-index: 999;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.5);
+        }
+
+        .logo {
+            font-size: 28px;
+            color: #e50914;
+            font-weight: bold;
+        }
+
+        .menu {
+            display: flex;
+            gap: 12px;
+            flex-wrap: wrap;
+        }
+
+        .menu a {
+            color: white;
+            text-decoration: none;
+            padding: 8px 14px;
+            border-radius: 6px;
+            background: #1c1c1c;
+            transition: 0.3s;
+        }
+
+        .menu a:hover {
+            background: #e50914;
+            transform: scale(1.05);
+        }
+
+        .hero {
+            text-align: center;
+            padding: 70px 20px 30px 20px;
+        }
+
+        .hero h1 {
+            font-size: 56px;
+            margin: 0 0 15px 0;
+        }
+
+        .hero p {
+            font-size: 22px;
+            color: #cfcfcf;
+            margin: 0 0 25px 0;
+        }
+
+        .arama-kutusu {
+            text-align: center;
+            margin-top: 10px;
+        }
+
+        .arama-kutusu input {
+            width: 320px;
+            max-width: 90%;
+            padding: 14px 18px;
+            border: none;
+            border-radius: 12px;
+            font-size: 18px;
+            outline: none;
+            background: #1b1b1b;
+            color: white;
+        }
+
+        .kartlar {
+            display: flex;
+            justify-content: center;
+            flex-wrap: wrap;
+            gap: 25px;
+            padding: 20px 20px 60px 20px;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .kart {
+            width: 240px;
+            color: white;
+            text-decoration: none;
+            border-radius: 16px;
+            padding: 30px 20px;
+            text-align: center;
+            box-shadow: 0 8px 20px rgba(0,0,0,0.4);
+            transition: 0.3s;
+            border: 1px solid rgba(255,255,255,0.05);
+        }
+
+        .kart:hover {
+            transform: scale(1.08);
+        }
+
+        .korku {
+            background: linear-gradient(180deg, #ff5f3a, #d81f26);
+            box-shadow: 0 0 20px rgba(255, 0, 0, 0.25);
+        }
+
+        .korku:hover {
+            box-shadow: 0 0 28px rgba(255, 0, 0, 0.55);
+        }
+
+        .aksiyon {
+            background: linear-gradient(180deg, #ff4f8b, #b20710);
+            box-shadow: 0 0 20px rgba(255, 50, 50, 0.25);
+        }
+
+        .aksiyon:hover {
+            box-shadow: 0 0 28px rgba(255, 50, 50, 0.55);
+        }
+
+        .bilimkurgu {
+            background: linear-gradient(180deg, #8d7bff, #5a00d1);
+            box-shadow: 0 0 20px rgba(140, 120, 255, 0.25);
+        }
+
+        .bilimkurgu:hover {
+            box-shadow: 0 0 28px rgba(140, 120, 255, 0.55);
+        }
+
+        .macera {
+            background: linear-gradient(180deg, #ffd24d, #ff8a00);
+            box-shadow: 0 0 20px rgba(255, 160, 0, 0.25);
+        }
+
+        .macera:hover {
+            box-shadow: 0 0 28px rgba(255, 160, 0, 0.55);
+        }
+
+        .ikon {
+            font-size: 42px;
+            margin-bottom: 15px;
+        }
+
+        .baslik {
+            font-size: 28px;
+            font-weight: bold;
+            margin-bottom: 10px;
+        }
+
+        .aciklama {
+            font-size: 16px;
+        }
+
+        .youtube {
+            text-align: center;
+            padding: 10px 20px 60px 20px;
+        }
+
+        .youtube a {
+            display: inline-block;
+            text-decoration: none;
+            background: #ffe34d;
+            color: black;
+            padding: 16px 30px;
+            border-radius: 12px;
+            font-size: 22px;
+            font-weight: bold;
+            box-shadow: 0 8px 20px rgba(0,0,0,0.3);
+            transition: 0.3s;
+        }
+
+        .youtube a:hover {
+            transform: scale(1.08);
+            background: #ffd900;
+        }
+
+        .alt {
+            text-align: center;
+            color: #999;
+            padding: 20px;
+            border-top: 1px solid #222;
+        }
+    </style>
+</head>
+<body>
+
+    <div class="ustbar">
+        <div class="logo">🎬 Filmizleful</div>
+
+        <div class="menu">
+            <a href="korku.html">Korku</a>
+            <a href="aksiyon.html">Aksiyon</a>
+            <a href="bilimkurgu.html">Bilim Kurgu</a>
+            <a href="macera.html">Macera</a>
+        </div>
+    </div>
+
+    <div class="hero">
+        <h1>Filmizleful</h1>
+        <p>Film kategorini seç ve izlemeye başla</p>
+
+        <div class="arama-kutusu">
+            <input type="text" id="aramaInput" placeholder="Film veya kategori ara..." onkeyup="aramaYap()">
+        </div>
+    </div>
+
+    <div class="kartlar">
+
+        <a href="korku.html" class="kart korku" data-ad="korku korku filmleri gerilim korku kategorisi">
+            <div class="ikon">👻</div>
+            <div class="baslik">Korku</div>
+            <div class="aciklama">Gerilim ve korku filmleri</div>
+        </a>
+
+        <a href="aksiyon.html" class="kart aksiyon" data-ad="aksiyon aksiyon filmleri heyecan hızlı kategori">
+            <div class="ikon">💥</div>
+            <div class="baslik">Aksiyon</div>
+            <div class="aciklama">Hızlı ve heyecanlı filmler</div>
+        </a>
+
+        <a href="bilimkurgu.html" class="kart bilimkurgu" data-ad="bilim kurgu bilimkurgu uzay gelecek kategori">
+            <div class="ikon">🚀</div>
+            <div class="baslik">Bilim Kurgu</div>
+            <div class="aciklama">Uzay ve gelecek filmleri</div>
+        </a>
+
+        <a href="macera.html" class="kart macera" data-ad="macera keşif yolculuk macera filmleri kategori">
+            <div class="ikon">🗺️</div>
+            <div class="baslik">Macera</div>
+            <div class="aciklama">Keşif ve yolculuk filmleri</div>
+        </a>
+
+    </div>
+
+    <div class="youtube">
+        <a href="https://www.youtube.com/@flimizleful" target="_blank">▶ YouTube Kanalımız</a>
+    </div>
+
+    <div class="alt">
+        © 2026 Filmizleful
+    </div>
+
+    <script>
+        function aramaYap() {
+            let input = document.getElementById("aramaInput").value.toLowerCase();
+            let kartlar = document.querySelectorAll(".kart");
+
+            kartlar.forEach(function(kart) {
+                let metin = kart.getAttribute("data-ad").toLowerCase();
+
+                if (metin.includes(input)) {
+                    kart.style.display = "block";
+                } else {
+                    kart.style.display = "none";
+                }
+            });
+        }
+    </script>
+
+</body>
+</html>

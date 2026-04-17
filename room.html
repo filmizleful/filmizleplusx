@@ -3,273 +3,111 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Özel Oda</title>
+<title>Özel Oda - Filmizleful</title>
 
 <style>
-*{
-    box-sizing:border-box;
-}
-
 body{
     margin:0;
     font-family:Arial, sans-serif;
-    background:#0f0f1a;
+    background:#0b0c1a;
     color:white;
 }
-
-.ust{
+.ustbar{
     background:#111;
     padding:15px;
     display:flex;
     justify-content:space-between;
     align-items:center;
-    flex-wrap:wrap;
     gap:10px;
+    flex-wrap:wrap;
 }
-
 .logo{
-    color:#e50914;
     font-size:22px;
     font-weight:bold;
+    color:#ffcc70;
 }
-
-.ust-sag{
-    display:flex;
-    gap:10px;
-    flex-wrap:wrap;
-}
-
-.btn{
-    background:#e50914;
-    border:none;
+.geri{
     color:white;
-    padding:10px 15px;
-    border-radius:8px;
-    cursor:pointer;
     text-decoration:none;
-    display:inline-block;
-    font-weight:bold;
+    background:#222;
+    padding:10px 14px;
+    border-radius:8px;
 }
-
-.sayfa{
+.container{
     padding:20px;
+    max-width:1200px;
+    margin:auto;
 }
-
 .oda-bilgi{
     margin-bottom:15px;
     color:#ccc;
 }
-
-.grid{
-    display:grid;
-    grid-template-columns:2fr 1fr;
-    gap:20px;
+.video-kutu{
+    width:100%;
+    height:500px;
+    background:black;
+    border-radius:12px;
+    overflow:hidden;
+    margin-bottom:20px;
 }
-
-.sol{
-    display:flex;
-    flex-direction:column;
-    gap:20px;
-}
-
-.sag{
-    display:flex;
-    flex-direction:column;
-    gap:20px;
-}
-
-.kutu{
-    background:#1a1a2b;
-    border-radius:14px;
-    padding:14px;
-}
-
-.baslik{
-    font-size:20px;
-    font-weight:bold;
-    margin-bottom:12px;
-}
-
 #jitsiContainer{
     width:100%;
-    height:420px;
-    background:#000;
-    border-radius:12px;
-    overflow:hidden;
-}
-
-.videoKontrol{
-    display:flex;
-    gap:10px;
-    flex-wrap:wrap;
-    margin-bottom:12px;
-}
-
-.videoKontrol input{
-    flex:1;
-    min-width:220px;
-    padding:12px;
-    border:none;
-    border-radius:10px;
-    background:#222;
-    color:white;
-}
-
-.videoAlan{
-    width:100%;
-    aspect-ratio:16/9;
-    background:#000;
-    border-radius:12px;
-    overflow:hidden;
-}
-
-.videoAlan iframe{
-    width:100%;
     height:100%;
-    border:none;
 }
-
-.chat{
-    height:300px;
-    overflow:auto;
-    background:#12121f;
+.chat-kutu{
+    height:260px;
+    background:#1a1b2e;
     border-radius:10px;
     padding:10px;
+    overflow-y:auto;
     margin-bottom:10px;
 }
-
-.mesaj{
-    margin-bottom:8px;
-    padding:8px;
-    background:#222;
-    border-radius:8px;
-    word-break:break-word;
-}
-
-.chatAlt{
+.mesaj-alt{
     display:flex;
     gap:8px;
 }
-
-.chatAlt input{
+input{
     flex:1;
     padding:10px;
     border:none;
-    border-radius:8px;
+    border-radius:6px;
     background:#222;
     color:white;
 }
-
-.onlineListe{
-    background:#12121f;
-    border-radius:10px;
-    padding:10px;
-    min-height:120px;
-}
-
-.onlineKisi{
-    margin-bottom:8px;
-    padding:6px 8px;
-    background:#222;
-    border-radius:8px;
-}
-
-@media(max-width:900px){
-    .grid{
-        grid-template-columns:1fr;
-    }
-
-    #jitsiContainer{
-        height:340px;
-    }
+button{
+    padding:10px 14px;
+    border:none;
+    border-radius:6px;
+    background:#ff6b81;
+    color:white;
+    cursor:pointer;
 }
 </style>
 </head>
 <body>
 
-<div class="ust">
+<div class="ustbar">
     <div class="logo">🎬 Filmizleful Oda</div>
-
-    <div class="ust-sag">
-        <a href="rooms.html" class="btn">← Geri</a>
-        <button class="btn" onclick="linkKopyala()">🔗 Link Kopyala</button>
-    </div>
+    <a href="rooms.html" class="geri">⬅ Geri</a>
 </div>
 
-<div class="sayfa">
-    <div class="oda-bilgi" id="odaBilgi">Oda bilgisi</div>
+<div class="container">
+    <div class="oda-bilgi" id="odaBilgi">Oda yükleniyor...</div>
 
-    <div class="grid">
-        <div class="sol">
+    <div class="video-kutu">
+        <div id="jitsiContainer"></div>
+    </div>
 
-            <div class="kutu">
-                <div class="baslik">📹 Görüntülü Görüşme</div>
-                <div id="jitsiContainer"></div>
-            </div>
+    <div class="chat-kutu" id="chat"></div>
 
-            <div class="kutu">
-                <div class="baslik">🎬 Ortak Video</div>
-
-                <div class="videoKontrol">
-                    <input id="videoInput" placeholder="YouTube link yapıştır">
-                    <button class="btn" onclick="videoAyarla()">Video Aç</button>
-                </div>
-
-                <div class="videoAlan">
-                    <iframe id="videoFrame" allowfullscreen></iframe>
-                </div>
-            </div>
-
-        </div>
-
-        <div class="sag">
-
-            <div class="kutu">
-                <div class="baslik">🟢 Odadakiler</div>
-                <div class="onlineListe" id="onlineListe"></div>
-            </div>
-
-            <div class="kutu">
-                <div class="baslik">💬 Sohbet</div>
-                <div class="chat" id="chat"></div>
-
-                <div class="chatAlt">
-                    <input id="mesaj" placeholder="Mesaj yaz...">
-                    <button class="btn" onclick="gonder()">Gönder</button>
-                </div>
-            </div>
-
-        </div>
+    <div class="mesaj-alt">
+        <input type="text" id="mesaj" placeholder="Mesaj yaz...">
+        <button onclick="gonder()">Gönder</button>
     </div>
 </div>
 
 <script src="https://meet.jit.si/external_api.js"></script>
-
-<script type="module">
-import { initializeApp } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-app.js";
-import {
-    getFirestore,
-    collection,
-    addDoc,
-    onSnapshot,
-    doc,
-    setDoc,
-    getDoc,
-    getDocs,
-    deleteDoc,
-    query,
-    orderBy
-} from "https://www.gstatic.com/firebasejs/10.7.1/firebase-firestore.js";
-
-const firebaseConfig = {
-  apiKey: "AIzaSyBNoenb7tM6mFK8DEruxFtYLo_FwUXY7uc",
-  authDomain: "filmizleful-chat.firebaseapp.com",
-  projectId: "filmizleful-chat"
-};
-
-const app = initializeApp(firebaseConfig);
-const db = getFirestore(app);
-
+<script>
 const params = new URLSearchParams(window.location.search);
 const oda = params.get("oda") || "genel";
 const isim = localStorage.getItem("filmizleful_isim") || "Misafir";
@@ -277,194 +115,41 @@ const avatar = localStorage.getItem("filmizleful_avatar") || "😎";
 
 document.getElementById("odaBilgi").textContent = "📺 Oda: " + oda + " • " + avatar + " " + isim;
 
-const kullaniciId = "k_" + Date.now() + "_" + Math.floor(Math.random() * 100000);
-const userRef = doc(db, "rooms", oda, "users", kullaniciId);
-const odaRef = doc(db, "odalar", oda);
+// Her oda için ayrı Jitsi oda adı
+const roomName = "filmizleful_" + oda.replace(/[^a-zA-Z0-9_-]/g, "_");
 
-let api = null;
-const ONLINE_TIMEOUT = 15000;
-
-/* ŞİFRE KONTROL */
-async function sifreKontrol(){
-    const odaDoc = await getDoc(odaRef);
-    if(!odaDoc.exists()) return true;
-
-    const data = odaDoc.data();
-    if(!data.sifreli || !data.sifre) return true;
-
-    const kayitAnahtari = "filmizleful_izin_" + oda;
-    const oncekiIzin = sessionStorage.getItem(kayitAnahtari);
-    if(oncekiIzin === "tamam") return true;
-
-    const girilen = prompt("Bu oda şifreli. Şifreyi gir:");
-    if(girilen !== data.sifre){
-        alert("Şifre yanlış");
-        window.location.href = "rooms.html";
-        return false;
+const domain = "meet.jit.si";
+const options = {
+    roomName: roomName,
+    parentNode: document.querySelector("#jitsiContainer"),
+    userInfo: {
+        displayName: avatar + " " + isim
+    },
+    configOverwrite: {
+        prejoinPageEnabled: false,
+        startWithAudioMuted: false,
+        startWithVideoMuted: false
+    },
+    interfaceConfigOverwrite: {
+        SHOW_JITSI_WATERMARK: false,
+        SHOW_BRAND_WATERMARK: false
     }
-
-    sessionStorage.setItem(kayitAnahtari, "tamam");
-    return true;
-}
-
-const izin = await sifreKontrol();
-if(!izin){
-    throw new Error("Şifre hatalı");
-}
-
-/* JITSI GÖMÜLÜ */
-function jitsiBaslat(){
-    if(api) return;
-
-    const domain = "meet.jit.si";
-    const options = {
-        roomName: "filmizleful_" + oda,
-        parentNode: document.querySelector("#jitsiContainer"),
-        userInfo: {
-            displayName: avatar + " " + isim
-        },
-        configOverwrite: {
-            prejoinPageEnabled: false,
-            startWithAudioMuted: false,
-            startWithVideoMuted: false
-        },
-        interfaceConfigOverwrite: {
-            SHOW_JITSI_WATERMARK: false,
-            SHOW_BRAND_WATERMARK: false
-        }
-    };
-
-    api = new JitsiMeetExternalAPI(domain, options);
-}
-
-jitsiBaslat();
-
-/* VIDEO */
-function youtubeIdBul(link){
-    try{
-        if(link.includes("youtu.be/")){
-            let id = link.split("youtu.be/")[1];
-            if(id.includes("?")) id = id.split("?")[0];
-            return id;
-        }else if(link.includes("watch?v=")){
-            let id = link.split("v=")[1];
-            if(id.includes("&")) id = id.split("&")[0];
-            return id;
-        }else if(link.includes("embed/")){
-            let id = link.split("embed/")[1];
-            if(id.includes("?")) id = id.split("?")[0];
-            return id;
-        }
-        return "";
-    }catch{
-        return "";
-    }
-}
-
-window.videoAyarla = async function(){
-    const link = document.getElementById("videoInput").value.trim();
-    const id = youtubeIdBul(link);
-
-    if(!id){
-        alert("Geçerli YouTube linki gir");
-        return;
-    }
-
-    await setDoc(odaRef, { videoId: id }, { merge:true });
-    document.getElementById("videoInput").value = "";
 };
 
-onSnapshot(odaRef, (snap)=>{
-    if(!snap.exists()) return;
-    const data = snap.data();
-    if(data.videoId){
-        document.getElementById("videoFrame").src = "https://www.youtube.com/embed/" + data.videoId;
-    }
-});
+new JitsiMeetExternalAPI(domain, options);
 
-/* CHAT */
-const chatRef = collection(db, "chat_" + oda);
-
-window.gonder = async function(){
-    const mesaj = document.getElementById("mesaj").value.trim();
+// Basit yerel chat
+function gonder(){
+    const input = document.getElementById("mesaj");
+    const mesaj = input.value.trim();
     if(!mesaj) return;
 
-    await addDoc(chatRef, {
-        isim: isim,
-        avatar: avatar,
-        mesaj: mesaj,
-        tarih: Date.now()
-    });
-
-    document.getElementById("mesaj").value = "";
-};
-
-onSnapshot(chatRef, (snap)=>{
-    let html = "";
-    snap.forEach(docSnap=>{
-        const data = docSnap.data();
-        html += `<div class="mesaj"><b>${data.avatar} ${data.isim}:</b> ${data.mesaj}</div>`;
-    });
-    document.getElementById("chat").innerHTML = html;
-    const alan = document.getElementById("chat");
-    alan.scrollTop = alan.scrollHeight;
-});
-
-/* ONLINE LİSTE */
-async function heartbeat(){
-    await setDoc(userRef, {
-        isim: isim,
-        avatar: avatar,
-        sonGorulme: Date.now(),
-        giris: Date.now()
-    }, { merge:true });
+    const chat = document.getElementById("chat");
+    chat.innerHTML += "<div>💬 <b>" + avatar + " " + isim + ":</b> " + mesaj + "</div>";
+    input.value = "";
+    chat.scrollTop = chat.scrollHeight;
 }
-
-await heartbeat();
-
-setInterval(async()=>{
-    try{
-        await heartbeat();
-    }catch(e){}
-}, 5000);
-
-onSnapshot(collection(db, "rooms", oda, "users"), async ()=>{
-    const snap = await getDocs(query(collection(db, "rooms", oda, "users"), orderBy("giris")));
-    const simdi = Date.now();
-    let html = "";
-
-    for(const belge of snap.docs){
-        const data = belge.data();
-        const son = data.sonGorulme || 0;
-
-        if(simdi - son > ONLINE_TIMEOUT){
-            try{
-                await deleteDoc(doc(db, "rooms", oda, "users", belge.id));
-            }catch(e){}
-            continue;
-        }
-
-        html += `<div class="onlineKisi">${data.avatar || "😎"} ${data.isim}</div>`;
-    }
-
-    document.getElementById("onlineListe").innerHTML = html || "<div class='onlineKisi'>Kimse yok</div>";
-});
-
-/* LİNK KOPYALA */
-window.linkKopyala = function(){
-    navigator.clipboard.writeText(window.location.href)
-    .then(()=> alert("Link kopyalandı"))
-    .catch(()=> alert("Kopyalama olmadı"));
-};
-
-window.addEventListener("beforeunload", async ()=>{
-    try{
-        if(api){
-            api.dispose();
-        }
-        await deleteDoc(userRef);
-    }catch(e){}
-});
+window.gonder = gonder;
 </script>
 
 </body>

@@ -55,24 +55,17 @@ body{
 .video-alan{
     flex:2;
 }
-.video-wrap{
-    position:relative;
+.video{
     width:100%;
     aspect-ratio:16/9;
     border-radius:15px;
     overflow:hidden;
     background:black;
 }
-#player{
+.video iframe{
     width:100%;
     height:100%;
-}
-.video-kilit{
-    position:absolute;
-    inset:0;
-    display:none;
-    background:transparent;
-    z-index:5;
+    border:0;
 }
 .kontrol{
     margin-top:10px;
@@ -194,6 +187,7 @@ body{
     color:#9fdcff;
     font-size:14px;
     text-align:left;
+    word-break:break-all;
 }
 @media(max-width:900px){
     .container{
@@ -220,16 +214,13 @@ body{
 <div class="container">
 
     <div class="video-alan">
-        <div class="video-wrap">
-            <div id="player"></div>
-            <div class="video-kilit" id="videoKilit"></div>
+        <div class="video">
+            <iframe id="videoFrame" allowfullscreen></iframe>
         </div>
 
         <div class="kontrol">
             <input id="link" placeholder="YouTube link">
             <button id="degistirBtn" onclick="videoDegistir()">Video Değiştir</button>
-            <button id="playBtn" onclick="playVideo()">▶ Play</button>
-            <button id="pauseBtn" onclick="pauseVideo()">⏸ Pause</button>
         </div>
 
         <div class="uyari" id="uyari"></div>
@@ -255,8 +246,6 @@ body{
     </div>
 
 </div>
-
-<script src="https://www.youtube.com/iframe_api"></script>
 
 <script type="module">
 import { initializeApp } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-app.js";
@@ -301,38 +290,7 @@ let adminMi = false;
 let heartbeatTimer = null;
 let cleanupTimer = null;
 
-let player;
-let playerReady = false;
-let bekleyenVideoId = "";
-let sonUygulananVideoId = "";
-let sonActionKey = "";
-
 const ONLINE_TIMEOUT = 15000;
-
-window.onYouTubeIframeAPIReady = function () {
-    player = new YT.Player("player", {
-        height: "100%",
-        width: "100%",
-        videoId: "",
-        playerVars: {
-            playsinline: 1,
-            rel: 0,
-            controls: 1,
-            disablekb: 1
-        },
-        events: {
-            onReady: function () {
-                playerReady = true;
-                if (bekleyenVideoId) {
-                    try {
-                        player.loadVideoById(bekleyenVideoId);
-                        sonUygulananVideoId = bekleyenVideoId;
-                    } catch(e) {}
-                }
-            }
-        }
-    });
-};
 
 function youtubeIdBul(link){
     try{
@@ -359,11 +317,13 @@ function youtubeIdBul(link){
     }
 }
 
+function embedLinkYap(id){
+    if(!id) return "";
+    return "https://www.youtube.com/embed/" + id;
+}
+
 function kontrolButonlariniAyarla() {
     document.getElementById("degistirBtn").disabled = !adminMi;
-    document.getElementById("playBtn").disabled = !adminMi;
-    document.getElementById("pauseBtn").disabled = !adminMi;
-    document.getElementById("videoKilit").style.display = adminMi ? "none" : "block";
 
     if (adminMi) {
         document.getElementById("rolYazi").textContent = "👑 Sen oda sahibisin";
@@ -486,30 +446,10 @@ onSnapshot(odaRef, (snap) => {
 
     if (d.videoId) {
         document.getElementById("videoDurum").textContent = "Şu an seçili video ID: " + d.videoId;
-        bekleyenVideoId = d.videoId;
-
-        if (playerReady && player && d.videoId !== sonUygulananVideoId) {
-            try {
-                player.loadVideoById(d.videoId);
-                sonUygulananVideoId = d.videoId;
-            } catch(e) {}
-        }
+        document.getElementById("videoFrame").src = embedLinkYap(d.videoId);
     } else {
         document.getElementById("videoDurum").textContent = "Henüz video seçilmedi.";
-    }
-
-    const actionKey = (d.action || "") + "_" + (d.actionTime || "");
-    if (d.action && d.action !== "load" && actionKey !== sonActionKey) {
-        sonActionKey = actionKey;
-
-        if (playerReady && player) {
-            if (d.action === "play") {
-                try { player.playVideo(); } catch(e) {}
-            }
-            if (d.action === "pause") {
-                try { player.pauseVideo(); } catch(e) {}
-            }
-        }
+        document.getElementById("videoFrame").src = "";
     }
 });
 
@@ -527,30 +467,10 @@ window.videoDegistir = async function(){
     document.getElementById("uyari").textContent = "";
 
     await setDoc(odaRef, {
-        videoId: id,
-        action: "load",
-        actionTime: Date.now()
+        videoId: id
     }, { merge:true });
 
     document.getElementById("link").value = "";
-};
-
-window.playVideo = async function(){
-    if (!adminMi) return;
-
-    await setDoc(odaRef, {
-        action: "play",
-        actionTime: Date.now()
-    }, { merge:true });
-};
-
-window.pauseVideo = async function(){
-    if (!adminMi) return;
-
-    await setDoc(odaRef, {
-        action: "pause",
-        actionTime: Date.now()
-    }, { merge:true });
 };
 
 /* CHAT */

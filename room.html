@@ -2,266 +2,58 @@
 <html lang="tr">
 <head>
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Filmizleful Oda</title>
 
 <style>
-body{
-    margin:0;
-    font-family:Arial, sans-serif;
-    background:#0c0c14;
-    color:white;
-}
-
-.ust{
-    background:#111;
-    padding:15px;
-    display:flex;
-    justify-content:space-between;
-    align-items:center;
-    flex-wrap:wrap;
-    gap:10px;
-}
-
-.ust-sol{
-    display:flex;
-    flex-direction:column;
-    gap:5px;
-}
-
-.oda-yazi{
-    font-weight:bold;
-    font-size:20px;
-}
-
-.kullanici-yazi{
-    color:#ccc;
-    font-size:14px;
-}
-
-.geri-btn{
-    color:white;
-    text-decoration:none;
-    background:#2a2a2a;
-    padding:10px 14px;
-    border-radius:10px;
-}
-
-.container{
-    display:flex;
-    gap:20px;
-    padding:20px;
-    box-sizing:border-box;
-}
-
-.video-alan{
-    flex:2;
-}
-
-.video{
-    width:100%;
-    aspect-ratio:16/9;
-    border-radius:15px;
-    overflow:hidden;
-    background:black;
-}
-
-#player{
-    width:100%;
-    height:100%;
-}
-
-.kontrol{
-    margin-top:10px;
-    display:flex;
-    gap:10px;
-    flex-wrap:wrap;
-}
-
-.kontrol input{
-    flex:1;
-    padding:10px;
-    border-radius:10px;
-    border:none;
-    background:#222;
-    color:white;
-    min-width:220px;
-}
-
-.kontrol button{
-    padding:10px 14px;
-    background:#e50914;
-    border:none;
-    border-radius:10px;
-    color:white;
-    cursor:pointer;
-    font-weight:bold;
-}
-
-.kontrol button:hover,
-.input button:hover{
-    background:#ff1e2d;
-}
-
-.sag-panel{
-    flex:1;
-    display:flex;
-    flex-direction:column;
-    gap:16px;
-}
-
-.online-kutu,
-.chat{
-    background:#151515;
-    border-radius:15px;
-    padding:12px;
-}
-
-.online-baslik,
-.chat-baslik{
-    font-size:20px;
-    font-weight:bold;
-    margin-bottom:10px;
-}
-
-.online-sayi{
-    font-size:16px;
-    color:#ffd54a;
-    margin-bottom:10px;
-}
-
-.online-liste{
-    background:#1a1a1a;
-    border-radius:12px;
-    padding:10px;
-    min-height:80px;
-    max-height:140px;
-    overflow-y:auto;
-}
-
-.online-kisi{
-    margin-bottom:8px;
-    color:#ddd;
-}
-
-.chat{
-    display:flex;
-    flex-direction:column;
-    height:420px;
-}
-
-.mesajlar{
-    flex:1;
-    overflow-y:auto;
-    margin-bottom:10px;
-    background:#1a1a1a;
-    border-radius:12px;
-    padding:10px;
-}
-
-.mesaj{
-    margin-bottom:10px;
-    line-height:1.5;
-    word-break:break-word;
-}
-
-.input{
-    display:flex;
-    gap:5px;
-}
-
-.input input{
-    flex:1;
-    padding:10px;
-    border-radius:10px;
-    border:none;
-    background:#222;
-    color:white;
-}
-
-.input button{
-    background:#e50914;
-    border:none;
-    border-radius:10px;
-    padding:10px 14px;
-    color:white;
-    cursor:pointer;
-}
-
-.uyari{
-    margin-top:8px;
-    color:#ff9a9a;
-    font-size:14px;
-    text-align:left;
-}
-
-.video-durum{
-    margin-top:10px;
-    color:#9fdcff;
-    font-size:14px;
-    text-align:left;
-}
-
-@media(max-width:900px){
-    .container{
-        flex-direction:column;
-    }
-
-    .chat{
-        height:360px;
-    }
-}
+body{margin:0;font-family:Arial;background:#0c0c14;color:white;}
+.ust{background:#111;padding:15px;display:flex;justify-content:space-between;}
+.container{display:flex;gap:20px;padding:20px;}
+.video-alan{flex:2;}
+.video{width:100%;aspect-ratio:16/9;background:black;border-radius:10px;}
+#player{width:100%;height:100%;}
+.kontrol{margin-top:10px;display:flex;gap:10px;flex-wrap:wrap;}
+.kontrol input,.kontrol button{padding:10px;border-radius:10px;border:none;}
+.kontrol button{background:#e50914;color:white;cursor:pointer;}
+.kontrol button:disabled{background:#555;cursor:not-allowed;}
+.sag{flex:1;}
+.chat{background:#151515;padding:10px;border-radius:10px;height:400px;display:flex;flex-direction:column;}
+.mesajlar{flex:1;overflow:auto;}
+.input{display:flex;}
+.input input{flex:1;padding:10px;background:#222;color:white;border:none;}
+.input button{background:#e50914;color:white;border:none;padding:10px;}
+.sahip{color:#ffd54a;font-weight:bold;}
 </style>
 </head>
+
 <body>
 
 <div class="ust">
-    <div class="ust-sol">
-        <div class="oda-yazi" id="odaAdi">📺 Oda</div>
-        <div class="kullanici-yazi" id="kullaniciAdi">Kullanıcı</div>
-    </div>
-
-    <a href="rooms.html" class="geri-btn">← Geri</a>
+    <div id="oda"></div>
+    <div id="rol"></div>
 </div>
 
 <div class="container">
 
-    <div class="video-alan">
-        <div class="video">
-            <div id="player"></div>
-        </div>
+<div class="video-alan">
+    <div class="video"><div id="player"></div></div>
 
-        <div class="kontrol">
-            <input id="link" placeholder="YouTube link">
-            <button onclick="videoDegistir()">Video Değiştir</button>
-            <button onclick="playVideo()">▶ Play</button>
-            <button onclick="pauseVideo()">⏸ Pause</button>
-        </div>
-
-        <div class="uyari" id="uyari"></div>
-        <div class="video-durum" id="videoDurum">Henüz video seçilmedi.</div>
+    <div class="kontrol">
+        <input id="link" placeholder="YouTube link">
+        <button id="degistirBtn" onclick="degistir()">Video</button>
+        <button id="playBtn" onclick="play()">▶</button>
+        <button id="pauseBtn" onclick="pause()">⏸</button>
     </div>
+</div>
 
-    <div class="sag-panel">
-
-        <div class="online-kutu">
-            <div class="online-baslik">🟢 Online Kişiler</div>
-            <div class="online-sayi" id="onlineSayi">0 kişi online</div>
-            <div class="online-liste" id="onlineListe"></div>
+<div class="sag">
+    <div class="chat">
+        <div class="mesajlar" id="mesajlar"></div>
+        <div class="input">
+            <input id="mesajInput">
+            <button onclick="gonder()">Gönder</button>
         </div>
-
-        <div class="chat">
-            <div class="chat-baslik">💬 Oda Sohbeti</div>
-
-            <div class="mesajlar" id="mesajlar"></div>
-
-            <div class="input">
-                <input id="mesajInput" placeholder="Mesaj...">
-                <button onclick="gonder()">Gönder</button>
-            </div>
-        </div>
-
     </div>
+</div>
 
 </div>
 
@@ -269,214 +61,119 @@ body{
 
 <script type="module">
 import { initializeApp } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-app.js";
-import {
-    getFirestore,
-    doc,
-    setDoc,
-    onSnapshot,
-    collection,
-    addDoc,
-    query,
-    orderBy,
-    deleteDoc
-} from "https://www.gstatic.com/firebasejs/10.7.1/firebase-firestore.js";
+import { getFirestore, doc, setDoc, getDoc, onSnapshot, collection, addDoc } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-firestore.js";
 
 const firebaseConfig = {
   apiKey: "AIzaSyBNoenb7tM6mFK8DEruxFtYLo_FwUXY7uc",
-  authDomain: "filmizleful-chat.firebaseapp.com",
-  projectId: "filmizleful-chat",
-  storageBucket: "filmizleful-chat.firebasestorage.app",
-  messagingSenderId: "873061099685",
-  appId: "1:873061099685:web:aa697ed2baadd453dc454c"
+  projectId: "filmizleful-chat"
 };
 
 const app = initializeApp(firebaseConfig);
 const db = getFirestore(app);
 
-const oda = new URL(window.location.href).searchParams.get("oda") || "genel";
-let isim = localStorage.getItem("filmizleful_isim") || "Misafir";
-const kullaniciId = "k_" + Date.now() + "_" + Math.floor(Math.random() * 100000);
+const oda = new URL(location.href).searchParams.get("oda") || "genel";
+const isim = localStorage.getItem("filmizleful_isim") || "Misafir";
 
-document.getElementById("odaAdi").innerText = "📺 Oda: " + oda;
-document.getElementById("kullaniciAdi").innerText = "👤 Sen: " + isim;
+document.getElementById("oda").innerText = "Oda: " + oda;
 
+let sahipMi = false;
+
+// oda sahibi kontrol
+const odaRef = doc(db, "odalar", oda);
+
+const odaData = await getDoc(odaRef);
+
+if(!odaData.exists()){
+    await setDoc(odaRef, { sahip: isim });
+    sahipMi = true;
+}else{
+    if(odaData.data().sahip === isim){
+        sahipMi = true;
+    }
+}
+
+// UI ayarla
+if(sahipMi){
+    document.getElementById("rol").innerHTML = "👑 <span class='sahip'>Oda Sahibi</span>";
+}else{
+    document.getElementById("rol").innerText = "👤 İzleyici";
+    document.getElementById("degistirBtn").disabled = true;
+    document.getElementById("playBtn").disabled = true;
+    document.getElementById("pauseBtn").disabled = true;
+}
+
+// YouTube
 let player;
-let sonVideoId = "";
-let sonAksiyon = "";
 
-window.onYouTubeIframeAPIReady = function () {
-    player = new YT.Player('player', {
-        height: '100%',
-        width: '100%',
-        videoId: '',
-        playerVars: {
-            playsinline: 1,
-            rel: 0
-        }
-    });
+window.onYouTubeIframeAPIReady = function(){
+    player = new YT.Player("player");
 };
 
-function youtubeIdBul(link){
-    try{
-        if(link.includes("youtu.be/")){
-            let id = link.split("youtu.be/")[1];
-            if(id.includes("?")) id = id.split("?")[0];
-            return id;
-        }
-
-        if(link.includes("youtube.com/watch?v=")){
-            let id = link.split("v=")[1];
-            if(id.includes("&")) id = id.split("&")[0];
-            return id;
-        }
-
-        if(link.includes("youtube.com/embed/")){
-            let id = link.split("embed/")[1];
-            if(id.includes("?")) id = id.split("?")[0];
-            return id;
-        }
-
-        return "";
-    }catch{
-        return "";
-    }
+function getId(link){
+    let id = link.split("v=")[1];
+    if(id && id.includes("&")) id = id.split("&")[0];
+    return id;
 }
 
-function playerHazirMi(){
-    return typeof player !== "undefined" && player && typeof player.loadVideoById === "function";
-}
+// video değiştir
+window.degistir = async function(){
+    if(!sahipMi) return;
 
-window.videoDegistir = async function(){
-    let link = document.getElementById("link").value.trim();
-    let id = youtubeIdBul(link);
+    let id = getId(document.getElementById("link").value);
 
-    if(!id){
-        document.getElementById("uyari").textContent = "Geçerli bir YouTube linki yapıştır.";
-        return;
-    }
-
-    document.getElementById("uyari").textContent = "";
-
-    await setDoc(doc(db, "odalar", oda), {
-        videoId: id,
-        action: "load",
-        actionTime: Date.now()
-    }, { merge:true });
-
-    document.getElementById("link").value = "";
+    await setDoc(odaRef,{
+        video:id
+    },{merge:true});
 };
 
-window.playVideo = async function(){
-    await setDoc(doc(db, "odalar", oda), {
-        action: "play",
-        actionTime: Date.now()
-    }, { merge:true });
+// play
+window.play = async function(){
+    if(!sahipMi) return;
+
+    await setDoc(odaRef,{action:"play"},{merge:true});
 };
 
-window.pauseVideo = async function(){
-    await setDoc(doc(db, "odalar", oda), {
-        action: "pause",
-        actionTime: Date.now()
-    }, { merge:true });
+// pause
+window.pause = async function(){
+    if(!sahipMi) return;
+
+    await setDoc(odaRef,{action:"pause"},{merge:true});
 };
 
-onSnapshot(doc(db, "odalar", oda), (docSnap)=>{
-    if(!docSnap.exists()) return;
+// dinle
+onSnapshot(odaRef,(snap)=>{
+    let d = snap.data();
 
-    const data = docSnap.data();
-
-    if(data.videoId){
-        document.getElementById("videoDurum").textContent = "Şu an seçili video ID: " + data.videoId;
+    if(d.video){
+        player.loadVideoById(d.video);
     }
 
-    if(data.videoId && data.videoId !== sonVideoId && playerHazirMi()){
-        sonVideoId = data.videoId;
-        player.loadVideoById(data.videoId);
+    if(d.action==="play"){
+        player.playVideo();
     }
 
-    if(data.action && data.actionTime && (data.action + "_" + data.actionTime) !== sonAksiyon && playerHazirMi()){
-        sonAksiyon = data.action + "_" + data.actionTime;
-
-        if(data.action === "play"){
-            try { player.playVideo(); } catch(e) {}
-        }
-
-        if(data.action === "pause"){
-            try { player.pauseVideo(); } catch(e) {}
-        }
+    if(d.action==="pause"){
+        player.pauseVideo();
     }
 });
 
-/* CHAT */
-const q = query(collection(db, "rooms", oda, "messages"), orderBy("tarih"));
-
-onSnapshot(q, (snapshot)=>{
-    let mesajlar = document.getElementById("mesajlar");
-    mesajlar.innerHTML = "";
-
-    snapshot.forEach(docSnap=>{
-        let data = docSnap.data();
-        let div = document.createElement("div");
-        div.className = "mesaj";
-        div.innerHTML = "<b>"+ data.isim +":</b> " + data.mesaj;
-        mesajlar.appendChild(div);
+// chat
+onSnapshot(collection(db,"rooms",oda,"messages"),(snap)=>{
+    let m=document.getElementById("mesajlar");
+    m.innerHTML="";
+    snap.forEach(doc=>{
+        let d=doc.data();
+        m.innerHTML+="<div><b>"+d.isim+":</b> "+d.mesaj+"</div>";
     });
-
-    mesajlar.scrollTop = mesajlar.scrollHeight;
 });
 
-window.gonder = async function(){
-    let input = document.getElementById("mesajInput");
-    let text = input.value.trim();
-
-    if(!text) return;
-
-    await addDoc(collection(db, "rooms", oda, "messages"), {
-        isim: isim,
-        mesaj: text,
-        tarih: Date.now()
+window.gonder=async function(){
+    let text=document.getElementById("mesajInput").value;
+    await addDoc(collection(db,"rooms",oda,"messages"),{
+        isim:isim,
+        mesaj:text
     });
-
-    input.value = "";
-}
-
-/* ONLINE KİŞİLER */
-const kullaniciRef = doc(db, "rooms", oda, "users", kullaniciId);
-
-await setDoc(kullaniciRef, {
-    isim: isim,
-    giris: Date.now()
-});
-
-window.addEventListener("beforeunload", async () => {
-    try {
-        await deleteDoc(kullaniciRef);
-    } catch (e) {}
-});
-
-onSnapshot(collection(db, "rooms", oda, "users"), (snapshot) => {
-    const onlineListe = document.getElementById("onlineListe");
-    const onlineSayi = document.getElementById("onlineSayi");
-
-    onlineListe.innerHTML = "";
-
-    let sayi = 0;
-
-    snapshot.forEach((docSnap) => {
-        sayi++;
-        const data = docSnap.data();
-        const div = document.createElement("div");
-        div.className = "online-kisi";
-        div.textContent = "👤 " + data.isim;
-        onlineListe.appendChild(div);
-    });
-
-    onlineSayi.textContent = sayi + " kişi online";
-
-    if (sayi === 0) {
-        onlineListe.innerHTML = "<div class='online-kisi'>Kimse yok</div>";
-    }
-});
+};
 </script>
 
 </body>

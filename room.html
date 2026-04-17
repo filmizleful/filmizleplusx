@@ -2,29 +2,35 @@
 <html lang="tr">
 <head>
 <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Filmizleful Oda</title>
 
 <style>
 body{margin:0;font-family:Arial;background:#0c0c14;color:white;}
-.ust{background:#111;padding:15px;display:flex;justify-content:space-between;}
-.container{display:flex;gap:20px;padding:20px;}
+.ust{background:#111;padding:15px;display:flex;justify-content:space-between;align-items:center;gap:10px;flex-wrap:wrap;}
+.container{display:flex;gap:20px;padding:20px;box-sizing:border-box;}
 .video-alan{flex:2;}
-.video{width:100%;aspect-ratio:16/9;background:black;border-radius:10px;}
+.video{width:100%;aspect-ratio:16/9;background:black;border-radius:12px;overflow:hidden;}
 #player{width:100%;height:100%;}
 .kontrol{margin-top:10px;display:flex;gap:10px;flex-wrap:wrap;}
-.kontrol input,.kontrol button{padding:10px;border-radius:10px;border:none;}
-.kontrol button{background:#e50914;color:white;cursor:pointer;}
+.kontrol input{flex:1;min-width:220px;padding:10px;border-radius:10px;border:none;background:#222;color:white;}
+.kontrol button{padding:10px 14px;border-radius:10px;border:none;background:#e50914;color:white;cursor:pointer;font-weight:bold;}
 .kontrol button:disabled{background:#555;cursor:not-allowed;}
+.uyari{margin-top:8px;color:#ff9a9a;font-size:14px;}
 .sag{flex:1;}
-.chat{background:#151515;padding:10px;border-radius:10px;height:400px;display:flex;flex-direction:column;}
-.mesajlar{flex:1;overflow:auto;}
-.input{display:flex;}
-.input input{flex:1;padding:10px;background:#222;color:white;border:none;}
-.input button{background:#e50914;color:white;border:none;padding:10px;}
+.chat{background:#151515;padding:12px;border-radius:12px;height:420px;display:flex;flex-direction:column;}
+.mesajlar{flex:1;overflow:auto;background:#1a1a1a;border-radius:10px;padding:10px;margin-bottom:10px;}
+.mesaj{margin-bottom:8px;line-height:1.5;word-break:break-word;}
+.input{display:flex;gap:6px;}
+.input input{flex:1;padding:10px;background:#222;color:white;border:none;border-radius:10px;}
+.input button{background:#e50914;color:white;border:none;padding:10px 14px;border-radius:10px;cursor:pointer;}
 .sahip{color:#ffd54a;font-weight:bold;}
+@media(max-width:900px){
+    .container{flex-direction:column;}
+    .chat{height:360px;}
+}
 </style>
 </head>
-
 <body>
 
 <div class="ust">
@@ -34,26 +40,29 @@ body{margin:0;font-family:Arial;background:#0c0c14;color:white;}
 
 <div class="container">
 
-<div class="video-alan">
-    <div class="video"><div id="player"></div></div>
+    <div class="video-alan">
+        <div class="video"><div id="player"></div></div>
 
-    <div class="kontrol">
-        <input id="link" placeholder="YouTube link">
-        <button id="degistirBtn" onclick="degistir()">Video</button>
-        <button id="playBtn" onclick="play()">▶</button>
-        <button id="pauseBtn" onclick="pause()">⏸</button>
+        <div class="kontrol">
+            <input id="link" placeholder="YouTube link yapıştır">
+            <button id="degistirBtn" onclick="degistir()">Video</button>
+            <button id="playBtn" onclick="playVideo()">▶</button>
+            <button id="pauseBtn" onclick="pauseVideo()">⏸</button>
+        </div>
+
+        <div class="uyari" id="uyari"></div>
     </div>
-</div>
 
-<div class="sag">
-    <div class="chat">
-        <div class="mesajlar" id="mesajlar"></div>
-        <div class="input">
-            <input id="mesajInput">
-            <button onclick="gonder()">Gönder</button>
+    <div class="sag">
+        <div class="chat">
+            <div class="mesajlar" id="mesajlar"></div>
+
+            <div class="input">
+                <input id="mesajInput" placeholder="Mesaj yaz...">
+                <button onclick="gonder()">Gönder</button>
+            </div>
         </div>
     </div>
-</div>
 
 </div>
 
@@ -61,11 +70,25 @@ body{margin:0;font-family:Arial;background:#0c0c14;color:white;}
 
 <script type="module">
 import { initializeApp } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-app.js";
-import { getFirestore, doc, setDoc, getDoc, onSnapshot, collection, addDoc } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-firestore.js";
+import {
+    getFirestore,
+    doc,
+    setDoc,
+    getDoc,
+    onSnapshot,
+    collection,
+    addDoc,
+    query,
+    orderBy
+} from "https://www.gstatic.com/firebasejs/10.7.1/firebase-firestore.js";
 
 const firebaseConfig = {
   apiKey: "AIzaSyBNoenb7tM6mFK8DEruxFtYLo_FwUXY7uc",
-  projectId: "filmizleful-chat"
+  authDomain: "filmizleful-chat.firebaseapp.com",
+  projectId: "filmizleful-chat",
+  storageBucket: "filmizleful-chat.firebasestorage.app",
+  messagingSenderId: "873061099685",
+  appId: "1:873061099685:web:aa697ed2baadd453dc454c"
 };
 
 const app = initializeApp(firebaseConfig);
@@ -77,102 +100,192 @@ const isim = localStorage.getItem("filmizleful_isim") || "Misafir";
 document.getElementById("oda").innerText = "Oda: " + oda;
 
 let sahipMi = false;
+let player;
+let playerReady = false;
+let sonVideo = "";
+let sonAksiyon = "";
 
-// oda sahibi kontrol
 const odaRef = doc(db, "odalar", oda);
 
 const odaData = await getDoc(odaRef);
 
-if(!odaData.exists()){
-    await setDoc(odaRef, { sahip: isim });
+if (!odaData.exists()) {
+    await setDoc(odaRef, { sahip: isim }, { merge: true });
     sahipMi = true;
-}else{
-    if(odaData.data().sahip === isim){
+} else {
+    if (odaData.data().sahip === isim) {
         sahipMi = true;
     }
 }
 
-// UI ayarla
-if(sahipMi){
+if (sahipMi) {
     document.getElementById("rol").innerHTML = "👑 <span class='sahip'>Oda Sahibi</span>";
-}else{
+} else {
     document.getElementById("rol").innerText = "👤 İzleyici";
     document.getElementById("degistirBtn").disabled = true;
     document.getElementById("playBtn").disabled = true;
     document.getElementById("pauseBtn").disabled = true;
 }
 
-// YouTube
-let player;
-
-window.onYouTubeIframeAPIReady = function(){
-    player = new YT.Player("player");
+window.onYouTubeIframeAPIReady = function () {
+    player = new YT.Player("player", {
+        height: "100%",
+        width: "100%",
+        videoId: "",
+        playerVars: {
+            playsinline: 1,
+            rel: 0
+        },
+        events: {
+            onReady: function () {
+                playerReady = true;
+            }
+        }
+    });
 };
 
-function getId(link){
-    let id = link.split("v=")[1];
-    if(id && id.includes("&")) id = id.split("&")[0];
-    return id;
+function youtubeIdBul(link) {
+    try {
+        if (!link) return "";
+
+        if (link.includes("youtu.be/")) {
+            let id = link.split("youtu.be/")[1];
+            if (id.includes("?")) id = id.split("?")[0];
+            return id;
+        }
+
+        if (link.includes("youtube.com/watch?v=")) {
+            let url = new URL(link);
+            return url.searchParams.get("v") || "";
+        }
+
+        if (link.includes("youtube.com/embed/")) {
+            let id = link.split("embed/")[1];
+            if (id.includes("?")) id = id.split("?")[0];
+            return id;
+        }
+
+        return "";
+    } catch {
+        return "";
+    }
 }
 
-// video değiştir
-window.degistir = async function(){
-    if(!sahipMi) return;
-
-    let id = getId(document.getElementById("link").value);
-
-    await setDoc(odaRef,{
-        video:id
-    },{merge:true});
-};
-
-// play
-window.play = async function(){
-    if(!sahipMi) return;
-
-    await setDoc(odaRef,{action:"play"},{merge:true});
-};
-
-// pause
-window.pause = async function(){
-    if(!sahipMi) return;
-
-    await setDoc(odaRef,{action:"pause"},{merge:true});
-};
-
-// dinle
-onSnapshot(odaRef,(snap)=>{
-    let d = snap.data();
-
-    if(d.video){
-        player.loadVideoById(d.video);
+function hazirsaVideoYukle(id) {
+    if (playerReady && player && id) {
+        player.loadVideoById(id);
     }
+}
 
-    if(d.action==="play"){
+function hazirsaAksiyonUygula(aksiyon) {
+    if (!playerReady || !player) return;
+
+    if (aksiyon === "play") {
         player.playVideo();
     }
 
-    if(d.action==="pause"){
+    if (aksiyon === "pause") {
         player.pauseVideo();
+    }
+}
+
+window.degistir = async function () {
+    if (!sahipMi) return;
+
+    let link = document.getElementById("link").value.trim();
+    let id = youtubeIdBul(link);
+
+    if (!id) {
+        document.getElementById("uyari").textContent = "Geçerli bir YouTube linki yapıştır.";
+        return;
+    }
+
+    document.getElementById("uyari").textContent = "";
+
+    await setDoc(odaRef, {
+        video: id,
+        action: "load",
+        zaman: Date.now()
+    }, { merge: true });
+
+    document.getElementById("link").value = "";
+};
+
+window.playVideo = async function () {
+    if (!sahipMi) return;
+
+    await setDoc(odaRef, {
+        action: "play",
+        zaman: Date.now()
+    }, { merge: true });
+};
+
+window.pauseVideo = async function () {
+    if (!sahipMi) return;
+
+    await setDoc(odaRef, {
+        action: "pause",
+        zaman: Date.now()
+    }, { merge: true });
+};
+
+onSnapshot(odaRef, (snap) => {
+    if (!snap.exists()) return;
+
+    let d = snap.data();
+
+    if (d.video && d.video !== sonVideo) {
+        sonVideo = d.video;
+        const kontrol = setInterval(() => {
+            if (playerReady) {
+                hazirsaVideoYukle(d.video);
+                clearInterval(kontrol);
+            }
+        }, 200);
+    }
+
+    const aksiyonAnahtar = (d.action || "") + "_" + (d.zaman || "");
+    if (d.action && aksiyonAnahtar !== sonAksiyon) {
+        sonAksiyon = aksiyonAnahtar;
+
+        const kontrol = setInterval(() => {
+            if (playerReady) {
+                hazirsaAksiyonUygula(d.action);
+                clearInterval(kontrol);
+            }
+        }, 200);
     }
 });
 
-// chat
-onSnapshot(collection(db,"rooms",oda,"messages"),(snap)=>{
-    let m=document.getElementById("mesajlar");
-    m.innerHTML="";
-    snap.forEach(doc=>{
-        let d=doc.data();
-        m.innerHTML+="<div><b>"+d.isim+":</b> "+d.mesaj+"</div>";
+const q = query(collection(db, "rooms", oda, "messages"), orderBy("tarih"));
+
+onSnapshot(q, (snap) => {
+    let alan = document.getElementById("mesajlar");
+    alan.innerHTML = "";
+
+    snap.forEach((belge) => {
+        let d = belge.data();
+        let div = document.createElement("div");
+        div.className = "mesaj";
+        div.innerHTML = "<b>" + d.isim + ":</b> " + d.mesaj;
+        alan.appendChild(div);
     });
+
+    alan.scrollTop = alan.scrollHeight;
 });
 
-window.gonder=async function(){
-    let text=document.getElementById("mesajInput").value;
-    await addDoc(collection(db,"rooms",oda,"messages"),{
-        isim:isim,
-        mesaj:text
+window.gonder = async function () {
+    let input = document.getElementById("mesajInput");
+    let text = input.value.trim();
+    if (!text) return;
+
+    await addDoc(collection(db, "rooms", oda, "messages"), {
+        isim: isim,
+        mesaj: text,
+        tarih: Date.now()
     });
+
+    input.value = "";
 };
 </script>
 

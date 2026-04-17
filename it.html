@@ -1,178 +1,200 @@
 <!DOCTYPE html>
 <html lang="tr">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>IT (O)</title>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>IT - Filmizleful</title>
 
-    <style>
-        body {
-            margin: 0;
-            font-family: Arial, sans-serif;
-            background: linear-gradient(180deg, #0f0f0f, #000000);
-            color: white;
-        }
+<style>
+body {
+    margin: 0;
+    background: black;
+    color: white;
+    font-family: Arial, sans-serif;
+}
 
-        .ustbar {
-            background: #111;
-            padding: 18px 30px;
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-        }
+.ustbar {
+    background: #111;
+    padding: 16px 24px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    position: sticky;
+    top: 0;
+}
 
-        .logo {
-            font-size: 28px;
-            font-weight: bold;
-            color: #e50914;
-        }
+.logo {
+    font-size: 26px;
+    font-weight: bold;
+    color: #e50914;
+}
 
-        .menu a {
-            color: white;
-            text-decoration: none;
-            margin-left: 15px;
-        }
+.menu a {
+    color: white;
+    text-decoration: none;
+    margin-left: 12px;
+    background: #1c1c1c;
+    padding: 8px 14px;
+    border-radius: 8px;
+}
 
-        .menu a:hover {
-            color: #e50914;
-        }
+.menu a:hover {
+    background: #e50914;
+}
 
-        .icerik {
-            max-width: 1100px;
-            margin: 0 auto;
-            padding: 40px 20px;
-            display: flex;
-            gap: 30px;
-            flex-wrap: wrap;
-            justify-content: center;
-            align-items: flex-start;
-        }
+.player {
+    width: 100%;
+    height: 60vh;
+    background: #000;
+}
 
-        .afis {
-            width: 300px;
-            border-radius: 16px;
-            overflow: hidden;
-            box-shadow: 0 10px 25px rgba(0,0,0,0.5);
-        }
+.player iframe {
+    width: 100%;
+    height: 100%;
+    border: none;
+}
 
-        .afis img {
-            width: 100%;
-            display: block;
-        }
+.bilgi {
+    padding: 30px 20px;
+    max-width: 1000px;
+    margin: auto;
+}
 
-        .bilgi {
-            max-width: 600px;
-        }
+.bilgi h1 {
+    margin-top: 0;
+    font-size: 42px;
+}
 
-        .bilgi h1 {
-            font-size: 42px;
-            margin-top: 0;
-            margin-bottom: 15px;
-        }
+.meta {
+    color: #bbb;
+    margin-bottom: 18px;
+    font-size: 16px;
+}
 
-        .bilgi p {
-            color: #d0d0d0;
-            font-size: 18px;
-            line-height: 1.7;
-        }
+.aciklama {
+    color: #ddd;
+    line-height: 1.7;
+    font-size: 17px;
+}
 
-        .butonlar {
-            margin-top: 25px;
-            display: flex;
-            gap: 15px;
-            flex-wrap: wrap;
-        }
+.onerilen {
+    max-width: 1100px;
+    margin: auto;
+    padding: 10px 20px 50px 20px;
+}
 
-        .butonlar a {
-            text-decoration: none;
-            padding: 14px 22px;
-            border-radius: 10px;
-            font-weight: bold;
-        }
+.onerilen h2 {
+    margin-bottom: 20px;
+}
 
-        .izle {
-            background: #e50914;
-            color: white;
-        }
+.kartlar {
+    display: flex;
+    gap: 18px;
+    flex-wrap: wrap;
+}
 
-        .geri {
-            background: yellow;
-            color: black;
-        }
+.kart {
+    width: 200px;
+    background: #111;
+    padding: 20px 15px;
+    border-radius: 14px;
+    text-align: center;
+    transition: 0.3s;
+    box-shadow: 0 8px 18px rgba(0,0,0,0.35);
+}
 
-        .video {
-            max-width: 1100px;
-            margin: 0 auto;
-            padding: 10px 20px 60px 20px;
-        }
+.kart:hover {
+    transform: scale(1.05);
+}
 
-        .video h2 {
-            text-align: center;
-            margin-bottom: 20px;
-        }
+.kart .ikon {
+    font-size: 48px;
+    margin-bottom: 12px;
+}
 
-        .video-kutu {
-            position: relative;
-            width: 100%;
-            max-width: 900px;
-            margin: 0 auto;
-            padding-bottom: 56.25%;
-            height: 0;
-            overflow: hidden;
-            border-radius: 14px;
-            box-shadow: 0 10px 25px rgba(0,0,0,0.5);
-        }
+.kart h3 {
+    margin: 8px 0;
+    font-size: 22px;
+}
 
-        .video-kutu iframe {
-            position: absolute;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            border: 0;
-        }
-    </style>
+.kart p {
+    color: #bbb;
+    font-size: 14px;
+    min-height: 35px;
+}
+
+.kart a {
+    display: inline-block;
+    margin-top: 10px;
+    background: #e50914;
+    color: white;
+    text-decoration: none;
+    padding: 10px 16px;
+    border-radius: 8px;
+    font-weight: bold;
+}
+
+.kart a:hover {
+    background: #ff1e2d;
+}
+</style>
 </head>
 <body>
 
-    <div class="ustbar">
-        <div class="logo">🎬 Filmizleful</div>
-        <div class="menu">
-            <a href="index.html">Ana Sayfa</a>
-            <a href="korku.html">Korku</a>
+<div class="ustbar">
+    <div class="logo">👻 Filmizleful</div>
+    <div class="menu">
+        <a href="index.html">Ana Sayfa</a>
+        <a href="korku.html">Korku</a>
+    </div>
+</div>
+
+<div class="player">
+    <iframe src="https://www.youtube.com/embed/xKJmEC5ieOk" allowfullscreen></iframe>
+</div>
+
+<div class="bilgi">
+    <h1>IT</h1>
+    <div class="meta">2017 • Korku • Gerilim • IMDb 7.3</div>
+    <div class="aciklama">
+        Kasabada ortaya çıkan gizemli ve korkunç varlık çocukların hayatını tehdit eder.
+        Gerilim dolu sahneleri ve karanlık atmosferiyle dikkat çeker.
+    </div>
+</div>
+
+<div class="onerilen">
+    <h2>🎬 Önerilen Filmler</h2>
+
+    <div class="kartlar">
+        <div class="kart">
+            <div class="ikon">🏚️</div>
+            <h3>Conjuring</h3>
+            <p>Doğaüstü korku filmi</p>
+            <a href="conjuring.html">İzle</a>
+        </div>
+
+        <div class="kart">
+            <div class="ikon">👁️</div>
+            <h3>Insidious</h3>
+            <p>Paranormal korku</p>
+            <a href="insidious.html">İzle</a>
+        </div>
+
+        <div class="kart">
+            <div class="ikon">🃏</div>
+            <h3>Joker</h3>
+            <p>Karanlık psikolojik film</p>
+            <a href="joker.html">İzle</a>
+        </div>
+
+        <div class="kart">
+            <div class="ikon">🦇</div>
+            <h3>Batman</h3>
+            <p>Karanlık atmosfer</p>
+            <a href="batman.html">İzle</a>
         </div>
     </div>
-
-    <div class="icerik">
-        <div class="afis">
-            <img src="https://picsum.photos/400/600?random=101">
-        </div>
-
-        <div class="bilgi">
-            <h1>IT (O)</h1>
-            <p>
-                IT (O), korku ve gerilim türünde ünlü bir filmdir. Kasabada ortaya çıkan gizemli
-                ve korkunç bir varlık, çocukların hayatını tehdit eder. Film boyunca gerilim,
-                karanlık atmosfer ve korku dolu sahneler ön plandadır.
-            </p>
-
-            <p>
-                Eğer gerilim dolu ve ürkütücü filmleri seviyorsan, bu film tam sana göre.
-            </p>
-
-            <div class="butonlar">
-                <a class="izle" href="https://www.youtube.com/watch?v=xKJmEC5ieOk" target="_blank">▶ Fragman İzle</a>
-                <a class="geri" href="korku.html">⬅ Korku Sayfasına Dön</a>
-            </div>
-        </div>
-    </div>
-
-    <div class="video">
-        <h2>Fragman</h2>
-        <div class="video-kutu">
-            <iframe src="https://www.youtube.com/embed/xKJmEC5ieOk" allowfullscreen></iframe>
-        </div>
-    </div>
+</div>
 
 </body>
 </html>

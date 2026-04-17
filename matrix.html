@@ -2,48 +2,113 @@
 <html lang="tr">
 <head>
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Matrix - Filmizleful</title>
+<title>Matrix</title>
 
 <style>
-body {margin:0;font-family:Arial;background:radial-gradient(circle at top,#1a1a1a,#000);color:white;}
-.ustbar {background:#111;padding:18px 30px;display:flex;justify-content:space-between;align-items:center;}
-.logo {font-size:28px;color:#00ff88;font-weight:bold;}
-.menu a {color:white;text-decoration:none;margin-left:15px;background:#1c1c1c;padding:8px 14px;border-radius:6px;}
-.menu a:hover {background:#00ff88;color:black;}
-.icerik {max-width:1100px;margin:auto;padding:40px 20px;display:flex;gap:30px;flex-wrap:wrap;justify-content:center;}
-.poster {width:280px;height:420px;background:#1a1a1a;border-radius:16px;display:flex;align-items:center;justify-content:center;font-size:100px;}
-.detay {max-width:600px;}
-.butonlar a {text-decoration:none;padding:12px 18px;border-radius:10px;margin-right:10px;display:inline-block;margin-top:10px;}
-.fragman {background:#00ff88;color:black;}
-.platform {background:#2b7fff;color:white;}
-.geri {background:#333;color:white;}
+body{
+    background:#0d0d0d;
+    color:white;
+    font-family:Arial;
+    margin:0;
+}
+
+.kutu{
+    display:flex;
+    gap:30px;
+    padding:40px;
+    flex-wrap:wrap;
+}
+
+.poster{
+    width:220px;
+    height:300px;
+    background:#222;
+    border-radius:15px;
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    font-size:60px;
+}
+
+.bilgi{
+    max-width:600px;
+}
+
+.bilgi h1{
+    font-size:40px;
+}
+
+.butonlar a{
+    padding:12px 20px;
+    border-radius:10px;
+    text-decoration:none;
+    margin-right:10px;
+    color:white;
+}
+
+.fragman{background:#ff5e3a;}
+.izle{background:#00c9a7;}
+.geri{background:#444;}
+
+.hakkinda{
+    max-width:900px;
+    margin:20px auto 50px auto;
+    padding:20px;
+}
+
+.hakkinda-kutu{
+    background:#181818;
+    padding:25px;
+    border-radius:15px;
+    border:1px solid #333;
+}
+
+.hakkinda h2{
+    margin-top:0;
+    font-size:28px;
+    color:#ffd54a;
+}
 </style>
 </head>
 
 <body>
 
-<div class="ustbar">
-<div class="logo">💊 Filmizleful</div>
-<div class="menu">
-<a href="index.html">Ana Sayfa</a>
-<a href="bilimkurgu.html">Bilim Kurgu</a>
-</div>
-</div>
+<div class="kutu">
 
-<div class="icerik">
 <div class="poster">💊</div>
 
-<div class="detay">
+<div class="bilgi">
 <h1>Matrix</h1>
 
-<p>Gerçeklik ile yapay dünya arasındaki mücadeleyi anlatan kült film.</p>
+<p>Bilim Kurgu • Aksiyon • IMDb 8.7</p>
+
+<p>
+Matrix, gerçekliğin aslında büyük bir simülasyon olabileceğini konu alan kült bir filmdir.
+</p>
 
 <div class="butonlar">
-<a class="fragman" href="https://www.youtube.com/watch?v=vKQi3bBA1y8" target="_blank">▶ Fragman</a>
-<a class="platform" href="https://www.justwatch.com/" target="_blank">📺 Nerede İzlenir</a>
-<a class="geri" href="bilimkurgu.html">← Geri</a>
+<a href="https://www.youtube.com/watch?v=vKQi3bBA1y8" class="fragman">▶ Fragman izle</a>
+<a href="#" class="izle">📺 Nerede izlenir</a>
+<a href="index.html" class="geri">← Geri dön</a>
 </div>
+
+</div>
+
+</div>
+
+<div class="hakkinda">
+<div class="hakkinda-kutu">
+
+<h2>🎬 Film Hakkında</h2>
+
+<p>
+Matrix (1999), insanlığın yaşadığı dünyanın sahte bir sistem olduğunu keşfeden Neo’nun hikayesini anlatır.
+</p>
+
+<p>
+Film, felsefi yapısı, aksiyon sahneleri ve görsel yenilikleriyle sinema tarihinin en önemli bilim kurgu yapımlarından biridir.
+</p>
+
 </div>
 </div>
 

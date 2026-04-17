@@ -8,154 +8,134 @@
 <style>
 body {
     margin: 0;
-    font-family: Arial, sans-serif;
-    background: radial-gradient(circle at top, #1a1a1a, #000);
+    background: black;
     color: white;
+    font-family: Arial, sans-serif;
 }
 
 .ustbar {
     background: #111;
-    padding: 18px 30px;
+    padding: 16px 24px;
     display: flex;
     justify-content: space-between;
     align-items: center;
-    flex-wrap: wrap;
     position: sticky;
     top: 0;
-    z-index: 999;
 }
 
 .logo {
-    font-size: 28px;
-    color: #e50914;
+    font-size: 26px;
     font-weight: bold;
+    color: #e50914;
 }
 
 .menu a {
     color: white;
     text-decoration: none;
-    margin-left: 15px;
+    margin-left: 12px;
     background: #1c1c1c;
     padding: 8px 14px;
-    border-radius: 6px;
+    border-radius: 8px;
 }
 
 .menu a:hover {
     background: #e50914;
 }
 
-.icerik {
-    max-width: 1100px;
-    margin: 0 auto;
-    padding: 40px 20px;
-    display: flex;
-    gap: 30px;
-    flex-wrap: wrap;
-    align-items: flex-start;
-    justify-content: center;
+.player {
+    width: 100%;
+    height: 60vh;
+    background: #000;
 }
 
-.poster {
-    width: 280px;
-    min-height: 420px;
-    background: #1a1a1a;
-    border-radius: 16px;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    font-size: 100px;
-    box-shadow: 0 8px 20px rgba(0,0,0,0.4);
-}
-
-.detay {
-    max-width: 600px;
-}
-
-.detay h1 {
-    font-size: 42px;
-    margin-top: 0;
-    margin-bottom: 15px;
+.player iframe {
+    width: 100%;
+    height: 100%;
+    border: none;
 }
 
 .bilgi {
-    color: #cfcfcf;
+    padding: 30px 20px;
+    max-width: 1000px;
+    margin: auto;
+}
+
+.bilgi h1 {
+    margin-top: 0;
+    font-size: 42px;
+}
+
+.meta {
+    color: #bbb;
+    margin-bottom: 18px;
+    font-size: 16px;
+}
+
+.aciklama {
+    color: #ddd;
     line-height: 1.7;
     font-size: 17px;
 }
 
-.etiketler {
-    margin-top: 20px;
+.onerilen {
+    max-width: 1100px;
+    margin: auto;
+    padding: 10px 20px 50px 20px;
+}
+
+.onerilen h2 {
     margin-bottom: 20px;
 }
 
-.etiket {
-    display: inline-block;
-    background: #222;
-    color: #ddd;
-    padding: 8px 12px;
-    border-radius: 999px;
-    margin-right: 8px;
-    margin-bottom: 8px;
-    font-size: 14px;
-}
-
-.butonlar {
+.kartlar {
     display: flex;
+    gap: 18px;
     flex-wrap: wrap;
-    gap: 12px;
-    margin-top: 25px;
 }
 
-.butonlar a {
-    text-decoration: none;
-    padding: 12px 18px;
-    border-radius: 10px;
-    font-weight: bold;
+.kart {
+    width: 200px;
+    background: #111;
+    padding: 20px 15px;
+    border-radius: 14px;
+    text-align: center;
     transition: 0.3s;
+    box-shadow: 0 8px 18px rgba(0,0,0,0.35);
 }
 
-.fragman {
+.kart:hover {
+    transform: scale(1.05);
+}
+
+.kart .ikon {
+    font-size: 48px;
+    margin-bottom: 12px;
+}
+
+.kart h3 {
+    margin: 8px 0;
+    font-size: 22px;
+}
+
+.kart p {
+    color: #bbb;
+    font-size: 14px;
+    min-height: 35px;
+}
+
+.kart a {
+    display: inline-block;
+    margin-top: 10px;
     background: #e50914;
     color: white;
+    text-decoration: none;
+    padding: 10px 16px;
+    border-radius: 8px;
+    font-weight: bold;
 }
 
-.fragman:hover {
+.kart a:hover {
     background: #ff1e2d;
-}
-
-.platform {
-    background: #2b7fff;
-    color: white;
-}
-
-.platform:hover {
-    background: #4b92ff;
-}
-
-.geri {
-    background: #333;
-    color: white;
-}
-
-.geri:hover {
-    background: #555;
-}
-
-.alt-kisim {
-    max-width: 1100px;
-    margin: 0 auto;
-    padding: 0 20px 60px 20px;
-}
-
-.kutu {
-    background: #121212;
-    border-radius: 16px;
-    padding: 25px;
-    box-shadow: 0 8px 20px rgba(0,0,0,0.35);
-}
-
-.kutu h2 {
-    margin-top: 0;
 }
 </style>
 </head>
@@ -163,48 +143,56 @@ body {
 
 <div class="ustbar">
     <div class="logo">🎬 Filmizleful</div>
-
     <div class="menu">
         <a href="index.html">Ana Sayfa</a>
         <a href="aksiyon.html">Aksiyon</a>
     </div>
 </div>
 
-<div class="icerik">
-    <div class="poster">🔫</div>
+<div class="player">
+    <iframe src="https://www.youtube.com/embed/2AUmvWm5ZDQ" allowfullscreen></iframe>
+</div>
 
-    <div class="detay">
-        <h1>John Wick</h1>
-
-        <div class="etiketler">
-            <span class="etiket">Aksiyon</span>
-            <span class="etiket">Gerilim</span>
-            <span class="etiket">Suç</span>
-            <span class="etiket">IMDb: 7.4</span>
-        </div>
-
-        <div class="bilgi">
-            John Wick, emekli bir tetikçinin geçmişiyle yeniden yüzleşmesini anlatan
-            yüksek tempolu bir aksiyon filmidir. Hızlı sahneleri, karanlık atmosferi
-            ve unutulmaz karakteriyle öne çıkar.
-        </div>
-
-        <div class="butonlar">
-            <a class="fragman" href="https://www.youtube.com/watch?v=2AUmvWm5ZDQ" target="_blank">▶ Fragman İzle</a>
-            <a class="platform" href="https://www.justwatch.com/" target="_blank">📺 Nerede İzlenir</a>
-            <a class="geri" href="aksiyon.html">← Geri Dön</a>
-        </div>
+<div class="bilgi">
+    <h1>John Wick</h1>
+    <div class="meta">2014 • Aksiyon • Gerilim • IMDb 7.4</div>
+    <div class="aciklama">
+        Eski bir tetikçinin geçmişiyle yeniden yüzleşmesini anlatan aksiyon dolu film.
+        Yüksek temposu, karanlık atmosferi ve unutulmaz aksiyon sahneleriyle öne çıkar.
     </div>
 </div>
 
-<div class="alt-kisim">
-    <div class="kutu">
-        <h2>Film Hakkında</h2>
-        <p>
-            Bu bölümde filmin kısa konusu, oyuncuları, türü ve izleme seçenekleri yer alır.
-            “Nerede İzlenir” butonunu kullanarak yasal platformlarda bu filmin olup olmadığını
-            kontrol edebilirsin.
-        </p>
+<div class="onerilen">
+    <h2>🎬 Önerilen Filmler</h2>
+
+    <div class="kartlar">
+        <div class="kart">
+            <div class="ikon">🏎️</div>
+            <h3>Fast & Furious</h3>
+            <p>Hız ve aksiyon dolu</p>
+            <a href="fast.html">İzle</a>
+        </div>
+
+        <div class="kart">
+            <div class="ikon">🦇</div>
+            <h3>Batman</h3>
+            <p>Karanlık aksiyon filmi</p>
+            <a href="batman.html">İzle</a>
+        </div>
+
+        <div class="kart">
+            <div class="ikon">💊</div>
+            <h3>Matrix</h3>
+            <p>Bilim kurgu aksiyon</p>
+            <a href="matrix.html">İzle</a>
+        </div>
+
+        <div class="kart">
+            <div class="ikon">🃏</div>
+            <h3>Joker</h3>
+            <p>Karanlık karakter hikayesi</p>
+            <a href="joker.html">İzle</a>
+        </div>
     </div>
 </div>
 

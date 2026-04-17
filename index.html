@@ -86,6 +86,38 @@ body {
     color: white;
 }
 
+.sayaclar {
+    display: flex;
+    justify-content: center;
+    gap: 20px;
+    flex-wrap: wrap;
+    max-width: 1000px;
+    margin: 10px auto 40px auto;
+    padding: 0 20px;
+}
+
+.sayac-kutu {
+    background: #151515;
+    min-width: 180px;
+    padding: 20px;
+    border-radius: 16px;
+    text-align: center;
+    box-shadow: 0 8px 20px rgba(0,0,0,0.35);
+    border: 1px solid rgba(255,255,255,0.05);
+}
+
+.sayac-sayi {
+    font-size: 34px;
+    font-weight: bold;
+    color: #ffd54a;
+    margin-bottom: 8px;
+}
+
+.sayac-yazi {
+    color: #cfcfcf;
+    font-size: 16px;
+}
+
 .kategori-baslik {
     text-align: center;
     font-size: 34px;
@@ -172,10 +204,11 @@ body {
     background: #151515;
     border-radius: 16px;
     text-align: center;
-    padding: 25px 15px;
+    padding: 20px 15px 25px 15px;
     box-shadow: 0 8px 20px rgba(0,0,0,0.4);
     border: 1px solid rgba(255,255,255,0.05);
     transition: 0.3s;
+    position: relative;
 }
 
 .film-kart:hover {
@@ -183,21 +216,36 @@ body {
     box-shadow: 0 0 25px rgba(255,255,255,0.12);
 }
 
+.favori {
+    position: absolute;
+    top: 12px;
+    right: 12px;
+    font-size: 22px;
+    color: #ffd54a;
+}
+
 .film-ikon {
     font-size: 70px;
     margin-bottom: 15px;
+    margin-top: 10px;
 }
 
 .film-kart h3 {
-    margin: 10px 0;
+    margin: 10px 0 8px 0;
     font-size: 24px;
 }
 
-.film-kart p {
-    margin: 0 0 15px 0;
+.film-bilgi {
     color: #cfcfcf;
+    font-size: 14px;
+    margin-bottom: 6px;
+}
+
+.film-puan {
+    color: #ffd54a;
     font-size: 15px;
-    min-height: 38px;
+    font-weight: bold;
+    margin-bottom: 14px;
 }
 
 .film-kart a {
@@ -214,6 +262,67 @@ body {
 .film-kart a:hover {
     background: #ff1e2d;
     transform: scale(1.05);
+}
+
+.yorum-baslik {
+    text-align: center;
+    font-size: 34px;
+    margin-top: 20px;
+    margin-bottom: 25px;
+}
+
+.yorumlar {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 0 20px 50px 20px;
+    display: flex;
+    justify-content: center;
+    gap: 20px;
+    flex-wrap: wrap;
+}
+
+.yorum-kart {
+    width: 300px;
+    background: #151515;
+    border-radius: 16px;
+    padding: 20px;
+    box-shadow: 0 8px 20px rgba(0,0,0,0.35);
+    border: 1px solid rgba(255,255,255,0.05);
+}
+
+.yorum-ust {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    margin-bottom: 12px;
+}
+
+.yorum-avatar {
+    width: 46px;
+    height: 46px;
+    border-radius: 50%;
+    background: #e50914;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-weight: bold;
+}
+
+.yorum-isim {
+    font-size: 17px;
+    font-weight: bold;
+}
+
+.yorum-puan {
+    color: #ffd54a;
+    font-size: 14px;
+    margin-top: 4px;
+}
+
+.yorum-metin {
+    color: #d2d2d2;
+    line-height: 1.6;
+    font-size: 15px;
 }
 
 .youtube {
@@ -269,9 +378,26 @@ body {
     </div>
 </div>
 
+<div class="sayaclar">
+    <div class="sayac-kutu">
+        <div class="sayac-sayi">10+</div>
+        <div class="sayac-yazi">Toplam Film</div>
+    </div>
+
+    <div class="sayac-kutu">
+        <div class="sayac-sayi">4</div>
+        <div class="sayac-yazi">Kategori</div>
+    </div>
+
+    <div class="sayac-kutu">
+        <div class="sayac-sayi">8</div>
+        <div class="sayac-yazi">Favori Film</div>
+    </div>
+</div>
+
 <div class="kategori-baslik">🎭 Kategoriler</div>
 
-<div class="kartlar" id="kategoriKartlari">
+<div class="kartlar">
 
     <a href="korku.html" class="kart korku arama-ogesi" data-ad="korku korku filmleri gerilim it conjuring insidious korku kategorisi">
         <div class="ikon">👻</div>
@@ -301,76 +427,123 @@ body {
 
 <div class="populer-baslik">🔥 Popüler Filmler</div>
 
-<div class="populer-alan" id="filmKartlari">
+<div class="populer-alan">
 
     <div class="film-kart arama-ogesi" data-ad="john wick aksiyon gerilim johnwick">
+        <div class="favori">★</div>
         <div class="film-ikon">🔫</div>
         <h3>John Wick</h3>
-        <p>Aksiyon ve gerilim</p>
+        <div class="film-bilgi">2014 • Aksiyon</div>
+        <div class="film-puan">⭐ IMDb 7.4</div>
         <a href="johnwick.html">İzle</a>
     </div>
 
     <div class="film-kart arama-ogesi" data-ad="interstellar bilim kurgu uzay interstellar">
+        <div class="favori">★</div>
         <div class="film-ikon">🌌</div>
         <h3>Interstellar</h3>
-        <p>Bilim kurgu ve uzay</p>
+        <div class="film-bilgi">2014 • Bilim Kurgu</div>
+        <div class="film-puan">⭐ IMDb 8.7</div>
         <a href="interstellar.html">İzle</a>
     </div>
 
     <div class="film-kart arama-ogesi" data-ad="matrix bilim kurgu aksiyon matrix">
+        <div class="favori">★</div>
         <div class="film-ikon">💊</div>
         <h3>Matrix</h3>
-        <p>Bilim kurgu ve aksiyon</p>
+        <div class="film-bilgi">1999 • Bilim Kurgu</div>
+        <div class="film-puan">⭐ IMDb 8.7</div>
         <a href="matrix.html">İzle</a>
     </div>
 
     <div class="film-kart arama-ogesi" data-ad="batman aksiyon karanlik kahraman">
+        <div class="favori">★</div>
         <div class="film-ikon">🦇</div>
         <h3>Batman</h3>
-        <p>Karanlık kahraman hikayesi</p>
+        <div class="film-bilgi">2022 • Aksiyon</div>
+        <div class="film-puan">⭐ IMDb 7.8</div>
         <a href="batman.html">İzle</a>
     </div>
 
     <div class="film-kart arama-ogesi" data-ad="inception bilim kurgu ruya zihin">
+        <div class="favori">★</div>
         <div class="film-ikon">🧠</div>
         <h3>Inception</h3>
-        <p>Rüya içinde rüya</p>
+        <div class="film-bilgi">2010 • Bilim Kurgu</div>
+        <div class="film-puan">⭐ IMDb 8.8</div>
         <a href="inception.html">İzle</a>
     </div>
 
     <div class="film-kart arama-ogesi" data-ad="avatar bilim kurgu fantastik macera pandora">
+        <div class="favori">★</div>
         <div class="film-ikon">🌍</div>
         <h3>Avatar</h3>
-        <p>Pandora gezegeni macerası</p>
+        <div class="film-bilgi">2009 • Macera</div>
+        <div class="film-puan">⭐ IMDb 7.9</div>
         <a href="avatar.html">İzle</a>
     </div>
 
     <div class="film-kart arama-ogesi" data-ad="joker dram psikolojik suc joker">
+        <div class="favori">★</div>
         <div class="film-ikon">🃏</div>
         <h3>Joker</h3>
-        <p>Karanlık karakter hikayesi</p>
+        <div class="film-bilgi">2019 • Dram</div>
+        <div class="film-puan">⭐ IMDb 8.4</div>
         <a href="joker.html">İzle</a>
     </div>
 
     <div class="film-kart arama-ogesi" data-ad="fast furious hiz araba aksiyon fast">
+        <div class="favori">★</div>
         <div class="film-ikon">🏎️</div>
         <h3>Fast & Furious</h3>
-        <p>Hız ve aksiyon dolu</p>
+        <div class="film-bilgi">2009 • Aksiyon</div>
+        <div class="film-puan">⭐ IMDb 6.5</div>
         <a href="fast.html">İzle</a>
     </div>
 
-    <div class="film-kart arama-ogesi" data-ad="it korku gerilim palyaço">
-        <div class="film-ikon">🎈</div>
-        <h3>IT</h3>
-        <p>Korku ve gerilim</p>
-        <a href="it.html">İzle</a>
+</div>
+
+<div class="yorum-baslik">💬 Ziyaretçi Yorumları</div>
+
+<div class="yorumlar">
+
+    <div class="yorum-kart">
+        <div class="yorum-ust">
+            <div class="yorum-avatar">A</div>
+            <div>
+                <div class="yorum-isim">Ahmet</div>
+                <div class="yorum-puan">★★★★★</div>
+            </div>
+        </div>
+        <div class="yorum-metin">
+            Site çok güzel olmuş. Özellikle film kartları ve sayfa düzeni çok iyi.
+        </div>
     </div>
 
-    <div class="film-kart arama-ogesi" data-ad="conjuring korku dogaustu gerilim">
-        <div class="film-ikon">🏚️</div>
-        <h3>Conjuring</h3>
-        <p>Doğaüstü korku filmi</p>
-        <a href="conjuring.html">İzle</a>
+    <div class="yorum-kart">
+        <div class="yorum-ust">
+            <div class="yorum-avatar">M</div>
+            <div>
+                <div class="yorum-isim">Merve</div>
+                <div class="yorum-puan">★★★★☆</div>
+            </div>
+        </div>
+        <div class="yorum-metin">
+            Arama bölümü güzel çalışıyor. Daha fazla film gelirse çok daha iyi olur.
+        </div>
+    </div>
+
+    <div class="yorum-kart">
+        <div class="yorum-ust">
+            <div class="yorum-avatar">K</div>
+            <div>
+                <div class="yorum-isim">Kerem</div>
+                <div class="yorum-puan">★★★★★</div>
+            </div>
+        </div>
+        <div class="yorum-metin">
+            Tasarım sade ama şık. Kategoriler ve popüler filmler bölümü hoşuma gitti.
+        </div>
     </div>
 
 </div>

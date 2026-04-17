@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Oda Chat + Video</title>
+<title>Oda Chat + Video Link</title>
 
 <style>
 body{
@@ -12,17 +12,14 @@ body{
     background:#0c0c14;
     color:white;
 }
-
 .ust{
     background:#111;
     padding:15px 20px;
     display:flex;
     justify-content:space-between;
     align-items:center;
-    gap:12px;
     flex-wrap:wrap;
 }
-
 .ust a{
     color:white;
     text-decoration:none;
@@ -30,33 +27,28 @@ body{
     padding:10px 14px;
     border-radius:10px;
 }
-
 .sayfa{
     max-width:1100px;
     margin:auto;
     padding:20px;
 }
-
-.video-kutu{
+.video-kutu, .chat{
     background:#151515;
     border-radius:18px;
     padding:18px;
     margin-bottom:20px;
 }
-
 .video-baslik{
     font-size:24px;
     font-weight:bold;
     margin-bottom:14px;
 }
-
 .video-kontrol{
     display:flex;
     gap:10px;
     flex-wrap:wrap;
     margin-bottom:14px;
 }
-
 .video-kontrol input{
     flex:1;
     min-width:260px;
@@ -66,8 +58,7 @@ body{
     background:#222;
     color:white;
 }
-
-.video-kontrol button{
+.video-kontrol button, .video-link-alani a, .input button{
     padding:12px 18px;
     border:none;
     border-radius:10px;
@@ -75,42 +66,26 @@ body{
     color:white;
     cursor:pointer;
     font-weight:bold;
+    text-decoration:none;
+    display:inline-block;
 }
-
-.video-kontrol button:hover{
+.video-kontrol button:hover, .video-link-alani a:hover, .input button:hover{
     background:#ff1e2d;
 }
-
-.oynatici{
-    width:100%;
-    aspect-ratio:16 / 9;
+.video-link-alani{
+    background:#1d1d1d;
     border-radius:14px;
-    overflow:hidden;
-    background:#000;
-    display:flex;
-    align-items:center;
-    justify-content:center;
-}
-
-.oynatici iframe{
-    width:100%;
-    height:100%;
-    border:0;
-}
-
-.video-bos{
-    color:#bbb;
-    text-align:center;
-    padding:20px;
-    line-height:1.6;
-}
-
-.chat{
-    background:#151515;
-    border-radius:18px;
     padding:18px;
+    line-height:1.7;
 }
-
+.video-link-yazi{
+    word-break:break-all;
+    color:#9fdcff;
+    margin-bottom:14px;
+}
+.chat{
+    margin-bottom:0;
+}
 .mesajlar{
     height:350px;
     overflow-y:auto;
@@ -118,18 +93,15 @@ body{
     padding:15px;
     border-radius:15px;
 }
-
 .mesaj{
     margin-bottom:10px;
     line-height:1.5;
 }
-
 .input{
     margin-top:12px;
     display:flex;
     gap:10px;
 }
-
 .input input{
     flex:1;
     padding:12px;
@@ -138,21 +110,6 @@ body{
     background:#222;
     color:white;
 }
-
-.input button{
-    padding:12px 20px;
-    border:none;
-    border-radius:10px;
-    background:#e50914;
-    color:white;
-    cursor:pointer;
-    font-weight:bold;
-}
-
-.input button:hover{
-    background:#ff1e2d;
-}
-
 .uyari{
     margin-top:10px;
     color:#ff9a9a;
@@ -170,7 +127,7 @@ body{
 <div class="sayfa">
 
     <div class="video-kutu">
-        <div class="video-baslik">📺 Ortak Video</div>
+        <div class="video-baslik">📺 Ortak Video Linki</div>
 
         <div class="video-kontrol">
             <input id="videoLink" placeholder="YouTube linki yapıştır...">
@@ -179,12 +136,10 @@ body{
 
         <div class="uyari" id="videoUyari"></div>
 
-        <div class="oynatici" id="oynaticiAlan">
-            <div class="video-bos" id="videoBosYazi">
-                Henüz video seçilmedi.<br>
-                YouTube linki yapıştırıp "Videoyu Değiştir" butonuna bas.
-            </div>
-            <iframe id="videoFrame" allowfullscreen style="display:none;"></iframe>
+        <div class="video-link-alani">
+            <div id="videoDurum">Henüz video seçilmedi.</div>
+            <div class="video-link-yazi" id="videoLinkYazi"></div>
+            <a id="youtubeAcBtn" href="#" target="_blank" style="display:none;">▶ YouTube'da Aç</a>
         </div>
     </div>
 
@@ -234,9 +189,10 @@ let isim = localStorage.getItem("filmizleful_isim") || "Misafir";
 document.getElementById("odaAdi").textContent = "📺 Oda: " + oda;
 
 const mesajlarDiv = document.getElementById("mesajlar");
-const videoFrame = document.getElementById("videoFrame");
 const videoInput = document.getElementById("videoLink");
-const videoBosYazi = document.getElementById("videoBosYazi");
+const videoDurum = document.getElementById("videoDurum");
+const videoLinkYazi = document.getElementById("videoLinkYazi");
+const youtubeAcBtn = document.getElementById("youtubeAcBtn");
 const videoUyari = document.getElementById("videoUyari");
 
 /* CHAT */
@@ -269,50 +225,27 @@ window.gonder = async function() {
 };
 
 /* VIDEO */
-function youtubeEmbedYap(link) {
-    try {
-        if (link.includes("youtube.com/watch?v=")) {
-            const url = new URL(link);
-            const id = url.searchParams.get("v");
-            if (id) return "https://www.youtube.com/embed/" + id;
-        }
-
-        if (link.includes("youtu.be/")) {
-            const parcalar = link.split("youtu.be/");
-            const id = parcalar[1]?.split("?")[0];
-            if (id) return "https://www.youtube.com/embed/" + id;
-        }
-
-        if (link.includes("youtube.com/embed/")) {
-            return link;
-        }
-
-        return "";
-    } catch {
-        return "";
-    }
-}
-
-function videoGoster(src) {
-    if (src) {
-        videoFrame.src = src;
-        videoFrame.style.display = "block";
-        videoBosYazi.style.display = "none";
-    } else {
-        videoFrame.src = "";
-        videoFrame.style.display = "none";
-        videoBosYazi.style.display = "block";
-    }
-}
-
 const roomDocRef = doc(db, "rooms", oda);
 
 async function odaBelgesiKontrolEt() {
     const snap = await getDoc(roomDocRef);
     if (!snap.exists()) {
         await setDoc(roomDocRef, {
-            video: ""
+            videoLink: ""
         });
+    }
+}
+
+function videoGuncelle(link) {
+    if (link) {
+        videoDurum.textContent = "Bu odada seçili video:";
+        videoLinkYazi.textContent = link;
+        youtubeAcBtn.href = link;
+        youtubeAcBtn.style.display = "inline-block";
+    } else {
+        videoDurum.textContent = "Henüz video seçilmedi.";
+        videoLinkYazi.textContent = "";
+        youtubeAcBtn.style.display = "none";
     }
 }
 
@@ -320,25 +253,24 @@ await odaBelgesiKontrolEt();
 
 onSnapshot(roomDocRef, (snap) => {
     const data = snap.data();
-    if (data && typeof data.video !== "undefined") {
-        videoGoster(data.video);
+    if (data && typeof data.videoLink !== "undefined") {
+        videoGuncelle(data.videoLink);
     } else {
-        videoGoster("");
+        videoGuncelle("");
     }
 });
 
 window.videoAyarla = async function() {
     const link = videoInput.value.trim();
-    const embed = youtubeEmbedYap(link);
 
-    if (!embed) {
+    if (!link || (!link.includes("youtube.com") && !link.includes("youtu.be"))) {
         videoUyari.textContent = "Geçerli bir YouTube linki yapıştır.";
         return;
     }
 
     videoUyari.textContent = "";
 
-    await setDoc(roomDocRef, { video: embed }, { merge: true });
+    await setDoc(roomDocRef, { videoLink: link }, { merge: true });
     videoInput.value = "";
 };
 </script>

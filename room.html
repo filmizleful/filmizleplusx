@@ -3,49 +3,59 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Oda - Filmizleful</title>
+<title>Özel Oda - Filmizleful</title>
 
 <style>
+*{box-sizing:border-box}
+
 body{
     margin:0;
     font-family:Arial, sans-serif;
-    background:#0c0c14;
+    background:radial-gradient(circle at top,#1a1a2b,#090910 65%,#000);
     color:white;
 }
+
 .ust{
     background:#111;
     padding:15px 20px;
     display:flex;
     justify-content:space-between;
     align-items:center;
-    flex-wrap:wrap;
     gap:10px;
+    flex-wrap:wrap;
+    border-bottom:1px solid rgba(255,255,255,0.06);
 }
+
 .ust-sol{
     display:flex;
     flex-direction:column;
     gap:5px;
 }
+
 .logo{
     color:#e50914;
     font-size:24px;
     font-weight:bold;
 }
+
 .oda-bilgi{
     color:#ccc;
     font-size:14px;
 }
+
 .rol{
     color:#ffd54a;
     font-size:14px;
     font-weight:bold;
 }
+
 .ust-sag{
     display:flex;
     gap:8px;
     flex-wrap:wrap;
 }
-.geri{
+
+.btn-ust{
     color:white;
     text-decoration:none;
     background:#222;
@@ -55,176 +65,222 @@ body{
     border:none;
     cursor:pointer;
 }
-.container{
-    display:flex;
-    gap:18px;
-    padding:20px;
-    box-sizing:border-box;
+
+.sayfa{
+    padding:18px;
 }
-.video-alan{
-    flex:2;
+
+.ana-grid{
+    display:grid;
+    grid-template-columns: 1.6fr 0.9fr;
+    gap:18px;
+}
+
+.sol{
     display:flex;
     flex-direction:column;
-    gap:12px;
+    gap:18px;
 }
-.video-kontrol{
+
+.sag{
+    display:flex;
+    flex-direction:column;
+    gap:18px;
+}
+
+.kart{
+    background:rgba(255,255,255,0.05);
+    border:1px solid rgba(255,255,255,0.06);
+    border-radius:18px;
+    padding:16px;
+    box-shadow:0 10px 25px rgba(0,0,0,0.18);
+}
+
+.kart-baslik{
+    font-size:22px;
+    font-weight:bold;
+    margin-bottom:12px;
+}
+
+.daily-wrap{
+    width:100%;
+    min-height:520px;
+    background:#0d0d14;
+    border-radius:16px;
+    overflow:hidden;
+    border:1px solid rgba(255,255,255,0.05);
+}
+
+#dailyContainer{
+    width:100%;
+    height:520px;
+}
+
+.kontrol-satiri{
     display:flex;
     gap:10px;
     flex-wrap:wrap;
+    margin-top:16px;
 }
-.video-kontrol input{
-    flex:1;
-    min-width:220px;
-    padding:12px;
-    border:none;
-    border-radius:10px;
-    background:#1c1c1c;
-    color:white;
-    box-sizing:border-box;
-}
-.video-kontrol button{
-    padding:12px 16px;
-    border:none;
-    border-radius:10px;
+
+.kontrol-satiri button{
     background:#e50914;
+    border:none;
     color:white;
+    padding:12px 14px;
+    border-radius:12px;
     font-weight:bold;
     cursor:pointer;
 }
-.video-kontrol button:disabled{
-    background:#555;
-    cursor:not-allowed;
+
+.kontrol-satiri button.gri{
+    background:#333;
 }
-.video-kutu{
-    background:black;
-    border-radius:14px;
-    overflow:hidden;
-    aspect-ratio:16/9;
-}
-.video-kutu iframe{
-    width:100%;
-    height:100%;
-    border:none;
-}
-.video-durum{
+
+.durum{
+    margin-top:14px;
     color:#9fdcff;
     font-size:14px;
-    word-break:break-all;
 }
-.uyari{
-    color:#ff9f9f;
-    font-size:14px;
-}
-.sag{
-    flex:1;
-    display:flex;
-    flex-direction:column;
-    gap:15px;
-}
-.online-kutu,
-.chat-kutu,
-.ses-kutu{
-    background:#151515;
-    border-radius:14px;
-    padding:14px;
-}
-.online-baslik,
-.chat-baslik,
-.ses-baslik{
-    font-size:20px;
-    font-weight:bold;
-    margin-bottom:10px;
-}
-.online-sayi{
-    color:#ffd54a;
-    margin-bottom:10px;
-}
-.online-liste{
-    background:#1b1b1b;
-    border-radius:10px;
-    padding:10px;
-    min-height:80px;
-    max-height:150px;
-    overflow-y:auto;
-}
-.online-kisi{
-    margin-bottom:8px;
-    color:#ddd;
-}
-.admin-kisi{
-    color:#ffd54a;
-    font-weight:bold;
-}
-.ses-aciklama{
-    color:#ccc;
-    font-size:14px;
-    line-height:1.5;
-    margin-bottom:10px;
-}
-.ses-butonlar{
-    display:flex;
-    gap:8px;
-    flex-wrap:wrap;
-}
-.ses-butonlar button{
-    border:none;
-    border-radius:10px;
-    background:#e50914;
-    color:white;
-    padding:10px 12px;
-    font-weight:bold;
-    cursor:pointer;
-}
-.ses-durum{
-    margin-top:10px;
-    font-size:14px;
-    color:#9fdcff;
-}
+
 .chat-kutu{
+    height:520px;
     display:flex;
     flex-direction:column;
-    height:420px;
 }
+
 .mesajlar{
     flex:1;
     overflow-y:auto;
-    background:#1b1b1b;
-    border-radius:10px;
+    background:#12121a;
+    border-radius:12px;
     padding:10px;
     margin-bottom:10px;
 }
+
 .mesaj{
     margin-bottom:10px;
     line-height:1.5;
     word-break:break-word;
 }
+
 .input-alan{
     display:flex;
-    gap:6px;
+    gap:8px;
 }
+
 .input-alan input{
     flex:1;
     padding:12px;
     border:none;
-    border-radius:10px;
+    border-radius:12px;
     background:#222;
     color:white;
 }
+
 .input-alan button{
     border:none;
-    border-radius:10px;
+    border-radius:12px;
     background:#e50914;
     color:white;
     padding:12px 14px;
     font-weight:bold;
     cursor:pointer;
 }
-@media(max-width:900px){
-    .container{
-        flex-direction:column;
+
+.online-liste{
+    background:#12121a;
+    border-radius:12px;
+    padding:10px;
+    min-height:110px;
+    max-height:180px;
+    overflow-y:auto;
+}
+
+.online-kisi{
+    margin-bottom:8px;
+    color:#ddd;
+}
+
+.admin-kisi{
+    color:#ffd54a;
+    font-weight:bold;
+}
+
+.online-sayi{
+    color:#ffd54a;
+    margin-bottom:10px;
+}
+
+.video-kontrol{
+    display:flex;
+    gap:10px;
+    flex-wrap:wrap;
+    margin-bottom:12px;
+}
+
+.video-kontrol input{
+    flex:1;
+    min-width:220px;
+    padding:12px;
+    border:none;
+    border-radius:12px;
+    background:#222;
+    color:white;
+}
+
+.video-kontrol button{
+    padding:12px 16px;
+    border:none;
+    border-radius:12px;
+    background:#e50914;
+    color:white;
+    font-weight:bold;
+    cursor:pointer;
+}
+
+.video-kontrol button:disabled{
+    background:#555;
+    cursor:not-allowed;
+}
+
+.video-kutu-alt{
+    background:black;
+    border-radius:14px;
+    overflow:hidden;
+    aspect-ratio:16/9;
+}
+
+.video-kutu-alt iframe{
+    width:100%;
+    height:100%;
+    border:none;
+}
+
+.uyari{
+    color:#ff9f9f;
+    font-size:14px;
+    margin-bottom:10px;
+}
+
+.video-durum{
+    margin-top:10px;
+    color:#9fdcff;
+    font-size:14px;
+    word-break:break-all;
+}
+
+@media(max-width:980px){
+    .ana-grid{
+        grid-template-columns:1fr;
     }
+
     .chat-kutu{
-        height:360px;
+        height:380px;
+    }
+
+    #dailyContainer{
+        height:420px;
     }
 }
 </style>
@@ -233,70 +289,87 @@ body{
 
 <div class="ust">
     <div class="ust-sol">
-        <div class="logo">🎬 Filmizleful Oda</div>
+        <div class="logo">🎬 Filmizleful Özel Oda</div>
         <div class="oda-bilgi" id="odaBilgi">Oda</div>
         <div class="rol" id="rolYazi">Rol</div>
     </div>
 
     <div class="ust-sag">
-        <a href="rooms.html" class="geri">← Geri</a>
-        <button onclick="linkKopyala()" class="geri">🔗 Linki Kopyala</button>
+        <a href="rooms.html" class="btn-ust">← Geri</a>
+        <button onclick="linkKopyala()" class="btn-ust">🔗 Linki Kopyala</button>
     </div>
 </div>
 
-<div class="container">
-    <div class="video-alan">
-        <div class="video-kontrol">
-            <input id="videoInput" placeholder="YouTube link yapıştır">
-            <button id="degistirBtn" onclick="videoDegistir()">Video Değiştir</button>
-        </div>
+<div class="sayfa">
+    <div class="ana-grid">
 
-        <div class="video-kontrol">
-            <input id="yeniSifreInput" type="password" placeholder="Yeni oda şifresi">
-            <button id="sifreDegistirBtn" onclick="sifreDegistir()">Şifre Değiştir</button>
-        </div>
+        <div class="sol">
 
-        <div class="uyari" id="uyari"></div>
+            <div class="kart">
+                <div class="kart-baslik">📹 Görüşme Alanı</div>
 
-        <div class="video-kutu">
-            <iframe id="videoFrame" allowfullscreen></iframe>
-        </div>
+                <div class="daily-wrap">
+                    <div id="dailyContainer"></div>
+                </div>
 
-        <div class="video-durum" id="videoDurum">Henüz video seçilmedi.</div>
-    </div>
+                <div class="kontrol-satiri">
+                    <button onclick="gorusmeyeKatil()">▶ Görüşmeye Katıl</button>
+                    <button onclick="kamerayiDegistir()">📷 Kamera Aç/Kapat</button>
+                    <button onclick="mikrofonuDegistir()">🎤 Mikrofon Aç/Kapat</button>
+                    <button class="gri" onclick="gorusmedenCik()">⏹ Çık</button>
+                </div>
 
-    <div class="sag">
-        <div class="online-kutu">
-            <div class="online-baslik">🟢 Online Kişiler</div>
-            <div class="online-sayi" id="onlineSayi">0 kişi online</div>
-            <div class="online-liste" id="onlineListe"></div>
-        </div>
-
-        <div class="ses-kutu">
-            <div class="ses-baslik">🎤 Sesli Sohbet</div>
-            <div class="ses-aciklama">
-                Sesli sohbet test aşamasında. Her cihazda çalışmayabilir.
+                <div class="durum" id="gorusmeDurum">Hazır. Görüşmeye Katıl butonuna bas.</div>
             </div>
 
-            <div class="ses-butonlar">
-                <button onclick="sesliBaslat()">Sesliyi Başlat</button>
-                <button onclick="sesliDurdur()">Kapat</button>
+            <div class="kart">
+                <div class="kart-baslik">🎬 Ortak Video Alanı</div>
+
+                <div class="video-kontrol">
+                    <input id="videoInput" placeholder="YouTube link yapıştır">
+                    <button id="degistirBtn" onclick="videoDegistir()">Video Değiştir</button>
+                </div>
+
+                <div class="video-kontrol">
+                    <input id="yeniSifreInput" type="password" placeholder="Yeni oda şifresi">
+                    <button id="sifreDegistirBtn" onclick="sifreDegistir()">Şifre Değiştir</button>
+                </div>
+
+                <div class="uyari" id="uyari"></div>
+
+                <div class="video-kutu-alt">
+                    <iframe id="videoFrame" allowfullscreen></iframe>
+                </div>
+
+                <div class="video-durum" id="videoDurum">Henüz ortak video seçilmedi.</div>
             </div>
 
-            <div class="ses-durum" id="sesDurum">Sesli sohbet kapalı.</div>
         </div>
 
-        <div class="chat-kutu">
-            <div class="chat-baslik">💬 Oda Sohbeti</div>
-            <div class="mesajlar" id="mesajlar"></div>
+        <div class="sag">
 
-            <div class="input-alan">
-                <input id="mesajInput" placeholder="Mesaj yaz...">
-                <button onclick="mesajGonder()">Gönder</button>
+            <div class="kart">
+                <div class="kart-baslik">🟢 Odadakiler</div>
+                <div class="online-sayi" id="onlineSayi">0 kişi online</div>
+                <div class="online-liste" id="onlineListe"></div>
             </div>
+
+            <div class="kart chat-kutu">
+                <div class="kart-baslik">💬 Sohbet</div>
+                <div class="mesajlar" id="mesajlar"></div>
+
+                <div class="input-alan">
+                    <input id="mesajInput" placeholder="Mesaj yaz...">
+                    <button onclick="mesajGonder()">Gönder</button>
+                </div>
+            </div>
+
         </div>
+
     </div>
 </div>
+
+<script src="https://unpkg.com/@daily-co/daily-js"></script>
 
 <script type="module">
 import { initializeApp } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-app.js";
@@ -326,6 +399,8 @@ const firebaseConfig = {
 const app = initializeApp(firebaseConfig);
 const db = getFirestore(app);
 
+const DAILY_BASE = "https://filmizleful.daily.co/filmizleful";
+
 const params = new URLSearchParams(window.location.search);
 const oda = params.get("oda") || "genel";
 const isim = localStorage.getItem("filmizleful_isim") || "Misafir";
@@ -342,10 +417,13 @@ let adminIsim = "";
 let adminMi = false;
 let heartbeatTimer = null;
 let cleanupTimer = null;
+let callFrame = null;
+let gorusmedeMi = false;
+let kameraAcik = true;
+let mikrofonAcik = true;
 
 const ONLINE_TIMEOUT = 15000;
 
-/* ŞİFRE KONTROL */
 async function sifreKontrol(){
     const odaDoc = await getDoc(odaRef);
     if(!odaDoc.exists()) return true;
@@ -373,7 +451,6 @@ if(!sifreTamam){
     throw new Error("Şifre doğrulanamadı");
 }
 
-/* VIDEO */
 function youtubeIdBul(link){
     try{
         if(link.includes("youtu.be/")){
@@ -381,18 +458,15 @@ function youtubeIdBul(link){
             if(id.includes("?")) id = id.split("?")[0];
             return id;
         }
-
         if(link.includes("youtube.com/watch?v=")){
             let url = new URL(link);
             return url.searchParams.get("v") || "";
         }
-
         if(link.includes("youtube.com/embed/")){
             let id = link.split("embed/")[1];
             if(id.includes("?")) id = id.split("?")[0];
             return id;
         }
-
         return "";
     }catch{
         return "";
@@ -434,11 +508,7 @@ window.videoDegistir = async function(){
     }
 
     document.getElementById("uyari").textContent = "";
-
-    await setDoc(odaRef, {
-        videoId: id
-    }, { merge:true });
-
+    await setDoc(odaRef, { videoId: id }, { merge:true });
     document.getElementById("videoInput").value = "";
 };
 
@@ -465,7 +535,6 @@ onSnapshot(odaRef, (snap) => {
     if(!snap.exists()) return;
 
     const d = snap.data();
-
     adminId = d.sahipId || "";
     adminIsim = d.sahip || "";
     adminMi = adminId === kullaniciId;
@@ -477,11 +546,10 @@ onSnapshot(odaRef, (snap) => {
         document.getElementById("videoDurum").textContent = "Şu an seçili video ID: " + d.videoId;
     }else{
         document.getElementById("videoFrame").src = "";
-        document.getElementById("videoDurum").textContent = "Henüz video seçilmedi.";
+        document.getElementById("videoDurum").textContent = "Henüz ortak video seçilmedi.";
     }
 });
 
-/* CHAT */
 const mesajQuery = query(collection(db, "rooms", oda, "messages"), orderBy("tarih"));
 
 onSnapshot(mesajQuery, (snap) => {
@@ -512,7 +580,6 @@ window.mesajGonder = async function(){
     input.value = "";
 };
 
-/* ONLINE / ADMIN */
 async function heartbeatGonder(){
     await setDoc(kullaniciRef, {
         isim: isim,
@@ -589,9 +656,7 @@ if(!ilkOda.exists() || !ilkOda.data().sahipId){
 }
 
 heartbeatTimer = setInterval(async () => {
-    try{
-        await heartbeatGonder();
-    }catch(e){}
+    try{ await heartbeatGonder(); }catch(e){}
 }, 5000);
 
 cleanupTimer = setInterval(async () => {
@@ -643,30 +708,111 @@ onSnapshot(collection(db, "rooms", oda, "users"), async () => {
     }
 });
 
-/* SESLI SOHBET TEST */
-window.sesliBaslat = function(){
-    document.getElementById("sesDurum").textContent = "Sesli sohbet test aşamasında. Her cihazda çalışmayabilir.";
+function odaIcinDailyLink(){
+    return DAILY_BASE + "?room=" + encodeURIComponent(oda) + "&userName=" + encodeURIComponent(isim);
+}
+
+function dailyHazirla(){
+    if(callFrame) return;
+
+    callFrame = window.DailyIframe.createFrame(
+        document.getElementById("dailyContainer"),
+        {
+            showLeaveButton: true,
+            showFullscreenButton: true,
+            iframeStyle: {
+                width: "100%",
+                height: "100%",
+                border: "0",
+                borderRadius: "16px"
+            }
+        }
+    );
+
+    callFrame
+        .on("joined-meeting", () => {
+            gorusmedeMi = true;
+            document.getElementById("gorusmeDurum").textContent = "Görüşme başladı.";
+        })
+        .on("left-meeting", () => {
+            gorusmedeMi = false;
+            document.getElementById("gorusmeDurum").textContent = "Görüşmeden çıkıldı.";
+        })
+        .on("camera-error", () => {
+            document.getElementById("gorusmeDurum").textContent = "Kamera hatası oluştu.";
+        })
+        .on("error", () => {
+            document.getElementById("gorusmeDurum").textContent = "Görüşme bağlantısında hata oluştu.";
+        });
+}
+
+window.gorusmeyeKatil = async function(){
+    try{
+        dailyHazirla();
+        await callFrame.join({
+            url: odaIcinDailyLink(),
+            userName: isim
+        });
+        document.getElementById("gorusmeDurum").textContent = "Bağlanılıyor...";
+    }catch(e){
+        document.getElementById("gorusmeDurum").textContent = "Görüşmeye katılırken hata oluştu.";
+    }
 };
 
-window.sesliDurdur = function(){
-    document.getElementById("sesDurum").textContent = "Sesli sohbet kapalı.";
+window.kamerayiDegistir = async function(){
+    if(!callFrame || !gorusmedeMi){
+        document.getElementById("gorusmeDurum").textContent = "Önce görüşmeye katıl.";
+        return;
+    }
+
+    kameraAcik = !kameraAcik;
+    try{
+        await callFrame.setLocalVideo(kameraAcik);
+        document.getElementById("gorusmeDurum").textContent = kameraAcik ? "Kamera açıldı." : "Kamera kapatıldı.";
+    }catch(e){
+        document.getElementById("gorusmeDurum").textContent = "Kamera değiştirilemedi.";
+    }
 };
 
-/* LİNK KOPYALA */
+window.mikrofonuDegistir = async function(){
+    if(!callFrame || !gorusmedeMi){
+        document.getElementById("gorusmeDurum").textContent = "Önce görüşmeye katıl.";
+        return;
+    }
+
+    mikrofonAcik = !mikrofonAcik;
+    try{
+        await callFrame.setLocalAudio(mikrofonAcik);
+        document.getElementById("gorusmeDurum").textContent = mikrofonAcik ? "Mikrofon açıldı." : "Mikrofon kapatıldı.";
+    }catch(e){
+        document.getElementById("gorusmeDurum").textContent = "Mikrofon değiştirilemedi.";
+    }
+};
+
+window.gorusmedenCik = async function(){
+    if(!callFrame) return;
+    try{
+        await callFrame.leave();
+        document.getElementById("gorusmeDurum").textContent = "Görüşmeden çıkıldı.";
+    }catch(e){
+        document.getElementById("gorusmeDurum").textContent = "Çıkış yapılamadı.";
+    }
+};
+
 window.linkKopyala = function(){
     const link = window.location.href;
 
     navigator.clipboard.writeText(link)
-    .then(()=>{
-        alert("Oda linki kopyalandı 👍");
-    })
-    .catch(()=>{
-        alert("Kopyalama başarısız");
-    });
+    .then(()=>{ alert("Oda linki kopyalandı 👍"); })
+    .catch(()=>{ alert("Kopyalama başarısız"); });
 };
 
 window.addEventListener("beforeunload", async () => {
     try{
+        if(callFrame){
+            try{ await callFrame.leave(); }catch(e){}
+            try{ callFrame.destroy(); }catch(e){}
+        }
         clearInterval(heartbeatTimer);
         clearInterval(cleanupTimer);
         await deleteDoc(kullaniciRef);

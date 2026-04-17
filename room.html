@@ -8,7 +8,7 @@
 <style>
 body{
     margin:0;
-    font-family:Arial;
+    font-family:Arial, sans-serif;
     background:#0c0c14;
     color:white;
 }
@@ -66,16 +66,16 @@ body{
     background:black;
 }
 
-.video iframe{
+#player{
     width:100%;
     height:100%;
-    border:0;
 }
 
 .kontrol{
     margin-top:10px;
     display:flex;
     gap:10px;
+    flex-wrap:wrap;
 }
 
 .kontrol input{
@@ -85,15 +85,22 @@ body{
     border:none;
     background:#222;
     color:white;
+    min-width:220px;
 }
 
 .kontrol button{
-    padding:10px;
+    padding:10px 14px;
     background:#e50914;
     border:none;
     border-radius:10px;
     color:white;
     cursor:pointer;
+    font-weight:bold;
+}
+
+.kontrol button:hover,
+.input button:hover{
+    background:#ff1e2d;
 }
 
 .sag-panel{
@@ -128,6 +135,8 @@ body{
     border-radius:12px;
     padding:10px;
     min-height:80px;
+    max-height:140px;
+    overflow-y:auto;
 }
 
 .online-kisi{
@@ -183,6 +192,14 @@ body{
     margin-top:8px;
     color:#ff9a9a;
     font-size:14px;
+    text-align:left;
+}
+
+.video-durum{
+    margin-top:10px;
+    color:#9fdcff;
+    font-size:14px;
+    text-align:left;
 }
 
 @media(max-width:900px){
@@ -211,15 +228,18 @@ body{
 
     <div class="video-alan">
         <div class="video">
-            <iframe id="oynatici" allowfullscreen></iframe>
+            <div id="player"></div>
         </div>
 
         <div class="kontrol">
             <input id="link" placeholder="YouTube link">
-            <button onclick="degistir()">Değiştir</button>
+            <button onclick="videoDegistir()">Video Değiştir</button>
+            <button onclick="playVideo()">▶ Play</button>
+            <button onclick="pauseVideo()">⏸ Pause</button>
         </div>
 
         <div class="uyari" id="uyari"></div>
+        <div class="video-durum" id="videoDurum">Henüz video seçilmedi.</div>
     </div>
 
     <div class="sag-panel">
@@ -244,6 +264,8 @@ body{
     </div>
 
 </div>
+
+<script src="https://www.youtube.com/iframe_api"></script>
 
 <script type="module">
 import { initializeApp } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-app.js";
@@ -278,7 +300,22 @@ const kullaniciId = "k_" + Date.now() + "_" + Math.floor(Math.random() * 100000)
 document.getElementById("odaAdi").innerText = "📺 Oda: " + oda;
 document.getElementById("kullaniciAdi").innerText = "👤 Sen: " + isim;
 
-/* VIDEO */
+let player;
+let sonVideoId = "";
+let sonAksiyon = "";
+
+window.onYouTubeIframeAPIReady = function () {
+    player = new YT.Player('player', {
+        height: '100%',
+        width: '100%',
+        videoId: '',
+        playerVars: {
+            playsinline: 1,
+            rel: 0
+        }
+    });
+};
+
 function youtubeIdBul(link){
     try{
         if(link.includes("youtu.be/")){
@@ -305,7 +342,11 @@ function youtubeIdBul(link){
     }
 }
 
-window.degistir = async function(){
+function playerHazirMi(){
+    return typeof player !== "undefined" && player && typeof player.loadVideoById === "function";
+}
+
+window.videoDegistir = async function(){
     let link = document.getElementById("link").value.trim();
     let id = youtubeIdBul(link);
 
@@ -315,15 +356,54 @@ window.degistir = async function(){
     }
 
     document.getElementById("uyari").textContent = "";
-    let embed = "https://www.youtube.com/embed/" + id;
 
-    await setDoc(doc(db, "odalar", oda), { video: embed });
+    await setDoc(doc(db, "odalar", oda), {
+        videoId: id,
+        action: "load",
+        actionTime: Date.now()
+    }, { merge:true });
+
     document.getElementById("link").value = "";
-}
+};
+
+window.playVideo = async function(){
+    await setDoc(doc(db, "odalar", oda), {
+        action: "play",
+        actionTime: Date.now()
+    }, { merge:true });
+};
+
+window.pauseVideo = async function(){
+    await setDoc(doc(db, "odalar", oda), {
+        action: "pause",
+        actionTime: Date.now()
+    }, { merge:true });
+};
 
 onSnapshot(doc(db, "odalar", oda), (docSnap)=>{
-    if(docSnap.exists() && docSnap.data().video){
-        document.getElementById("oynatici").src = docSnap.data().video;
+    if(!docSnap.exists()) return;
+
+    const data = docSnap.data();
+
+    if(data.videoId){
+        document.getElementById("videoDurum").textContent = "Şu an seçili video ID: " + data.videoId;
+    }
+
+    if(data.videoId && data.videoId !== sonVideoId && playerHazirMi()){
+        sonVideoId = data.videoId;
+        player.loadVideoById(data.videoId);
+    }
+
+    if(data.action && data.actionTime && (data.action + "_" + data.actionTime) !== sonAksiyon && playerHazirMi()){
+        sonAksiyon = data.action + "_" + data.actionTime;
+
+        if(data.action === "play"){
+            try { player.playVideo(); } catch(e) {}
+        }
+
+        if(data.action === "pause"){
+            try { player.pauseVideo(); } catch(e) {}
+        }
     }
 });
 

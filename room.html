@@ -6,9 +6,13 @@
 <title>Özel Oda</title>
 
 <style>
+*{
+    box-sizing:border-box;
+}
+
 body{
     margin:0;
-    font-family:Arial;
+    font-family:Arial, sans-serif;
     background:#0f0f1a;
     color:white;
 }
@@ -19,12 +23,20 @@ body{
     display:flex;
     justify-content:space-between;
     align-items:center;
+    flex-wrap:wrap;
+    gap:10px;
 }
 
 .logo{
     color:#e50914;
     font-size:22px;
     font-weight:bold;
+}
+
+.ust-sag{
+    display:flex;
+    gap:10px;
+    flex-wrap:wrap;
 }
 
 .btn{
@@ -34,71 +46,220 @@ body{
     padding:10px 15px;
     border-radius:8px;
     cursor:pointer;
+    text-decoration:none;
+    display:inline-block;
+    font-weight:bold;
 }
 
-.container{
+.sayfa{
     padding:20px;
+}
+
+.oda-bilgi{
+    margin-bottom:15px;
+    color:#ccc;
+}
+
+.grid{
     display:grid;
     grid-template-columns:2fr 1fr;
     gap:20px;
 }
 
-.video{
-    background:black;
-    height:300px;
+.sol{
+    display:flex;
+    flex-direction:column;
+    gap:20px;
+}
+
+.sag{
+    display:flex;
+    flex-direction:column;
+    gap:20px;
+}
+
+.kutu{
+    background:#1a1a2b;
+    border-radius:14px;
+    padding:14px;
+}
+
+.baslik{
+    font-size:20px;
+    font-weight:bold;
+    margin-bottom:12px;
+}
+
+#jitsiContainer{
+    width:100%;
+    height:420px;
+    background:#000;
+    border-radius:12px;
+    overflow:hidden;
+}
+
+.videoKontrol{
+    display:flex;
+    gap:10px;
+    flex-wrap:wrap;
+    margin-bottom:12px;
+}
+
+.videoKontrol input{
+    flex:1;
+    min-width:220px;
+    padding:12px;
+    border:none;
+    border-radius:10px;
+    background:#222;
+    color:white;
+}
+
+.videoAlan{
+    width:100%;
+    aspect-ratio:16/9;
+    background:#000;
+    border-radius:12px;
+    overflow:hidden;
+}
+
+.videoAlan iframe{
+    width:100%;
+    height:100%;
+    border:none;
 }
 
 .chat{
-    background:#1a1a2b;
-    padding:10px;
     height:300px;
     overflow:auto;
-}
-
-input{
-    width:100%;
+    background:#12121f;
+    border-radius:10px;
     padding:10px;
-    margin-top:10px;
+    margin-bottom:10px;
 }
 
+.mesaj{
+    margin-bottom:8px;
+    padding:8px;
+    background:#222;
+    border-radius:8px;
+    word-break:break-word;
+}
+
+.chatAlt{
+    display:flex;
+    gap:8px;
+}
+
+.chatAlt input{
+    flex:1;
+    padding:10px;
+    border:none;
+    border-radius:8px;
+    background:#222;
+    color:white;
+}
+
+.onlineListe{
+    background:#12121f;
+    border-radius:10px;
+    padding:10px;
+    min-height:120px;
+}
+
+.onlineKisi{
+    margin-bottom:8px;
+    padding:6px 8px;
+    background:#222;
+    border-radius:8px;
+}
+
+@media(max-width:900px){
+    .grid{
+        grid-template-columns:1fr;
+    }
+
+    #jitsiContainer{
+        height:340px;
+    }
+}
 </style>
 </head>
-
 <body>
 
 <div class="ust">
     <div class="logo">🎬 Filmizleful Oda</div>
-    <button class="btn" onclick="linkKopyala()">Link Kopyala</button>
+
+    <div class="ust-sag">
+        <a href="rooms.html" class="btn">← Geri</a>
+        <button class="btn" onclick="linkKopyala()">🔗 Link Kopyala</button>
+    </div>
 </div>
 
-<div style="padding:20px;">
-    <button class="btn" onclick="gorus()">🎥 Görüşmeye Katıl</button>
-</div>
+<div class="sayfa">
+    <div class="oda-bilgi" id="odaBilgi">Oda bilgisi</div>
 
-<div class="container">
+    <div class="grid">
+        <div class="sol">
 
-    <div>
-        <h3>🎬 Ortak Video</h3>
-        <input id="videoInput" placeholder="YouTube link yapıştır">
-        <button class="btn" onclick="videoAyarla()">Video Aç</button>
+            <div class="kutu">
+                <div class="baslik">📹 Görüntülü Görüşme</div>
+                <div id="jitsiContainer"></div>
+            </div>
 
-        <div class="video">
-            <iframe id="videoFrame" width="100%" height="100%" allowfullscreen></iframe>
+            <div class="kutu">
+                <div class="baslik">🎬 Ortak Video</div>
+
+                <div class="videoKontrol">
+                    <input id="videoInput" placeholder="YouTube link yapıştır">
+                    <button class="btn" onclick="videoAyarla()">Video Aç</button>
+                </div>
+
+                <div class="videoAlan">
+                    <iframe id="videoFrame" allowfullscreen></iframe>
+                </div>
+            </div>
+
+        </div>
+
+        <div class="sag">
+
+            <div class="kutu">
+                <div class="baslik">🟢 Odadakiler</div>
+                <div class="onlineListe" id="onlineListe"></div>
+            </div>
+
+            <div class="kutu">
+                <div class="baslik">💬 Sohbet</div>
+                <div class="chat" id="chat"></div>
+
+                <div class="chatAlt">
+                    <input id="mesaj" placeholder="Mesaj yaz...">
+                    <button class="btn" onclick="gonder()">Gönder</button>
+                </div>
+            </div>
+
         </div>
     </div>
-
-    <div>
-        <h3>💬 Chat</h3>
-        <div class="chat" id="chat"></div>
-        <input id="mesaj" placeholder="Mesaj yaz...">
-        <button class="btn" onclick="gonder()">Gönder</button>
-    </div>
-
 </div>
+
+<script src="https://meet.jit.si/external_api.js"></script>
 
 <script type="module">
 import { initializeApp } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-app.js";
-import { getFirestore, collection, addDoc, onSnapshot } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-firestore.js";
+import {
+    getFirestore,
+    collection,
+    addDoc,
+    onSnapshot,
+    doc,
+    setDoc,
+    getDoc,
+    getDocs,
+    deleteDoc,
+    query,
+    orderBy
+} from "https://www.gstatic.com/firebasejs/10.7.1/firebase-firestore.js";
 
 const firebaseConfig = {
   apiKey: "AIzaSyBNoenb7tM6mFK8DEruxFtYLo_FwUXY7uc",
@@ -111,48 +272,199 @@ const db = getFirestore(app);
 
 const params = new URLSearchParams(window.location.search);
 const oda = params.get("oda") || "genel";
+const isim = localStorage.getItem("filmizleful_isim") || "Misafir";
+const avatar = localStorage.getItem("filmizleful_avatar") || "😎";
 
-window.gorus = function(){
-    window.open("https://meet.jit.si/filmizleful_" + oda);
-};
+document.getElementById("odaBilgi").textContent = "📺 Oda: " + oda + " • " + avatar + " " + isim;
 
-window.videoAyarla = function(){
-    let link = document.getElementById("videoInput").value;
+const kullaniciId = "k_" + Date.now() + "_" + Math.floor(Math.random() * 100000);
+const userRef = doc(db, "rooms", oda, "users", kullaniciId);
+const odaRef = doc(db, "odalar", oda);
 
-    let id = "";
+let api = null;
+const ONLINE_TIMEOUT = 15000;
 
-    if(link.includes("youtu.be/")){
-        id = link.split("youtu.be/")[1];
-    }else if(link.includes("watch?v=")){
-        id = link.split("v=")[1];
+/* ŞİFRE KONTROL */
+async function sifreKontrol(){
+    const odaDoc = await getDoc(odaRef);
+    if(!odaDoc.exists()) return true;
+
+    const data = odaDoc.data();
+    if(!data.sifreli || !data.sifre) return true;
+
+    const kayitAnahtari = "filmizleful_izin_" + oda;
+    const oncekiIzin = sessionStorage.getItem(kayitAnahtari);
+    if(oncekiIzin === "tamam") return true;
+
+    const girilen = prompt("Bu oda şifreli. Şifreyi gir:");
+    if(girilen !== data.sifre){
+        alert("Şifre yanlış");
+        window.location.href = "rooms.html";
+        return false;
     }
 
-    document.getElementById("videoFrame").src =
-    "https://www.youtube.com/embed/" + id;
+    sessionStorage.setItem(kayitAnahtari, "tamam");
+    return true;
+}
+
+const izin = await sifreKontrol();
+if(!izin){
+    throw new Error("Şifre hatalı");
+}
+
+/* JITSI GÖMÜLÜ */
+function jitsiBaslat(){
+    if(api) return;
+
+    const domain = "meet.jit.si";
+    const options = {
+        roomName: "filmizleful_" + oda,
+        parentNode: document.querySelector("#jitsiContainer"),
+        userInfo: {
+            displayName: avatar + " " + isim
+        },
+        configOverwrite: {
+            prejoinPageEnabled: false,
+            startWithAudioMuted: false,
+            startWithVideoMuted: false
+        },
+        interfaceConfigOverwrite: {
+            SHOW_JITSI_WATERMARK: false,
+            SHOW_BRAND_WATERMARK: false
+        }
+    };
+
+    api = new JitsiMeetExternalAPI(domain, options);
+}
+
+jitsiBaslat();
+
+/* VIDEO */
+function youtubeIdBul(link){
+    try{
+        if(link.includes("youtu.be/")){
+            let id = link.split("youtu.be/")[1];
+            if(id.includes("?")) id = id.split("?")[0];
+            return id;
+        }else if(link.includes("watch?v=")){
+            let id = link.split("v=")[1];
+            if(id.includes("&")) id = id.split("&")[0];
+            return id;
+        }else if(link.includes("embed/")){
+            let id = link.split("embed/")[1];
+            if(id.includes("?")) id = id.split("?")[0];
+            return id;
+        }
+        return "";
+    }catch{
+        return "";
+    }
+}
+
+window.videoAyarla = async function(){
+    const link = document.getElementById("videoInput").value.trim();
+    const id = youtubeIdBul(link);
+
+    if(!id){
+        alert("Geçerli YouTube linki gir");
+        return;
+    }
+
+    await setDoc(odaRef, { videoId: id }, { merge:true });
+    document.getElementById("videoInput").value = "";
 };
 
-window.gonder = async function(){
-    let mesaj = document.getElementById("mesaj").value;
+onSnapshot(odaRef, (snap)=>{
+    if(!snap.exists()) return;
+    const data = snap.data();
+    if(data.videoId){
+        document.getElementById("videoFrame").src = "https://www.youtube.com/embed/" + data.videoId;
+    }
+});
 
-    await addDoc(collection(db, "chat_"+oda), {
-        mesaj: mesaj
+/* CHAT */
+const chatRef = collection(db, "chat_" + oda);
+
+window.gonder = async function(){
+    const mesaj = document.getElementById("mesaj").value.trim();
+    if(!mesaj) return;
+
+    await addDoc(chatRef, {
+        isim: isim,
+        avatar: avatar,
+        mesaj: mesaj,
+        tarih: Date.now()
     });
 
     document.getElementById("mesaj").value = "";
 };
 
-onSnapshot(collection(db, "chat_"+oda), (snap)=>{
+onSnapshot(chatRef, (snap)=>{
     let html = "";
-    snap.forEach(doc=>{
-        html += "<div>"+doc.data().mesaj+"</div>";
+    snap.forEach(docSnap=>{
+        const data = docSnap.data();
+        html += `<div class="mesaj"><b>${data.avatar} ${data.isim}:</b> ${data.mesaj}</div>`;
     });
     document.getElementById("chat").innerHTML = html;
+    const alan = document.getElementById("chat");
+    alan.scrollTop = alan.scrollHeight;
 });
 
+/* ONLINE LİSTE */
+async function heartbeat(){
+    await setDoc(userRef, {
+        isim: isim,
+        avatar: avatar,
+        sonGorulme: Date.now(),
+        giris: Date.now()
+    }, { merge:true });
+}
+
+await heartbeat();
+
+setInterval(async()=>{
+    try{
+        await heartbeat();
+    }catch(e){}
+}, 5000);
+
+onSnapshot(collection(db, "rooms", oda, "users"), async ()=>{
+    const snap = await getDocs(query(collection(db, "rooms", oda, "users"), orderBy("giris")));
+    const simdi = Date.now();
+    let html = "";
+
+    for(const belge of snap.docs){
+        const data = belge.data();
+        const son = data.sonGorulme || 0;
+
+        if(simdi - son > ONLINE_TIMEOUT){
+            try{
+                await deleteDoc(doc(db, "rooms", oda, "users", belge.id));
+            }catch(e){}
+            continue;
+        }
+
+        html += `<div class="onlineKisi">${data.avatar || "😎"} ${data.isim}</div>`;
+    }
+
+    document.getElementById("onlineListe").innerHTML = html || "<div class='onlineKisi'>Kimse yok</div>";
+});
+
+/* LİNK KOPYALA */
 window.linkKopyala = function(){
-    navigator.clipboard.writeText(window.location.href);
-    alert("Link kopyalandı");
+    navigator.clipboard.writeText(window.location.href)
+    .then(()=> alert("Link kopyalandı"))
+    .catch(()=> alert("Kopyalama olmadı"));
 };
+
+window.addEventListener("beforeunload", async ()=>{
+    try{
+        if(api){
+            api.dispose();
+        }
+        await deleteDoc(userRef);
+    }catch(e){}
+});
 </script>
 
 </body>

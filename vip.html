@@ -2,491 +2,168 @@
 <html lang="tr">
 <head>
 <meta charset="UTF-8">
+<title>Filmizleful VIP</title>
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>VIP - Filmizleful</title>
 
 <style>
-*{
-    box-sizing:border-box;
-}
-
 body{
-    margin:0;
-    font-family:Arial, sans-serif;
-    background:radial-gradient(circle at top,#1d1a33 0%,#0b0b14 55%,#000 100%);
-    color:white;
+  background:#0f0f1a;
+  color:white;
+  font-family:Arial;
+  margin:0;
+  padding:20px;
 }
 
-.ustbar{
-    background:rgba(10,10,16,0.95);
-    padding:18px 28px;
-    display:flex;
-    justify-content:space-between;
-    align-items:center;
-    flex-wrap:wrap;
-    gap:12px;
-    border-bottom:1px solid rgba(255,255,255,0.05);
+.container{
+  max-width:1000px;
+  margin:auto;
 }
 
-.logo{
-    font-size:28px;
-    color:#ffcf70;
-    font-weight:bold;
-}
-
-.menu{
-    display:flex;
-    gap:12px;
-    flex-wrap:wrap;
-    align-items:center;
-}
-
-.menu a{
-    color:white;
-    text-decoration:none;
-    padding:8px 14px;
-    border-radius:10px;
-    background:#1c1c2b;
-    transition:0.3s;
-    font-weight:bold;
-}
-
-.menu a:hover{
-    background:#2a2a3b;
-}
-
-.sayfa{
-    max-width:1200px;
-    margin:0 auto;
-    padding:28px 20px 60px;
-}
-
-.kullanici-kutu{
-    background:rgba(255,255,255,0.05);
-    border:1px solid rgba(255,255,255,0.06);
-    border-radius:20px;
-    padding:18px;
-    margin-bottom:22px;
-}
-
-.kullanici-baslik{
-    font-size:22px;
-    font-weight:bold;
-    margin-bottom:8px;
-    color:#ffe7a3;
-}
-
-.kullanici-yazi{
-    color:#ddd;
-    line-height:1.6;
-}
-
-.aciklama-kutu{
-    background:rgba(255,255,255,0.05);
-    border:1px solid rgba(255,255,255,0.06);
-    border-radius:20px;
-    padding:18px;
-    margin-bottom:22px;
-    line-height:1.8;
-    color:#ddd;
-}
-
-.aciklama-kutu b{
-    color:#fff0b0;
-}
-
-.grid{
-    display:grid;
-    grid-template-columns:1fr 1fr;
-    gap:20px;
-}
-
-.kart{
-    background:rgba(255,255,255,0.05);
-    border:1px solid rgba(255,255,255,0.06);
-    border-radius:22px;
-    padding:22px;
-    box-shadow:0 10px 25px rgba(0,0,0,0.18);
-}
-
-.kart h2{
-    margin:0 0 14px;
-    font-size:28px;
-    color:#ffe7a3;
-}
-
-.kart p{
-    color:#d7d7e4;
-    line-height:1.6;
-}
-
-label{
-    display:block;
-    margin:14px 0 8px;
-    font-weight:bold;
-    color:#f1f1f7;
+.box{
+  background:#1a1a2e;
+  padding:20px;
+  border-radius:12px;
+  margin-bottom:20px;
 }
 
 input{
-    width:100%;
-    padding:14px;
-    border:none;
-    border-radius:12px;
-    background:#1e1e2b;
-    color:white;
-    font-size:16px;
-    outline:none;
-    margin-bottom:8px;
+  width:100%;
+  padding:10px;
+  margin-top:10px;
+  border:none;
+  border-radius:8px;
+  background:#2a2a40;
+  color:white;
 }
 
-.buton{
-    margin-top:16px;
-    padding:14px 18px;
-    border:none;
-    border-radius:14px;
-    background:linear-gradient(90deg,#ffd76a,#ffb347);
-    color:#222;
-    font-weight:bold;
-    cursor:pointer;
-    font-size:16px;
+button{
+  margin-top:15px;
+  padding:10px;
+  width:100%;
+  border:none;
+  border-radius:8px;
+  background:#ff6b81;
+  color:white;
+  font-weight:bold;
+  cursor:pointer;
 }
 
-.buton-kirmizi{
-    background:#ff5c74;
-    color:white;
-}
-
-.durum{
-    margin-top:14px;
-    min-height:20px;
-    color:#ffd54a;
-    font-size:14px;
-}
-
-.liste{
-    margin-top:14px;
-    display:flex;
-    flex-direction:column;
-    gap:12px;
-}
-
-.item{
-    background:#151522;
-    border:1px solid rgba(255,255,255,0.05);
-    border-radius:16px;
-    padding:14px;
-}
-
-.item-ust{
-    font-weight:bold;
-    margin-bottom:6px;
-}
-
-.item-alt{
-    color:#ccc;
-    font-size:14px;
-    line-height:1.5;
-}
-
-.item-btnler{
-    display:flex;
-    gap:10px;
-    flex-wrap:wrap;
-    margin-top:12px;
-}
-
-.item-btnler button{
-    border:none;
-    border-radius:10px;
-    padding:10px 14px;
-    cursor:pointer;
-    font-weight:bold;
-}
-
-.yok{
-    color:#aaa;
-    padding:8px 0;
-}
-
-.uyari{
-    margin-top:18px;
-    padding:14px;
-    border-radius:14px;
-    background:#2b1e1e;
-    color:#ffb3b3;
-    border:1px solid rgba(255,100,100,0.18);
-}
-
-@media(max-width:900px){
-    .grid{
-        grid-template-columns:1fr;
-    }
+button:hover{
+  opacity:0.8;
 }
 </style>
 </head>
+
 <body>
 
-<div class="ustbar">
-    <div class="logo">👑 Filmizleful VIP</div>
+<div class="container">
 
-    <div class="menu">
-        <a href="index.html">Ana Sayfa</a>
-        <a href="rooms.html">💬 Odalar</a>
-        <a href="vip.html">👑 VIP</a>
-        <a href="giris.html">👤 Giriş</a>
-    </div>
+<h2>👑 VIP Özel Oda</h2>
+
+<!-- 🔥 AÇIKLAMA -->
+<div class="box">
+🔥 <b>VIP Özel Oda Nedir?</b><br><br>
+• VIP bölümünde <b>özel görüntülü ve sesli sohbet</b> yapabilirsin.<br>
+• Burada <b>film izleme yoktur</b>, sadece birebir konuşma vardır.<br>
+• Bir kullanıcıyı davet edersin, kabul edince <b>direkt özel odaya girersiniz</b>.<br>
+• İstersen sadece arkadaşınla veya özel biriyle konuşabilirsin.<br><br>
+🔒 <b>Özel ve güvenli görüşme alanıdır.</b>
 </div>
 
-<div class="sayfa">
+<!-- DAVET -->
+<div class="box">
+<h3>📩 Davet Gönder</h3>
 
-    <div class="kullanici-kutu">
-        <div class="kullanici-baslik">VIP Kullanıcı</div>
-        <div class="kullanici-yazi" id="kullaniciBilgi">Kontrol ediliyor...</div>
-        <div class="uyari" id="girisUyari" style="display:none;">
-            Önce giriş yapman lazım. Menüden <b>👤 Giriş</b> sayfasına git.
-        </div>
-    </div>
+<input id="hedefInput" placeholder="Kullanıcı adı (örn: ali34)">
+<input id="odaInput" placeholder="Oda adı (boş bırakırsan otomatik)">
 
-    <div class="aciklama-kutu">
-        🔥 <b>VIP Özel Oda Nedir?</b><br><br>
-        • VIP bölümünde <b>özel görüntülü ve sesli sohbet</b> yapabilirsin.<br>
-        • Burada <b>film izleme yoktur</b>, sadece birebir konuşma vardır.<br>
-        • Bir kullanıcıyı davet edersin, kabul edince <b>direkt özel VIP odaya girersiniz</b>.<br>
-        • İstersen sadece arkadaşınla, eşinle veya özel biriyle konuşabilirsin.<br><br>
-        🔒 <b>Özel ve güvenli görüşme alanıdır.</b>
-    </div>
+<button onclick="davetGonder()">Davet Gönder</button>
 
-    <div class="grid">
-
-        <div class="kart">
-            <h2>📨 Davet Gönder</h2>
-            <p>Bir kullanıcı adı yaz. Daveti kabul ederse direkt VIP görüntülü odaya gireceksiniz.</p>
-
-            <label>Davet edilecek kullanıcı adı</label>
-            <input type="text" id="hedefInput" placeholder="örn: ali34">
-
-            <label>Özel oda adı</label>
-            <input type="text" id="odaInput" placeholder="boş bırakırsan otomatik oluşur">
-
-            <button class="buton" onclick="davetGonder()">Davet Gönder</button>
-            <div class="durum" id="gonderDurum"></div>
-
-            <div class="liste" id="gidenListe"></div>
-        </div>
-
-        <div class="kart">
-            <h2>📥 Gelen Davetler</h2>
-            <p>Biri seni çağırınca burada görünecek. Kabul edince direkt VIP görüntülü odaya gidersin.</p>
-
-            <div class="liste" id="gelenListe"></div>
-        </div>
-
-    </div>
+<p id="durum"></p>
 </div>
 
+</div>
+
+<!-- 🔥 TEK SCRIPT -->
 <script type="module">
 import { initializeApp } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-app.js";
-import {
-  getFirestore,
-  doc,
-  getDoc,
-  setDoc,
-  collection,
-  addDoc,
-  onSnapshot,
-  updateDoc
-} from "https://www.gstatic.com/firebasejs/10.7.1/firebase-firestore.js";
+import { getFirestore, collection, addDoc, doc, getDoc } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-firestore.js";
 
+/* FIREBASE */
 const firebaseConfig = {
-  apiKey: "AIzaSyBNoenb7tM6mFK8DEruxFtYLo_FwUXY7uc",
+  apiKey: "AIzaSyBNoenb7tM6mFK8DEruxFtYLo_FwXXY7uc",
   authDomain: "filmizleful-chat.firebaseapp.com",
-  projectId: "filmizleful-chat",
-  storageBucket: "filmizleful-chat.firebasestorage.app",
-  messagingSenderId: "873061099685",
-  appId: "1:873061099685:web:aa697ed2baadd453dc454c"
+  projectId: "filmizleful-chat"
 };
 
 const app = initializeApp(firebaseConfig);
 const db = getFirestore(app);
 
-const kullaniciAdi = (localStorage.getItem("filmizleful_kullanici") || localStorage.getItem("kullanici") || "").trim().toLowerCase();
-const gorunenAd = localStorage.getItem("filmizleful_isim") || localStorage.getItem("kullanici") || "";
-const avatar = localStorage.getItem("filmizleful_avatar") || "😎";
+/* KULLANICI */
+let kullaniciAdi = localStorage.getItem("filmizleful_kullanici");
+let gorunenAd = localStorage.getItem("filmizleful_isim");
+let avatar = localStorage.getItem("filmizleful_avatar") || "😎";
 
-const kullaniciBilgi = document.getElementById("kullaniciBilgi");
-const girisUyari = document.getElementById("girisUyari");
-const gonderDurum = document.getElementById("gonderDurum");
-const gelenListe = document.getElementById("gelenListe");
-const gidenListe = document.getElementById("gidenListe");
-
-function temizleKullaniciAdi(metin){
-  return (metin || "")
-    .toLowerCase()
-    .trim()
-    .replace(/\s+/g, "")
-    .replace(/[^a-z0-9_]/g, "");
+/* YARDIMCI */
+function temizle(ad){
+  return (ad || "").toLowerCase().replace(/\s+/g, "");
 }
 
-function otomatikOdaOlustur(){
-  return "vip_" + Date.now() + "_" + Math.floor(Math.random() * 100000);
+function odaOlustur(){
+  return "vip_" + Math.random().toString(36).substring(2,8);
 }
 
-function durumYaz(yazi, renk="#ffd54a"){
-  gonderDurum.textContent = yazi;
-  gonderDurum.style.color = renk;
+function durumYaz(mesaj, renk){
+  const el = document.getElementById("durum");
+  el.innerText = mesaj;
+  el.style.color = renk;
 }
 
-if(!kullaniciAdi){
-  kullaniciBilgi.textContent = "Giriş yapılmamış.";
-  girisUyari.style.display = "block";
-} else {
-  kullaniciBilgi.textContent = avatar + " @" + kullaniciAdi + " olarak giriş yapıldı.";
-}
-
-async function kullaniciyiKaydet(){
-  if(!kullaniciAdi) return;
-
-  await setDoc(doc(db, "kullanicilar", kullaniciAdi), {
-    kullaniciAdi: kullaniciAdi,
-    ad: gorunenAd || kullaniciAdi,
-    avatar: avatar,
-    aktif: true,
-    guncellendi: Date.now()
-  }, { merge:true });
-}
-
-if(kullaniciAdi){
-  await kullaniciyiKaydet();
-}
-
+/* 🔥 DAVET SİSTEMİ */
 window.davetGonder = async function(){
+
   if(!kullaniciAdi){
-    durumYaz("Önce giriş yap.", "#ff9f9f");
+    durumYaz("Önce giriş yap!", "red");
     return;
   }
 
-  const hedefHam = document.getElementById("hedefInput").value;
-  const hedef = temizleKullaniciAdi(hedefHam);
+  const hedef = temizle(document.getElementById("hedefInput").value);
   let oda = document.getElementById("odaInput").value.trim();
 
   if(!hedef){
-    durumYaz("Kullanıcı adı yaz.", "#ff9f9f");
+    durumYaz("Kullanıcı adı yaz!", "red");
     return;
   }
 
   if(hedef === kullaniciAdi){
-    durumYaz("Kendine davet gönderemezsin.", "#ff9f9f");
+    durumYaz("Kendine davet gönderemezsin!", "red");
     return;
   }
 
   if(!oda){
-    oda = otomatikOdaOlustur();
-  }else{
-    oda = oda.toLowerCase().replace(/\s+/g, "_").replace(/[^a-z0-9_-]/g, "");
+    oda = odaOlustur();
   }
 
-  const hedefRef = doc(db, "kullanicilar", hedef);
-  const hedefDoc = await getDoc(hedefRef);
+  const ref = doc(db, "kullanicilar", hedef);
+  const snap = await getDoc(ref);
 
-  if(!hedefDoc.exists()){
-    durumYaz("Bu kullanıcı bulunamadı. Karşı tarafın da siteye en az bir kez girmiş olması gerekir.", "#ff9f9f");
+  if(!snap.exists()){
+    durumYaz("Kullanıcı bulunamadı!", "red");
     return;
   }
 
   await addDoc(collection(db, "davetler"), {
     gonderen: kullaniciAdi,
-    gonderenAd: gorunenAd || kullaniciAdi,
-    gonderenAvatar: avatar,
     hedef: hedef,
     oda: oda,
-    durum: "bekliyor",
     tarih: Date.now()
   });
 
-  document.getElementById("hedefInput").value = "";
-  document.getElementById("odaInput").value = "";
-  durumYaz("Davet gönderildi 👍", "#90ffb2");
-};
+  durumYaz("Davet gönderildi! Odaya giriliyor...", "lime");
 
-function gelenleriCiz(liste){
-  const benimDavetlerim = liste
-    .filter(x => x.hedef === kullaniciAdi && x.durum === "bekliyor")
-    .sort((a,b) => b.tarih - a.tarih);
-
-  if(benimDavetlerim.length === 0){
-    gelenListe.innerHTML = "<div class='yok'>Henüz gelen davet yok.</div>";
-    return;
-  }
-
-  gelenListe.innerHTML = benimDavetlerim.map(item => `
-    <div class="item">
-      <div class="item-ust">${item.gonderenAvatar || "😎"} @${item.gonderen}</div>
-      <div class="item-alt">
-        Seni özel odaya çağırdı.<br>
-        Oda: <b>${item.oda}</b>
-      </div>
-      <div class="item-btnler">
-        <button class="buton" onclick="davetKabul('${item.id}', '${item.oda}')">Kabul Et</button>
-        <button class="buton-kirmizi" onclick="davetReddet('${item.id}')">Reddet</button>
-      </div>
-    </div>
-  `).join("");
-}
-
-function gidenleriCiz(liste){
-  const benimGidenler = liste
-    .filter(x => x.gonderen === kullaniciAdi)
-    .sort((a,b) => b.tarih - a.tarih)
-    .slice(0, 8);
-
-  if(benimGidenler.length === 0){
-    gidenListe.innerHTML = "<div class='yok'>Henüz gönderilmiş davet yok.</div>";
-    return;
-  }
-
-  gidenListe.innerHTML = benimGidenler.map(item => `
-    <div class="item">
-      <div class="item-ust">@${item.hedef}</div>
-      <div class="item-alt">
-        Oda: <b>${item.oda}</b><br>
-        Durum: <b>${item.durum}</b>
-      </div>
-      <div class="item-btnler">
-        <button class="buton" onclick="vipOdayaGir('${item.oda}')">Özel Odaya Gir</button>
-      </div>
-    </div>
-  `).join("");
-}
-
-onSnapshot(collection(db, "davetler"), (snap) => {
-  const liste = [];
-  snap.forEach(docSnap => {
-    liste.push({
-      id: docSnap.id,
-      ...docSnap.data()
-    });
-  });
-
-  gelenleriCiz(liste);
-  gidenleriCiz(liste);
-});
-
-window.davetKabul = async function(id, oda){
-  await updateDoc(doc(db, "davetler", id), {
-    durum: "kabul"
-  });
-
-  window.location.href = "vip-room.html?oda=" + encodeURIComponent(oda);
-};
-
-window.davetReddet = async function(id){
-  await updateDoc(doc(db, "davetler", id), {
-    durum: "red"
-  });
-};
-
-window.vipOdayaGir = function(oda){
-  window.location.href = "vip-room.html?oda=" + encodeURIComponent(oda);
+  setTimeout(()=>{
+    window.location.href = "vip-room.html?oda=" + oda;
+  },700);
 };
 </script>
 

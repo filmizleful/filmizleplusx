@@ -483,6 +483,7 @@ if(ad){
 }
 </script>
 <script>
+<script>
 function rastgele(min, max){
   return Math.floor(Math.random() * (max - min + 1)) + min;
 }
@@ -495,44 +496,6 @@ function guncelle(){
 
 setInterval(guncelle, 3000);
 guncelle();
-</script>
-<script type="module">
-import { initializeApp } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-app.js";
-import { getFirestore, doc, setDoc } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-firestore.js";
-
-const firebaseConfig = {
-  apiKey: "AIzaSyBNoenb7tM6mFK8DEruxFtYLo_FwUXY7uc",
-  authDomain: "filmizleful-chat.firebaseapp.com",
-  projectId: "filmizleful-chat"
-};
-
-const app = initializeApp(firebaseConfig);
-const db = getFirestore(app);
-
-let kullanici = localStorage.getItem("filmizleful_kullanici");
-
-if(!kullanici){
-
-    let ad = prompt("Kullanıcı adı seç (örnek: ali34)");
-
-    if(ad){
-        ad = ad.toLowerCase().replace(/\s+/g, "");
-
-        localStorage.setItem("filmizleful_kullanici", ad);
-        localStorage.setItem("filmizleful_isim", ad);
-        localStorage.setItem("filmizleful_avatar", "😎");
-
-        await setDoc(doc(db, "kullanicilar", ad), {
-            kullaniciAdi: ad,
-            ad: ad,
-            avatar: "😎",
-            aktif: true,
-            tarih: Date.now()
-        });
-
-        location.reload();
-    }
-}
 </script>
 </body>
 </html>

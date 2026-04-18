@@ -1,451 +1,106 @@
 <!DOCTYPE html>
 <html lang="tr">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>VIP - Filmizleful</title>
-  <style>
-    * {
-      box-sizing: border-box;
-      margin: 0;
-      padding: 0;
-      font-family: Arial, sans-serif;
-    }
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>VIP Özel Oda - Filmizleful</title>
 
-    body {
-      background: linear-gradient(135deg, #0b1020, #1b1f3a);
-      color: white;
-      min-height: 100vh;
-      padding: 20px;
-    }
+<style>
+*{box-sizing:border-box}
 
-    .container {
-      max-width: 760px;
-      margin: 0 auto;
-    }
+body{
+    margin:0;
+    font-family:Arial, sans-serif;
+    background:#0b0b14;
+    color:white;
+}
 
-    .box {
-      background: rgba(255,255,255,0.06);
-      border: 1px solid rgba(255,255,255,0.08);
-      border-radius: 18px;
-      padding: 20px;
-      margin-bottom: 18px;
-    }
+.ust{
+    background:#111;
+    padding:14px 20px;
+    display:flex;
+    justify-content:space-between;
+    align-items:center;
+    flex-wrap:wrap;
+    gap:10px;
+    border-bottom:1px solid rgba(255,255,255,0.06);
+}
 
-    h1 {
-      text-align: center;
-      margin-bottom: 20px;
-      color: #ffd89b;
-    }
+.logo{
+    color:#ffcf70;
+    font-size:22px;
+    font-weight:bold;
+}
 
-    h2 {
-      margin-bottom: 12px;
-      color: #ffd89b;
-      font-size: 22px;
-    }
+.btn{
+    background:#ff5c74;
+    color:white;
+    text-decoration:none;
+    padding:10px 14px;
+    border-radius:10px;
+    font-weight:bold;
+    display:inline-block;
+}
 
-    h3 {
-      margin-bottom: 12px;
-      color: #ffd89b;
-    }
+.bilgi{
+    padding:14px 20px;
+    color:#ddd;
+    line-height:1.6;
+}
 
-    p {
-      line-height: 1.5;
-      margin-bottom: 8px;
-    }
+#jitsiWrap{
+    width:100%;
+    height:calc(100vh - 110px);
+}
 
-    input {
-      width: 100%;
-      padding: 14px;
-      border: none;
-      outline: none;
-      border-radius: 12px;
-      margin: 10px 0 14px;
-      font-size: 15px;
+@media(max-width:700px){
+    #jitsiWrap{
+        height:calc(100vh - 130px);
     }
-
-    button {
-      border: none;
-      border-radius: 12px;
-      padding: 12px 18px;
-      font-weight: bold;
-      cursor: pointer;
-      margin: 6px 8px 0 0;
-    }
-
-    .gold {
-      background: #ffd89b;
-      color: #2b1d0e;
-    }
-
-    .white {
-      background: #ffffff;
-      color: #222;
-    }
-
-    .red {
-      background: #ff6f6f;
-      color: white;
-    }
-
-    .gray {
-      background: #d7d7d7;
-      color: #222;
-    }
-
-    .room-card {
-      background: rgba(255,255,255,0.05);
-      border: 1px solid rgba(255,255,255,0.08);
-      border-radius: 16px;
-      padding: 16px;
-      margin-bottom: 14px;
-    }
-
-    .room-card strong {
-      color: #fff;
-    }
-
-    .muted {
-      color: #d7d7d7;
-      font-size: 14px;
-    }
-
-    .empty {
-      text-align: center;
-      color: #ccc;
-      padding: 16px 0;
-    }
-
-    a.back {
-      display: inline-block;
-      color: #ffd89b;
-      text-decoration: none;
-      margin-bottom: 16px;
-      font-weight: bold;
-    }
-
-    .top-actions {
-      margin-top: 10px;
-    }
-
-    .room-area {
-      margin-top: 18px;
-      display: none;
-    }
-
-    .room-box {
-      background: rgba(255,255,255,0.05);
-      border: 1px solid rgba(255,255,255,0.08);
-      border-radius: 16px;
-      padding: 18px;
-    }
-
-    .video-box {
-      margin-top: 14px;
-      background: rgba(255,255,255,0.04);
-      border-radius: 14px;
-      padding: 14px;
-    }
-
-    .video-box input {
-      margin-top: 10px;
-      margin-bottom: 10px;
-    }
-
-    iframe {
-      width: 100%;
-      height: 320px;
-      border: none;
-      border-radius: 14px;
-      background: #000;
-      margin-top: 10px;
-    }
-  </style>
+}
+</style>
 </head>
 <body>
-  <div class="container">
-    <a class="back" href="index.html">← Ana sayfaya dön</a>
 
-    <h1>VIP Özel Oda</h1>
+<div class="ust">
+    <div class="logo">👑 Filmizleful VIP Oda</div>
+    <a href="vip.html" class="btn">← VIP'e Dön</a>
+</div>
 
-    <div class="box">
-      <p><strong>Giriş yapan kullanıcı:</strong> <span id="currentUser"></span></p>
-      <p class="muted">Buradan özel oda oluşturabilir, birine davet gönderebilir ve odaya geçebilirsin.</p>
+<div class="bilgi" id="odaYazi">VIP oda yükleniyor...</div>
 
-      <div class="top-actions">
-        <button class="red" onclick="clearAllInvites()">Tüm Eski Davetleri Sil</button>
-      </div>
-    </div>
+<div id="jitsiWrap"></div>
 
-    <div class="box">
-      <label for="inviteUser"><strong>Davet gönderilecek kullanıcı adı</strong></label>
-      <input type="text" id="inviteUser" placeholder="@kullaniciadi veya kullaniciadi" />
-      <button class="gold" onclick="createPrivateRoom()">Özel Oda Oluştur ve Davet Gönder</button>
-    </div>
+<script src="https://meet.jit.si/external_api.js"></script>
+<script>
+const params = new URLSearchParams(window.location.search);
+const oda = params.get("oda") || "vip_oda";
+const isim =
+  localStorage.getItem("filmizleful_isim") ||
+  localStorage.getItem("kullanici") ||
+  "Misafir";
+const avatar = localStorage.getItem("filmizleful_avatar") || "😎";
 
-    <div class="box">
-      <h3>Gelen / Aktif Davetler</h3>
-      <div id="inviteList"></div>
-    </div>
+document.getElementById("odaYazi").innerText =
+  "Özel oda: " + oda + " • " + avatar + " " + isim;
 
-    <div class="room-area" id="roomArea">
-      <div class="room-box">
-        <h2>Özel Oda</h2>
-        <p><strong>Oda ID:</strong> <span id="roomIdText">-</span></p>
-        <p><strong>Sen:</strong> <span id="meText">-</span></p>
-        <p class="muted">Artık aynı sayfa içinde odaya girmiş oldun.</p>
-
-        <div class="video-box">
-          <strong>YouTube video linki yapıştır</strong>
-          <input type="text" id="youtubeLink" placeholder="https://www.youtube.com/watch?v=..." />
-          <button class="gold" onclick="playVideo()">Videoyu Aç</button>
-          <iframe id="videoFrame" allowfullscreen></iframe>
-        </div>
-      </div>
-    </div>
-  </div>
-
-  <script>
-    const STORAGE_KEY = "vipInvites";
-    const USER_KEY = "username";
-
-    const currentUsername = (localStorage.getItem(USER_KEY) || "misafir").replace("@", "").trim().toLowerCase();
-    document.getElementById("currentUser").textContent = "@" + currentUsername;
-    document.getElementById("meText").textContent = "@" + currentUsername;
-
-    function getInvites() {
-      try {
-        return JSON.parse(localStorage.getItem(STORAGE_KEY)) || [];
-      } catch {
-        return [];
-      }
+const api = new JitsiMeetExternalAPI("meet.jit.si", {
+    roomName: "filmizleful_vip_" + oda,
+    parentNode: document.querySelector("#jitsiWrap"),
+    userInfo: {
+        displayName: avatar + " " + isim
+    },
+    configOverwrite: {
+        prejoinPageEnabled: false,
+        startWithAudioMuted: false,
+        startWithVideoMuted: false
+    },
+    interfaceConfigOverwrite: {
+        SHOW_JITSI_WATERMARK: false,
+        SHOW_BRAND_WATERMARK: false
     }
+});
+</script>
 
-    function saveInvites(invites) {
-      localStorage.setItem(STORAGE_KEY, JSON.stringify(invites));
-    }
-
-    function cleanUsername(name) {
-      return String(name || "").replace("@", "").trim().toLowerCase();
-    }
-
-    function generateRoomId() {
-      return "oda_" + Date.now();
-    }
-
-    function escapeHtml(text) {
-      return String(text)
-        .replace(/&/g, "&amp;")
-        .replace(/</g, "&lt;")
-        .replace(/>/g, "&gt;")
-        .replace(/"/g, "&quot;")
-        .replace(/'/g, "&#039;");
-    }
-
-    function createPrivateRoom() {
-      const input = document.getElementById("inviteUser");
-      const targetRaw = input.value.trim();
-
-      if (!targetRaw) {
-        alert("Önce kullanıcı adı yaz.");
-        return;
-      }
-
-      const targetUser = cleanUsername(targetRaw);
-
-      if (targetUser === currentUsername) {
-        alert("Kendine davet gönderemezsin.");
-        return;
-      }
-
-      const invites = getInvites();
-      const roomId = generateRoomId();
-
-      invites.push({
-        id: Date.now(),
-        roomId: roomId,
-        from: currentUsername,
-        to: targetUser,
-        status: "bekliyor",
-        createdAt: new Date().toISOString()
-      });
-
-      saveInvites(invites);
-      input.value = "";
-      renderInvites();
-
-      // Gönderen kişi direkt odaya girsin
-      openRoom(roomId);
-    }
-
-    function acceptInvite(inviteId) {
-      const invites = getInvites();
-      const invite = invites.find(item => item.id === inviteId);
-
-      if (!invite) {
-        alert("Davet bulunamadı.");
-        return;
-      }
-
-      invite.status = "kabul";
-      saveInvites(invites);
-      renderInvites();
-      openRoom(invite.roomId);
-    }
-
-    function enterRoom(inviteId) {
-      const invites = getInvites();
-      const invite = invites.find(item => item.id === inviteId);
-
-      if (!invite) {
-        alert("Oda bulunamadı.");
-        return;
-      }
-
-      openRoom(invite.roomId);
-    }
-
-    function deleteInvite(inviteId) {
-      const invites = getInvites().filter(item => item.id !== inviteId);
-      saveInvites(invites);
-      renderInvites();
-    }
-
-    function clearAllInvites() {
-      localStorage.removeItem(STORAGE_KEY);
-      renderInvites();
-      document.getElementById("roomArea").style.display = "none";
-      alert("Tüm eski davetler silindi.");
-    }
-
-    function openRoom(roomId) {
-      document.getElementById("roomArea").style.display = "block";
-      document.getElementById("roomIdText").textContent = roomId;
-      window.scrollTo({ top: document.body.scrollHeight, behavior: "smooth" });
-    }
-
-    function youtubeToEmbed(url) {
-      if (!url) return "";
-
-      try {
-        if (url.includes("youtube.com/watch?v=")) {
-          const u = new URL(url);
-          const id = u.searchParams.get("v");
-          if (id) return "https://www.youtube.com/embed/" + id;
-        }
-
-        if (url.includes("youtu.be/")) {
-          const parts = url.split("youtu.be/");
-          if (parts[1]) {
-            const id = parts[1].split("?")[0];
-            return "https://www.youtube.com/embed/" + id;
-          }
-        }
-
-        if (url.includes("youtube.com/embed/")) {
-          return url;
-        }
-
-        return "";
-      } catch {
-        return "";
-      }
-    }
-
-    function playVideo() {
-      const link = document.getElementById("youtubeLink").value.trim();
-      const embedLink = youtubeToEmbed(link);
-
-      if (!embedLink) {
-        alert("Geçerli bir YouTube linki yapıştır.");
-        return;
-      }
-
-      document.getElementById("videoFrame").src = embedLink;
-    }
-
-    function cleanupInvites(invites) {
-      const seen = new Set();
-      const cleaned = [];
-
-      for (const invite of invites) {
-        if (!invite) continue;
-        if (!invite.id || !invite.roomId || !invite.from || !invite.to) continue;
-
-        const key = invite.id + "_" + invite.roomId;
-        if (seen.has(key)) continue;
-        seen.add(key);
-
-        cleaned.push({
-          id: invite.id,
-          roomId: invite.roomId,
-          from: cleanUsername(invite.from),
-          to: cleanUsername(invite.to),
-          status: invite.status || "bekliyor",
-          createdAt: invite.createdAt || new Date().toISOString()
-        });
-      }
-
-      return cleaned;
-    }
-
-    function renderInvites() {
-      const inviteList = document.getElementById("inviteList");
-      let invites = cleanupInvites(getInvites());
-      saveInvites(invites);
-
-      const myInvites = invites.filter(invite => {
-        return cleanUsername(invite.from) === currentUsername || cleanUsername(invite.to) === currentUsername;
-      });
-
-      if (myInvites.length === 0) {
-        inviteList.innerHTML = '<div class="empty">Şu an aktif davet yok.</div>';
-        return;
-      }
-
-      inviteList.innerHTML = "";
-
-      myInvites.sort((a, b) => b.id - a.id);
-
-      myInvites.forEach(invite => {
-        const isSender = cleanUsername(invite.from) === currentUsername;
-        const isReceiver = cleanUsername(invite.to) === currentUsername;
-
-        let buttons = "";
-
-        // Gönderen kişi her zaman kendi açtığı odaya girebilsin
-        if (isSender) {
-          buttons += `<button class="gold" onclick="enterRoom(${invite.id})">Odaya Gir</button>`;
-        }
-
-        // Alıcı bekliyorsa kabul etsin
-        if (isReceiver && invite.status === "bekliyor") {
-          buttons += `<button class="gold" onclick="acceptInvite(${invite.id})">Kabul Et ve Gir</button>`;
-        }
-
-        // Alıcı kabul ettiyse tekrar girebilsin
-        if (isReceiver && invite.status === "kabul") {
-          buttons += `<button class="white" onclick="enterRoom(${invite.id})">Özel Odaya Gir</button>`;
-        }
-
-        // Her iki taraf da silebilsin
-        buttons += `<button class="red" onclick="deleteInvite(${invite.id})">Sil</button>`;
-
-        const card = document.createElement("div");
-        card.className = "room-card";
-        card.innerHTML = `
-          <p><strong>Oda:</strong> ${escapeHtml(invite.roomId)}</p>
-          <p><strong>Gönderen:</strong> @${escapeHtml(invite.from)}</p>
-          <p><strong>Alıcı:</strong> @${escapeHtml(invite.to)}</p>
-          <p><strong>Durum:</strong> ${escapeHtml(invite.status)}</p>
-          <div>${buttons}</div>
-        `;
-
-        inviteList.appendChild(card);
-      });
-    }
-
-    renderInvites();
-  </script>
 </body>
 </html>

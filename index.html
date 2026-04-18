@@ -671,6 +671,19 @@ function favoriEkle(id, ad, bilgi, resim){
     alert(ad + " favorilere eklendi.");
 }
 </script>
+<script>
+document.addEventListener("DOMContentLoaded", function () {
+  const menu = document.querySelector("nav, .ust, .menu");
 
+  if (menu) {
+    const tv = document.createElement("a");
+    tv.href = "tv.html";
+    tv.innerText = "📺 TV";
+    tv.style.marginLeft = "10px";
+
+    menu.appendChild(tv);
+  }
+});
+</script>
 </body>
 </html>

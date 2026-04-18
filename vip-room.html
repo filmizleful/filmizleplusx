@@ -40,22 +40,112 @@ body{
     border-radius:10px;
     font-weight:bold;
     display:inline-block;
+    border:none;
+    cursor:pointer;
 }
 
 .bilgi{
-    padding:14px 20px;
+    padding:14px 20px 8px;
     color:#ddd;
     line-height:1.6;
 }
 
+.tvAlan{
+    margin:0 20px 14px;
+    background:#12121d;
+    border:1px solid rgba(255,255,255,0.08);
+    border-radius:16px;
+    overflow:hidden;
+}
+
+.tvUst{
+    display:flex;
+    justify-content:space-between;
+    align-items:center;
+    gap:10px;
+    flex-wrap:wrap;
+    padding:14px;
+    background:#171726;
+}
+
+.tvBaslik{
+    font-size:18px;
+    font-weight:bold;
+    color:#ffcf70;
+}
+
+.tvKontroller{
+    display:flex;
+    gap:10px;
+    flex-wrap:wrap;
+    align-items:center;
+}
+
+.tvSec{
+    padding:10px 12px;
+    border-radius:10px;
+    border:none;
+    outline:none;
+    background:#222238;
+    color:white;
+    font-weight:bold;
+}
+
+.tvGovde{
+    display:none;
+    padding:14px;
+}
+
+.tvGovde.aktif{
+    display:block;
+}
+
+.tvVideo{
+    width:100%;
+    aspect-ratio:16/9;
+    background:black;
+    border-radius:14px;
+    overflow:hidden;
+    border:1px solid rgba(255,255,255,0.08);
+}
+
+.tvVideo iframe{
+    width:100%;
+    height:100%;
+    border:none;
+}
+
+.tvNot{
+    margin-top:10px;
+    color:#bbb;
+    font-size:14px;
+    line-height:1.5;
+}
+
 #jitsiWrap{
     width:100%;
-    height:calc(100vh - 110px);
+    height:calc(100vh - 290px);
 }
 
 @media(max-width:700px){
+    .tvUst{
+        align-items:stretch;
+    }
+
+    .tvKontroller{
+        width:100%;
+        flex-direction:column;
+        align-items:stretch;
+    }
+
+    .tvSec,
+    .btn{
+        width:100%;
+        text-align:center;
+    }
+
     #jitsiWrap{
-        height:calc(100vh - 130px);
+        height:calc(100vh - 360px);
     }
 }
 </style>
@@ -68,6 +158,40 @@ body{
 </div>
 
 <div class="bilgi" id="odaYazi">VIP oda yükleniyor...</div>
+
+<div class="tvAlan">
+    <div class="tvUst">
+        <div class="tvBaslik">📺 Ortak TV</div>
+
+        <div class="tvKontroller">
+            <select id="tvSec" class="tvSec" onchange="kanalDegistir()">
+                <option value="https://www.youtube.com/embed/live_stream?channel=UC7fWeaHhqgM4Ry-RMpM2YYw">TRT Haber</option>
+                <option value="https://www.youtube.com/embed/live_stream?channel=UCNye-wNBqNL5ZzHSJj3l8Bg">Al Jazeera</option>
+                <option value="https://www.youtube.com/embed/live_stream?channel=UCQfwfsi5VrQ8yKZ-UWmAEFg">France 24</option>
+                <option value="https://www.youtube.com/embed/live_stream?channel=UCknLrEdhRCp1aegoMqRaCZg">DW News</option>
+                <option value="https://www.youtube.com/embed/live_stream?channel=UCoMdktPbSTixAyNGwb-UYkQ">Sky News</option>
+                <option value="https://www.youtube.com/embed/live_stream?channel=UCLA_DiR1FfKNvjuUpBHmylQ">NASA TV</option>
+            </select>
+
+            <button class="btn" onclick="tvAcKapat()" id="tvBtn">TV Aç</button>
+        </div>
+    </div>
+
+    <div class="tvGovde" id="tvGovde">
+        <div class="tvVideo">
+            <iframe
+                id="tvPlayer"
+                src=""
+                allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+                allowfullscreen>
+            </iframe>
+        </div>
+
+        <div class="tvNot">
+            Bu bölüm VIP odanın içindedir. Jitsi tarafındaki davet özelliği durur. TV açınca oda bozulmaz.
+        </div>
+    </div>
+</div>
 
 <div id="jitsiWrap"></div>
 
@@ -93,13 +217,59 @@ const api = new JitsiMeetExternalAPI("meet.jit.si", {
     configOverwrite: {
         prejoinPageEnabled: false,
         startWithAudioMuted: false,
-        startWithVideoMuted: false
+        startWithVideoMuted: false,
+        disableDeepLinking: true
     },
     interfaceConfigOverwrite: {
         SHOW_JITSI_WATERMARK: false,
-        SHOW_BRAND_WATERMARK: false
+        SHOW_BRAND_WATERMARK: false,
+        TOOLBAR_BUTTONS: [
+            'microphone',
+            'camera',
+            'closedcaptions',
+            'desktop',
+            'fullscreen',
+            'fodeviceselection',
+            'hangup',
+            'chat',
+            'settings',
+            'raisehand',
+            'videoquality',
+            'filmstrip',
+            'invite',
+            'participants-pane',
+            'tileview',
+            'select-background'
+        ]
     }
 });
+
+function tvAcKapat(){
+    const govde = document.getElementById("tvGovde");
+    const btn = document.getElementById("tvBtn");
+    const player = document.getElementById("tvPlayer");
+    const secilen = document.getElementById("tvSec").value;
+
+    if(govde.classList.contains("aktif")){
+        govde.classList.remove("aktif");
+        btn.innerText = "TV Aç";
+        player.src = "";
+    }else{
+        govde.classList.add("aktif");
+        btn.innerText = "TV Kapat";
+        player.src = secilen + "&autoplay=1";
+    }
+}
+
+function kanalDegistir(){
+    const govde = document.getElementById("tvGovde");
+    const player = document.getElementById("tvPlayer");
+    const secilen = document.getElementById("tvSec").value;
+
+    if(govde.classList.contains("aktif")){
+        player.src = secilen + "&autoplay=1";
+    }
+}
 </script>
 
 </body>

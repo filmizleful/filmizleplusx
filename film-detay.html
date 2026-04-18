@@ -3,17 +3,15 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Mad Max</title>
+<title>Film Detayı</title>
 
 <style>
-*{
-    box-sizing:border-box;
-}
+*{box-sizing:border-box;}
 
 body{
     margin:0;
     font-family:Arial, sans-serif;
-    background: radial-gradient(circle at top, #202033, #0c0c14 70%);
+    background:radial-gradient(circle at top, #202033, #0c0c14 70%);
     color:white;
     min-height:100vh;
 }
@@ -29,19 +27,17 @@ body{
     align-items:flex-start;
     gap:55px;
     margin-bottom:70px;
+    flex-wrap:wrap;
 }
 
 .poster{
     width:230px;
     height:300px;
     border-radius:22px;
+    overflow:hidden;
     background:rgba(255,255,255,0.03);
     box-shadow:0 10px 30px rgba(0,0,0,0.35);
-    display:flex;
-    align-items:center;
-    justify-content:center;
     flex-shrink:0;
-    overflow:hidden;
 }
 
 .poster img{
@@ -141,8 +137,10 @@ body{
     color:#f2f2f2;
 }
 
-.hakkinda p:last-child{
-    margin-bottom:0;
+.hata{
+    text-align:center;
+    padding:100px 20px;
+    font-size:24px;
 }
 
 @media (max-width:900px){
@@ -190,48 +188,61 @@ body{
 </head>
 <body>
 
-<div class="sayfa">
+<div class="sayfa" id="detayAlani"></div>
 
-    <div class="ust">
-        <div class="poster">
-            <img src="https://image.tmdb.org/t/p/w500/8tZYtuWezp8JbcsvHYO0O46tFbo.jpg" alt="Mad Max Afiş">
+<script src="filmler.js"></script>
+<script>
+const params = new URLSearchParams(window.location.search);
+const filmId = params.get("id");
+const film = filmBul(filmId);
+const detayAlani = document.getElementById("detayAlani");
+
+if(!film){
+    detayAlani.innerHTML = `
+        <div class="hata">
+            Film bulunamadı.<br><br>
+            <a href="index.html" style="color:#fff; text-decoration:none; background:#444; padding:12px 20px; border-radius:12px;">Ana Sayfaya Dön</a>
         </div>
+    `;
+}else{
+    document.title = film.isim;
 
-        <div class="bilgi">
-            <h1>Mad Max</h1>
+    let geriSayfasi = "index.html";
 
-            <div class="meta">Aksiyon • Macera • Bilim Kurgu • IMDb 8.1</div>
+    if(film.tur === "aksiyon") geriSayfasi = "aksiyon.html";
+    if(film.tur === "korku") geriSayfasi = "korku.html";
+    if(film.tur === "bilimkurgu") geriSayfasi = "bilimkurgu.html";
+    if(film.tur === "macera") geriSayfasi = "macera.html";
 
-            <div class="ozet">
-                Mad Max, çölleşmiş bir dünyada hayatta kalma savaşı veren karakterlerin
-                yüksek tempolu kaçış hikayesini anlatır.
+    detayAlani.innerHTML = `
+        <div class="ust">
+            <div class="poster">
+                <img src="${film.afis}" alt="${film.isim} afiş">
             </div>
 
-            <div class="butonlar">
-                <a href="https://www.youtube.com/watch?v=hEJnMQG9ev8" target="_blank" class="fragman">▶ Fragman izle</a>
-                <a href="https://www.google.com/search?q=Mad+Max+nerede+izlenir" target="_blank" class="izle">📺 Nerede izlenir</a>
-                <a href="aksiyon.html" class="geri">← Geri dön</a>
+            <div class="bilgi">
+                <h1>${film.isim}</h1>
+                <div class="meta">${film.meta}</div>
+                <div class="ozet">${film.ozet}</div>
+
+                <div class="butonlar">
+                    <a href="${film.fragman}" target="_blank" class="fragman">▶ Fragman izle</a>
+                    <a href="${film.izle}" target="_blank" class="izle">📺 Nerede izlenir</a>
+                    <a href="${geriSayfasi}" class="geri">← Geri dön</a>
+                </div>
             </div>
         </div>
-    </div>
 
-    <div class="alt">
-        <div class="hakkinda">
-            <h2>🎬 Film Hakkında</h2>
-
-            <p>
-                Mad Max: Fury Road (2015), kıyamet sonrası bir dünyada geçen aksiyon dolu bir filmdir.
-                Max ve Furiosa, zalim bir liderin elinden kaçarken hayatta kalmak için birlikte savaşır.
-            </p>
-
-            <p>
-                Film; hızlı kovalamacaları, çarpıcı görselleri ve durmak bilmeyen aksiyonuyla
-                modern aksiyon sinemasının en güçlü örneklerinden biri olarak görülür.
-            </p>
+        <div class="alt">
+            <div class="hakkinda">
+                <h2>🎬 Film Hakkında</h2>
+                <p>${film.hakkinda1}</p>
+                <p>${film.hakkinda2}</p>
+            </div>
         </div>
-    </div>
-
-</div>
+    `;
+}
+</script>
 
 </body>
 </html>

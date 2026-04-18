@@ -32,10 +32,17 @@ body{
     height:300px;
     background:#222;
     border-radius:20px;
+    overflow:hidden;
     display:flex;
     align-items:center;
     justify-content:center;
-    font-size:70px;
+}
+
+.poster img{
+    width:100%;
+    height:100%;
+    object-fit:cover;
+    display:block;
 }
 
 .bilgi{
@@ -90,7 +97,9 @@ body{
 
 <div class="ust">
 
-<div class="poster">🔫</div>
+<div class="poster">
+    <img src="https://image.tmdb.org/t/p/w500/fZPSd91yGE9fCcCe6OoQr6E3Bev.jpg" alt="John Wick Afiş">
+</div>
 
 <div class="bilgi">
 <h1>John Wick</h1>

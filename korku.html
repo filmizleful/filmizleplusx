@@ -143,9 +143,12 @@ body{
     transform:translateY(-4px) scale(1.03);
 }
 
-.film-ikon{
-    font-size:58px;
-    margin:10px 0 14px;
+.film img{
+    width:100%;
+    height:260px;
+    object-fit:cover;
+    border-radius:12px;
+    margin-bottom:12px;
 }
 
 .film h3{
@@ -243,41 +246,7 @@ body{
 
 <div class="baslik">🎬 Korku Listesi</div>
 
-<div class="filmler">
-
-    <div class="film arama-ogesi" data-ara="it korku gerilim 2017">
-        <div class="film-ikon">🎈</div>
-        <h3>IT</h3>
-        <div class="film-bilgi">Korku • 2017</div>
-        <div class="film-puan">⭐ IMDb 7.3</div>
-        <a href="it.html">İzle</a>
-    </div>
-
-    <div class="film arama-ogesi" data-ara="conjuring korku gerilim 2013">
-        <div class="film-ikon">🏚️</div>
-        <h3>Conjuring</h3>
-        <div class="film-bilgi">Korku • 2013</div>
-        <div class="film-puan">⭐ IMDb 7.5</div>
-        <a href="conjuring.html">İzle</a>
-    </div>
-
-    <div class="film arama-ogesi" data-ara="the nun nun korku gerilim 2018">
-        <div class="film-ikon">✝️</div>
-        <h3>The Nun</h3>
-        <div class="film-bilgi">Korku • 2018</div>
-        <div class="film-puan">⭐ IMDb 5.3</div>
-        <a href="nun.html">İzle</a>
-    </div>
-
-    <div class="film arama-ogesi" data-ara="insidious korku gerilim 2010">
-        <div class="film-ikon">👁️</div>
-        <h3>Insidious</h3>
-        <div class="film-bilgi">Korku • 2010</div>
-        <div class="film-puan">⭐ IMDb 6.8</div>
-        <a href="insidious.html">İzle</a>
-    </div>
-
-</div>
+<div class="filmler" id="filmListesi"></div>
 
 <div class="sonuc-yok" id="sonucYok">Aramana uygun korku filmi bulunamadı.</div>
 
@@ -285,25 +254,45 @@ body{
     © 2026 Filmizleful
 </div>
 
+<script src="filmler.js"></script>
 <script>
-function filmleriAra() {
-    const input = document.getElementById("aramaInput").value.toLowerCase().trim();
-    const ogeler = document.querySelectorAll(".arama-ogesi");
-    let gorunen = 0;
+function filmKartiOlustur(film){
+    return `
+    <div class="film arama-ogesi" data-ara="${film.ara}">
+        <img src="${film.afis}" alt="${film.isim} afiş">
+        <h3>${film.isim}</h3>
+        <div class="film-bilgi">${film.yil}</div>
+        <div class="film-puan">⭐ ${film.puan}</div>
+        <a href="film-detay.html?id=${film.id}">İzle</a>
+    </div>
+    `;
+}
 
-    ogeler.forEach(function(oge) {
-        const metin = oge.getAttribute("data-ara").toLowerCase();
+function korkulariYukle(){
+    let alan = document.getElementById("filmListesi");
+    let liste = FILMLER.filter(f => f.tur === "korku");
+    alan.innerHTML = liste.map(filmKartiOlustur).join("");
+}
 
-        if (metin.includes(input) || input === "") {
-            oge.style.display = "";
-            gorunen++;
-        } else {
-            oge.style.display = "none";
+function filmleriAra(){
+    let input = document.getElementById("aramaInput").value.toLowerCase().trim();
+    let ogeler = document.querySelectorAll(".arama-ogesi");
+    let sayi = 0;
+
+    ogeler.forEach(o => {
+        let metin = o.getAttribute("data-ara").toLowerCase();
+        if(metin.includes(input) || input === ""){
+            o.style.display = "";
+            sayi++;
+        }else{
+            o.style.display = "none";
         }
     });
 
-    document.getElementById("sonucYok").style.display = gorunen === 0 ? "block" : "none";
+    document.getElementById("sonucYok").style.display = sayi == 0 ? "block" : "none";
 }
+
+korkulariYukle();
 </script>
 
 </body>

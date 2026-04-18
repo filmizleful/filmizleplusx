@@ -127,8 +127,12 @@ body{
     transform:scale(1.05);
 }
 
-.film-ikon{
-    font-size:58px;
+.film img{
+    width:100%;
+    height:260px;
+    object-fit:cover;
+    border-radius:12px;
+    margin-bottom:10px;
 }
 
 .film h3{
@@ -193,56 +197,51 @@ body{
 
 <div class="baslik">🎬 Aksiyon Listesi</div>
 
-<div class="filmler">
-
-<div class="film arama-ogesi" data-ara="john wick aksiyon 2014">
-<div class="film-ikon">🔫</div>
-<h3>John Wick</h3>
-<div class="film-bilgi">2014</div>
-<div class="film-puan">⭐ 7.4</div>
-<a href="johnwick.html">İzle</a>
-</div>
-
-<div class="film arama-ogesi" data-ara="batman aksiyon 2022">
-<div class="film-ikon">🦇</div>
-<h3>Batman</h3>
-<div class="film-bilgi">2022</div>
-<div class="film-puan">⭐ 7.8</div>
-<a href="batman.html">İzle</a>
-</div>
-
-<div class="film arama-ogesi" data-ara="mad max aksiyon 2015">
-<div class="film-ikon">🚗</div>
-<h3>Mad Max</h3>
-<div class="film-bilgi">2015</div>
-<div class="film-puan">⭐ 8.1</div>
-<a href="madmax.html">İzle</a>
-</div>
-
-</div>
+<div class="filmler" id="filmListesi"></div>
 
 <div class="sonuc-yok" id="sonucYok">Film bulunamadı</div>
 
 <div class="alt">© Filmizleful</div>
 
+<script src="filmler.js"></script>
 <script>
+function filmKartiOlustur(film){
+    return `
+    <div class="film arama-ogesi" data-ara="${film.ara}">
+        <img src="${film.afis}" alt="${film.isim} afiş">
+        <h3>${film.isim}</h3>
+        <div class="film-bilgi">${film.yil}</div>
+        <div class="film-puan">⭐ ${film.puan}</div>
+        <a href="film-detay.html?id=${film.id}">İzle</a>
+    </div>
+    `;
+}
+
+function aksiyonlariYukle(){
+    let alan = document.getElementById("filmListesi");
+    let liste = FILMLER.filter(f => f.tur === "aksiyon");
+    alan.innerHTML = liste.map(filmKartiOlustur).join("");
+}
+
 function filmleriAra(){
-let input=document.getElementById("aramaInput").value.toLowerCase();
-let ogeler=document.querySelectorAll(".arama-ogesi");
-let sayi=0;
+    let input = document.getElementById("aramaInput").value.toLowerCase();
+    let ogeler = document.querySelectorAll(".arama-ogesi");
+    let sayi = 0;
 
-ogeler.forEach(o=>{
-let metin=o.getAttribute("data-ara");
-if(metin.includes(input)){
-o.style.display="";
-sayi++;
-}else{
-o.style.display="none";
-}
-});
+    ogeler.forEach(o => {
+        let metin = o.getAttribute("data-ara");
+        if(metin.includes(input)){
+            o.style.display = "";
+            sayi++;
+        }else{
+            o.style.display = "none";
+        }
+    });
 
-document.getElementById("sonucYok").style.display=sayi==0?"block":"none";
+    document.getElementById("sonucYok").style.display = sayi == 0 ? "block" : "none";
 }
+
+aksiyonlariYukle();
 </script>
 
 </body>

@@ -344,18 +344,15 @@ body{
         <a href="vip.html">👑 VIP</a>
         <a href="giris.html">👤 Giriş</a>
         <div class="avatar-ust" id="kullaniciYazi">😎</div>
-        
     </div>
 </div>
 
 <div class="hero">
-<div style="text-align:center; margin-top:20px; color:#aaa;">
-
-🔥 Şu an <span id="onlineSayi">12</span> kişi online  
-💬 <span id="mesajSayi">128</span> mesaj atıldı  
-🎬 <span id="odaSayi">5</span> aktif oda
-
-</div>
+    <div style="text-align:center; margin-top:20px; color:#aaa;">
+        🔥 Şu an <span id="onlineSayi">12</span> kişi online  
+        💬 <span id="mesajSayi">128</span> mesaj atıldı  
+        🎬 <span id="odaSayi">5</span> aktif oda
+    </div>
     <h1>Filmizleful</h1>
     <p>Film kategorini seç ve izlemeye başla</p>
 </div>
@@ -416,37 +413,39 @@ body{
 <div class="baslik">🎟️ Popüler Filmler</div>
 
 <div class="filmler">
+
     <div class="film arama-ogesi" data-ara="john wick aksiyon 2014">
-        <div class="film-ikon">🔫</div>
+        <img src="https://image.tmdb.org/t/p/w500/fZPSd91yGE9fCcCe6OoQr6E3Bev.jpg" style="width:100%; height:260px; object-fit:cover; border-radius:12px; margin-bottom:12px; display:block;">
         <h3>John Wick</h3>
         <div class="film-bilgi">Aksiyon • 2014</div>
-        <div class="film-puan">⭐ IMDb 7.4</div>
-        <a href="johnwick.html">İzle</a>
+        <div class="film-puan">★ IMDb 7.4</div>
+        <a href="film-detay.html?id=john-wick">İzle</a>
     </div>
 
     <div class="film arama-ogesi" data-ara="batman aksiyon 2022">
-        <div class="film-ikon">🦇</div>
+        <img src="https://image.tmdb.org/t/p/w500/74xTEgt7R36Fpooo50r9T25onhq.jpg" style="width:100%; height:260px; object-fit:cover; border-radius:12px; margin-bottom:12px; display:block;">
         <h3>Batman</h3>
         <div class="film-bilgi">Aksiyon • 2022</div>
         <div class="film-puan">⭐ IMDb 7.8</div>
-        <a href="batman.html">İzle</a>
+        <a href="film-detay.html?id=batman">İzle</a>
     </div>
 
     <div class="film arama-ogesi" data-ara="mad max aksiyon 2015">
-        <div class="film-ikon">🚗</div>
+        <img src="https://image.tmdb.org/t/p/w500/8tZYtuWezp8JbcsvHYO0O46tFbo.jpg" style="width:100%; height:260px; object-fit:cover; border-radius:12px; margin-bottom:12px; display:block;">
         <h3>Mad Max</h3>
         <div class="film-bilgi">Aksiyon • 2015</div>
         <div class="film-puan">⭐ IMDb 8.1</div>
-        <a href="madmax.html">İzle</a>
+        <a href="film-detay.html?id=mad-max">İzle</a>
     </div>
 
     <div class="film arama-ogesi" data-ara="interstellar bilim kurgu 2014">
-        <div class="film-ikon">🌌</div>
+        <img src="https://image.tmdb.org/t/p/w500/gEU2QniE6E77NI6lCU6MxlNBvIx.jpg" style="width:100%; height:260px; object-fit:cover; border-radius:12px; margin-bottom:12px; display:block;">
         <h3>Interstellar</h3>
         <div class="film-bilgi">Bilim Kurgu • 2014</div>
         <div class="film-puan">⭐ IMDb 8.7</div>
-        <a href="interstellar.html">İzle</a>
+        <a href="film-detay.html?id=interstellar">İzle</a>
     </div>
+
 </div>
 
 <div class="sonuc-yok" id="sonucYok">Aramana uygun sonuç bulunamadı.</div>
@@ -475,27 +474,28 @@ function filmleriAra() {
     document.getElementById("sonucYok").style.display = gorunen === 0 ? "block" : "none";
 }
 </script>
+
 <script>
 let ad = localStorage.getItem("kullanici");
-
 if(ad){
     document.getElementById("kullaniciYazi").innerText = "👤 " + ad;
 }
 </script>
-<script>
+
 <script>
 function rastgele(min, max){
-  return Math.floor(Math.random() * (max - min + 1)) + min;
+    return Math.floor(Math.random() * (max - min + 1)) + min;
 }
 
 function guncelle(){
-  document.getElementById("onlineSayi").innerText = rastgele(8, 35);
-  document.getElementById("mesajSayi").innerText = rastgele(50, 500);
-  document.getElementById("odaSayi").innerText = rastgele(2, 12);
+    document.getElementById("onlineSayi").innerText = rastgele(8, 35);
+    document.getElementById("mesajSayi").innerText = rastgele(50, 500);
+    document.getElementById("odaSayi").innerText = rastgele(2, 12);
 }
 
 setInterval(guncelle, 3000);
 guncelle();
 </script>
+
 </body>
 </html>

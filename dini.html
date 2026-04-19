@@ -6,112 +6,200 @@
 <title>Dini Filmler - Filmizleful</title>
 
 <style>
+*{box-sizing:border-box}
+
 body{
   margin:0;
-  font-family:Arial;
-  background:#0f0f1a;
+  font-family:Arial,sans-serif;
+  background:radial-gradient(circle at top, #1d1a33 0%, #0b0b14 55%, #000 100%);
   color:white;
 }
 
 .ust{
-  background:#111;
-  padding:15px;
+  background:rgba(10,10,16,0.95);
+  padding:18px 24px;
   display:flex;
   justify-content:space-between;
   align-items:center;
+  border-bottom:1px solid rgba(255,255,255,0.06);
+  position:sticky;
+  top:0;
+  z-index:100;
 }
 
 .logo{
-  color:#e50914;
-  font-size:22px;
+  color:#ff6d7a;
+  font-size:28px;
   font-weight:bold;
 }
 
-a{
-  text-decoration:none;
+.ust a{
   color:white;
+  text-decoration:none;
+  font-weight:bold;
+  padding:8px 14px;
+  border-radius:10px;
+}
+
+.ust a:hover{
+  background:#1f1f2d;
 }
 
 .kapsa{
-  max-width:1200px;
+  max-width:1300px;
   margin:auto;
-  padding:20px;
+  padding:30px 20px 50px;
 }
 
 .baslik{
-  font-size:26px;
-  margin-bottom:20px;
+  font-size:42px;
+  margin-bottom:10px;
+}
+
+.alt-yazi{
+  color:#d1d5db;
+  font-size:18px;
+  margin-bottom:30px;
 }
 
 .filmler{
-  display:grid;
-  grid-template-columns:repeat(auto-fill,minmax(180px,1fr));
-  gap:20px;
+  display:flex;
+  justify-content:center;
+  flex-wrap:wrap;
+  gap:22px;
 }
 
 .film{
-  background:#1a1a2e;
-  border-radius:15px;
+  width:220px;
+  background:rgba(255,255,255,0.05);
+  border-radius:22px;
+  text-align:center;
+  padding:16px 16px 24px;
+  border:1px solid rgba(255,255,255,0.05);
+  box-shadow:0 10px 25px rgba(0,0,0,0.18);
+  transition:0.35s;
   overflow:hidden;
-  cursor:pointer;
-  transition:0.3s;
 }
 
 .film:hover{
-  transform:scale(1.05);
+  transform:translateY(-8px) scale(1.04);
+  box-shadow:0 20px 40px rgba(0,0,0,0.35);
 }
 
 .film img{
   width:100%;
-  height:260px;
+  height:300px;
   object-fit:cover;
+  border-radius:14px;
+  margin-bottom:12px;
+  display:block;
 }
 
-.film-isim{
-  padding:10px;
-  text-align:center;
-  font-size:14px;
+.film h3{
+  margin:0 0 8px;
+  font-size:22px;
+}
+
+.film-bilgi{
+  color:#e1e1ea;
+  font-size:15px;
+  margin-bottom:8px;
+}
+
+.film-puan{
+  color:#ffe3a8;
+  font-size:15px;
+  font-weight:bold;
+  margin-bottom:14px;
+}
+
+.film a{
+  display:inline-block;
+  text-decoration:none;
+  background:#7c3aed;
+  color:white;
+  padding:10px 22px;
+  border-radius:12px;
+  font-weight:bold;
+  transition:0.3s;
+}
+
+.film a:hover{
+  transform:scale(1.04);
+  opacity:0.95;
+}
+
+@media(max-width:700px){
+  .film{
+    width:100%;
+    max-width:320px;
+  }
+
+  .baslik{
+    font-size:32px;
+  }
+
+  .alt-yazi{
+    font-size:16px;
+  }
 }
 </style>
 </head>
-
 <body>
 
 <div class="ust">
-  <div class="logo">Filmizleful</div>
+  <div class="logo">🎬 Filmizleful</div>
   <a href="index.html">Ana Sayfa</a>
 </div>
 
 <div class="kapsa">
   <div class="baslik">🕌 Dini Filmler</div>
-  <div class="filmler" id="filmListe"></div>
-</div>
+  <div class="alt-yazi">İslami ve tarihi yapımlar burada.</div>
 
-<script src="filmler.js"></script>
+  <div class="filmler">
 
-<script>
-const liste = document.getElementById("filmListe");
-
-// sadece dini olanları çek
-const diniler = FILMLER.filter(f => 
-  f.tur.toLowerCase() === "dini"
-);
-
-// ekrana bas
-diniler.forEach(film => {
-  liste.innerHTML += `
-    <div class="film" onclick="git('${film.id}')">
-      <img src="${film.afis}">
-      <div class="film-isim">${film.isim}</div>
+    <div class="film">
+      <img src="data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='400' height='600'><defs><linearGradient id='g' x1='0' y1='0' x2='1' y2='1'><stop stop-color='%23281b4d'/><stop offset='1' stop-color='%237c3aed'/></linearGradient></defs><rect width='100%' height='100%' fill='url(%23g)'/><text x='50%' y='42%' text-anchor='middle' fill='white' font-size='44' font-family='Arial' font-weight='bold'>CAGRI</text><text x='50%' y='51%' text-anchor='middle' fill='%23f8e7b0' font-size='24' font-family='Arial'>Dini Film</text><text x='50%' y='82%' text-anchor='middle' fill='white' font-size='28' font-family='Arial'>Filmizleful</text></svg>" alt="Çağrı">
+      <h3>Çağrı</h3>
+      <div class="film-bilgi">Dini • 1976</div>
+      <div class="film-puan">⭐ IMDb 8.5</div>
+      <a href="film-detay.html?id=cagri">İzle</a>
     </div>
-  `;
-});
 
-// detay sayfasına git
-function git(id){
-  window.location.href = "film-detay.html?id=" + id;
-}
-</script>
+    <div class="film">
+      <img src="data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='400' height='600'><defs><linearGradient id='g' x1='0' y1='0' x2='1' y2='1'><stop stop-color='%233b1f12'/><stop offset='1' stop-color='%23b45309'/></linearGradient></defs><rect width='100%' height='100%' fill='url(%23g)'/><text x='50%' y='40%' text-anchor='middle' fill='white' font-size='34' font-family='Arial' font-weight='bold'>ALLAHIN</text><text x='50%' y='49%' text-anchor='middle' fill='white' font-size='42' font-family='Arial' font-weight='bold'>ELCISI</text><text x='50%' y='82%' text-anchor='middle' fill='%23fde68a' font-size='28' font-family='Arial'>Filmizleful</text></svg>" alt="Allah'ın Elçisi">
+      <h3>Allah'ın Elçisi</h3>
+      <div class="film-bilgi">Dini • 2015</div>
+      <div class="film-puan">⭐ IMDb 6.8</div>
+      <a href="film-detay.html?id=allahinelcisi">İzle</a>
+    </div>
+
+    <div class="film">
+      <img src="data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='400' height='600'><defs><linearGradient id='g' x1='0' y1='0' x2='1' y2='1'><stop stop-color='%231f2937'/><stop offset='1' stop-color='%230f766e'/></linearGradient></defs><rect width='100%' height='100%' fill='url(%23g)'/><text x='50%' y='42%' text-anchor='middle' fill='white' font-size='34' font-family='Arial' font-weight='bold'>ISLAM</text><text x='50%' y='50%' text-anchor='middle' fill='white' font-size='34' font-family='Arial' font-weight='bold'>TARIHI</text><text x='50%' y='82%' text-anchor='middle' fill='white' font-size='28' font-family='Arial'>Filmizleful</text></svg>" alt="İslam Tarihi Belgeseli">
+      <h3>İslam Tarihi</h3>
+      <div class="film-bilgi">Dini • 2010</div>
+      <div class="film-puan">⭐ IMDb 8.0</div>
+      <a href="film-detay.html?id=islamhikayesi">İzle</a>
+    </div>
+
+    <div class="film">
+      <img src="data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='400' height='600'><defs><linearGradient id='g' x1='0' y1='0' x2='1' y2='1'><stop stop-color='%232d1b69'/><stop offset='1' stop-color='%235b21b6'/></linearGradient></defs><rect width='100%' height='100%' fill='url(%23g)'/><text x='50%' y='42%' text-anchor='middle' fill='white' font-size='34' font-family='Arial' font-weight='bold'>OSMANLI</text><text x='50%' y='50%' text-anchor='middle' fill='white' font-size='28' font-family='Arial' font-weight='bold'>BELGESELI</text><text x='50%' y='82%' text-anchor='middle' fill='%23e9d5ff' font-size='28' font-family='Arial'>Filmizleful</text></svg>" alt="Osmanlı Belgeseli">
+      <h3>Osmanlı</h3>
+      <div class="film-bilgi">Tarihi • 2013</div>
+      <div class="film-puan">⭐ IMDb 7.8</div>
+      <a href="film-detay.html?id=osmanli">İzle</a>
+    </div>
+
+    <div class="film">
+      <img src="data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='400' height='600'><defs><linearGradient id='g' x1='0' y1='0' x2='1' y2='1'><stop stop-color='%2329240f'/><stop offset='1' stop-color='%23a16207'/></linearGradient></defs><rect width='100%' height='100%' fill='url(%23g)'/><text x='50%' y='42%' text-anchor='middle' fill='white' font-size='34' font-family='Arial' font-weight='bold'>MEKKENIN</text><text x='50%' y='50%' text-anchor='middle' fill='white' font-size='34' font-family='Arial' font-weight='bold'>FETHI</text><text x='50%' y='82%' text-anchor='middle' fill='%23fef3c7' font-size='28' font-family='Arial'>Filmizleful</text></svg>" alt="Mekke'nin Fethi">
+      <h3>Mekke'nin Fethi</h3>
+      <div class="film-bilgi">Dini • 2018</div>
+      <div class="film-puan">⭐ IMDb 6.9</div>
+      <a href="film-detay.html?id=mekkefethi">İzle</a>
+    </div>
+
+  </div>
+</div>
 
 </body>
 </html>

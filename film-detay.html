@@ -598,12 +598,19 @@
       return `
         <div class="oynatma-kutu">
           <h3>Fragman / Video</h3>
+
           ${videoHTML}
+
+           <a class="btn btn-kirmizi" href="${film.fragman}" target="_blank">
+              YouTube'da Aç
+          </a>
+
           <div class="butonlar">
             ${izleButonu}
             <button class="btn btn-yesil" id="izledimBtn">✅ İzledim</button>
             <button class="btn btn-gri" onclick="history.back()">Geri Dön</button>
           </div>
+
           <div class="izledim-durum" id="izledimDurum"></div>
           <div class="uyari">
             Not: Şu an sistem mevcut içerik yapını bozmadan fragman oynatır. Gerçek film linki eklersen “Filmi Aç” butonu da çalışır.

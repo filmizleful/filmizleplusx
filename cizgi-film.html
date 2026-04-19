@@ -1,0 +1,215 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Çizgi Filmler - Filmizleful</title>
+
+<style>
+*{
+  box-sizing:border-box;
+}
+
+body{
+  margin:0;
+  font-family:Arial,sans-serif;
+  background:radial-gradient(circle at top, #1d1a33 0%, #0b0b14 55%, #000 100%);
+  color:white;
+}
+
+.ust{
+  background:rgba(10,10,16,0.95);
+  padding:18px 24px;
+  display:flex;
+  justify-content:space-between;
+  align-items:center;
+  border-bottom:1px solid rgba(255,255,255,0.06);
+  position:sticky;
+  top:0;
+  z-index:100;
+}
+
+.logo{
+  color:#ff6d7a;
+  font-size:28px;
+  font-weight:bold;
+}
+
+.ust a{
+  color:white;
+  text-decoration:none;
+  font-weight:bold;
+  padding:8px 14px;
+  border-radius:10px;
+}
+
+.ust a:hover{
+  background:#1f1f2d;
+}
+
+.kapsa{
+  max-width:1300px;
+  margin:auto;
+  padding:30px 20px 50px;
+}
+
+.baslik{
+  font-size:42px;
+  margin-bottom:10px;
+}
+
+.alt-yazi{
+  color:#d1d5db;
+  font-size:18px;
+  margin-bottom:30px;
+}
+
+.filmler{
+  display:flex;
+  justify-content:center;
+  flex-wrap:wrap;
+  gap:22px;
+}
+
+.film{
+  width:220px;
+  background:rgba(255,255,255,0.05);
+  border-radius:22px;
+  text-align:center;
+  padding:16px 16px 24px;
+  border:1px solid rgba(255,255,255,0.05);
+  box-shadow:0 10px 25px rgba(0,0,0,0.18);
+  transition:0.35s;
+  overflow:hidden;
+}
+
+.film:hover{
+  transform:translateY(-8px) scale(1.04);
+  box-shadow:0 20px 40px rgba(0,0,0,0.35);
+}
+
+.film img{
+  width:100%;
+  height:300px;
+  object-fit:cover;
+  border-radius:14px;
+  margin-bottom:12px;
+  display:block;
+}
+
+.film h3{
+  margin:0 0 8px;
+  font-size:22px;
+}
+
+.film-bilgi{
+  color:#e1e1ea;
+  font-size:15px;
+  margin-bottom:8px;
+}
+
+.film-puan{
+  color:#ffe3a8;
+  font-size:15px;
+  font-weight:bold;
+  margin-bottom:14px;
+}
+
+.film a{
+  display:inline-block;
+  text-decoration:none;
+  background:#34d399;
+  color:#08120f;
+  padding:10px 22px;
+  border-radius:12px;
+  font-weight:bold;
+  transition:0.3s;
+}
+
+.film a:hover{
+  transform:scale(1.04);
+  opacity:0.95;
+}
+
+@media(max-width:700px){
+  .film{
+    width:100%;
+    max-width:320px;
+  }
+
+  .baslik{
+    font-size:32px;
+  }
+
+  .alt-yazi{
+    font-size:16px;
+  }
+}
+</style>
+</head>
+<body>
+
+<div class="ust">
+  <div class="logo">🎬 Filmizleful</div>
+  <a href="index.html">Ana Sayfa</a>
+</div>
+
+<div class="kapsa">
+  <div class="baslik">🎬 Çizgi Filmler</div>
+  <div class="alt-yazi">Animasyon ve çocuk filmleri burada.</div>
+
+  <div class="filmler">
+
+    <div class="film">
+      <img src="https://image.tmdb.org/t/p/w500/uXDfjJbdP4ijW5hWSBrPrlKpxab.jpg" alt="Toy Story">
+      <h3>Toy Story</h3>
+      <div class="film-bilgi">Animasyon • 1995</div>
+      <div class="film-puan">⭐ IMDb 8.3</div>
+      <a href="film-detay.html?id=toystory">İzle</a>
+    </div>
+
+    <div class="film">
+      <img src="https://image.tmdb.org/t/p/w500/sKCr78MXSLixwmZ8DyJLrpMsd15.jpg" alt="Aslan Kral">
+      <h3>Aslan Kral</h3>
+      <div class="film-bilgi">Animasyon • 1994</div>
+      <div class="film-puan">⭐ IMDb 8.5</div>
+      <a href="film-detay.html?id=lionking">İzle</a>
+    </div>
+
+    <div class="film">
+      <img src="https://image.tmdb.org/t/p/w500/iB64vpL3dIObOtMZgX3RqdVdQDc.jpg" alt="Shrek">
+      <h3>Shrek</h3>
+      <div class="film-bilgi">Animasyon • 2001</div>
+      <div class="film-puan">⭐ IMDb 7.9</div>
+      <a href="film-detay.html?id=shrek">İzle</a>
+    </div>
+
+    <div class="film">
+      <img src="https://image.tmdb.org/t/p/w500/qa6HCwP4Z15l3hpsASz3auugEW6.jpg" alt="Cars">
+      <h3>Cars</h3>
+      <div class="film-bilgi">Animasyon • 2006</div>
+      <div class="film-puan">⭐ IMDb 7.2</div>
+      <a href="film-detay.html?id=cars">İzle</a>
+    </div>
+
+    <div class="film">
+      <img src="https://image.tmdb.org/t/p/w500/kgwjIb2JDHRhNk13lmSxiClFjVk.jpg" alt="Frozen">
+      <h3>Frozen</h3>
+      <div class="film-bilgi">Animasyon • 2013</div>
+      <div class="film-puan">⭐ IMDb 7.4</div>
+      <a href="film-detay.html?id=frozen">İzle</a>
+    </div>
+
+    <div class="film">
+      <img src="https://image.tmdb.org/t/p/w500/4m1Au3YkjqsxF8iwQy0fPYSxE0h.jpg" alt="Finding Nemo">
+      <h3>Finding Nemo</h3>
+      <div class="film-bilgi">Animasyon • 2003</div>
+      <div class="film-puan">⭐ IMDb 8.2</div>
+      <a href="film-detay.html?id=findingnemo">İzle</a>
+    </div>
+
+  </div>
+</div>
+
+</body>
+</html>

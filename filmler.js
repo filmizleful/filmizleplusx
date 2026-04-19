@@ -574,7 +574,68 @@ hakkinda1:"Distopya.",
 hakkinda2:"Gençlik.",
 fragman:"https://www.youtube.com/watch?v=sutgWjz10sM",
 izle:"#"
+},
+
+{
+id:"cagri", isim:"Çağrı", tur:"dini", yil:"1976", puan:"8.5",
+afis:"data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='400' height='600'><defs><linearGradient id='g' x1='0' y1='0' x2='1' y2='1'><stop stop-color='%23281b4d'/><stop offset='1' stop-color='%237c3aed'/></linearGradient></defs><rect width='100%' height='100%' fill='url(%23g)'/><text x='50%' y='42%' text-anchor='middle' fill='white' font-size='44' font-family='Arial' font-weight='bold'>CAGRI</text><text x='50%' y='51%' text-anchor='middle' fill='%23f8e7b0' font-size='24' font-family='Arial'>Dini Film</text><text x='50%' y='82%' text-anchor='middle' fill='white' font-size='28' font-family='Arial'>Filmizleful</text></svg>",
+ara:"cagri dini film islam",
+meta:"Dini • IMDb 8.5",
+ozet:"İslam'ın ilk yıllarını anlatan unutulmaz yapım.",
+hakkinda1:"Klasik dini film.",
+hakkinda2:"En bilinen yapımlardan biri.",
+fragman:"https://www.youtube.com/watch?v=ed3A_2d8-Lo",
+izle:"#"
+},
+
+{
+id:"fetih1453", isim:"Fetih 1453", tur:"dini", yil:"2012", puan:"6.5",
+afis:"data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='400' height='600'><defs><linearGradient id='g' x1='0' y1='0' x2='1' y2='1'><stop stop-color='%233b1f12'/><stop offset='1' stop-color='%23b45309'/></linearGradient></defs><rect width='100%' height='100%' fill='url(%23g)'/><text x='50%' y='40%' text-anchor='middle' fill='white' font-size='38' font-family='Arial' font-weight='bold'>FETIH</text><text x='50%' y='49%' text-anchor='middle' fill='white' font-size='56' font-family='Arial' font-weight='bold'>1453</text><text x='50%' y='82%' text-anchor='middle' fill='%23fde68a' font-size='28' font-family='Arial'>Filmizleful</text></svg>",
+ara:"fetih 1453 dini tarihi",
+meta:"Tarihi • IMDb 6.5",
+ozet:"İstanbul'un fethini konu alan tarihi yapım.",
+hakkinda1:"Tarihi savaş filmi.",
+hakkinda2:"Popüler Türk yapımı.",
+fragman:"https://www.youtube.com/watch?v=ZJm7Jtu9cQY",
+izle:"#"
+},
+
+{
+id:"hzomer", isim:"Hz. Ömer", tur:"dini", yil:"2012", puan:"8.9",
+afis:"data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='400' height='600'><defs><linearGradient id='g' x1='0' y1='0' x2='1' y2='1'><stop stop-color='%231f2937'/><stop offset='1' stop-color='%230f766e'/></linearGradient></defs><rect width='100%' height='100%' fill='url(%23g)'/><text x='50%' y='42%' text-anchor='middle' fill='white' font-size='44' font-family='Arial' font-weight='bold'>HZ. OMER</text><text x='50%' y='51%' text-anchor='middle' fill='%23d1fae5' font-size='24' font-family='Arial'>Dini Yapi</text><text x='50%' y='82%' text-anchor='middle' fill='white' font-size='28' font-family='Arial'>Filmizleful</text></svg>",
+ara:"hz omer dini islam",
+meta:"Dini • IMDb 8.9",
+ozet:"Hz. Ömer'in hayatını anlatan etkileyici yapım.",
+hakkinda1:"Çok sevilen dini yapım.",
+hakkinda2:"Yüksek puanlı.",
+fragman:"https://www.youtube.com/watch?v=JvYl8xZ2A6Q",
+izle:"#"
+},
+
+{
+id:"ertugrul", isim:"Diriliş Ertuğrul", tur:"dini", yil:"2014", puan:"7.8",
+afis:"data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='400' height='600'><defs><linearGradient id='g' x1='0' y1='0' x2='1' y2='1'><stop stop-color='%232d1b69'/><stop offset='1' stop-color='%235b21b6'/></linearGradient></defs><rect width='100%' height='100%' fill='url(%23g)'/><text x='50%' y='42%' text-anchor='middle' fill='white' font-size='36' font-family='Arial' font-weight='bold'>DIRILIS</text><text x='50%' y='50%' text-anchor='middle' fill='white' font-size='42' font-family='Arial' font-weight='bold'>ERTUGRUL</text><text x='50%' y='82%' text-anchor='middle' fill='%23e9d5ff' font-size='28' font-family='Arial'>Filmizleful</text></svg>",
+ara:"dirilis ertugrul dini tarihi",
+meta:"Tarihi • IMDb 7.8",
+ozet:"Osmanlı'nın kuruluş dönemine uzanan hikaye.",
+hakkinda1:"Tarihi dizi/yapım.",
+hakkinda2:"Geniş kitleye ulaştı.",
+fragman:"https://www.youtube.com/watch?v=RUHzM7lXxg8",
+izle:"#"
+},
+
+{
+id:"yunusemre", isim:"Yunus Emre", tur:"dini", yil:"2015", puan:"7.5",
+afis:"data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='400' height='600'><defs><linearGradient id='g' x1='0' y1='0' x2='1' y2='1'><stop stop-color='%2329240f'/><stop offset='1' stop-color='%23a16207'/></linearGradient></defs><rect width='100%' height='100%' fill='url(%23g)'/><text x='50%' y='42%' text-anchor='middle' fill='white' font-size='40' font-family='Arial' font-weight='bold'>YUNUS</text><text x='50%' y='50%' text-anchor='middle' fill='white' font-size='40' font-family='Arial' font-weight='bold'>EMRE</text><text x='50%' y='82%' text-anchor='middle' fill='%23fef3c7' font-size='28' font-family='Arial'>Filmizleful</text></svg>",
+ara:"yunus emre dini",
+meta:"Dini • IMDb 7.5",
+ozet:"Anadolu'nun büyük mutasavvıfını anlatan yapım.",
+hakkinda1:"Dini ve tarihi içerik.",
+hakkinda2:"Anlamlı bir yapım.",
+fragman:"https://www.youtube.com/watch?v=9nN8fF0LJ0Q",
+izle:"#"
 }
+
 ];
 
 function filmBul(id){

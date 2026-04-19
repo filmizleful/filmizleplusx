@@ -145,7 +145,8 @@
     }
 
     .oynatma-kutu,
-    .yorum-kutu{
+    .yorum-kutu,
+    .puan-kutu{
       background:#0b1220;
       border:1px solid rgba(255,255,255,0.08);
       border-radius:18px;
@@ -154,7 +155,8 @@
     }
 
     .oynatma-kutu h3,
-    .yorum-kutu h3{
+    .yorum-kutu h3,
+    .puan-kutu h3{
       margin-bottom:14px;
       font-size:22px;
     }
@@ -333,6 +335,61 @@
       text-align:center;
     }
 
+    .puan-ozet{
+      display:flex;
+      flex-wrap:wrap;
+      gap:12px;
+      align-items:center;
+      margin-bottom:14px;
+    }
+
+    .puan-buyuk{
+      font-size:30px;
+      font-weight:bold;
+      color:#ffe3a8;
+    }
+
+    .puan-detay{
+      color:#cbd5e1;
+      font-size:15px;
+    }
+
+    .yildizlar{
+      display:flex;
+      gap:8px;
+      flex-wrap:wrap;
+      margin-top:8px;
+    }
+
+    .yildiz-btn{
+      border:none;
+      background:#1f2937;
+      color:#ffd166;
+      font-size:28px;
+      width:52px;
+      height:52px;
+      border-radius:14px;
+      cursor:pointer;
+      transition:0.2s;
+    }
+
+    .yildiz-btn:hover{
+      transform:translateY(-2px) scale(1.05);
+      background:#2b3444;
+    }
+
+    .yildiz-btn.aktif{
+      background:#3b2f12;
+      box-shadow:0 0 0 1px rgba(255,209,102,0.22) inset;
+    }
+
+    .puan-bilgi{
+      margin-top:12px;
+      color:#9ca3af;
+      font-size:14px;
+      line-height:1.6;
+    }
+
     @media (max-width: 900px){
       .film-kart{
         grid-template-columns:1fr;
@@ -367,7 +424,17 @@
 
   <script type="module">
     import { initializeApp } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-app.js";
-    import { getFirestore, collection, addDoc, onSnapshot, query, orderBy } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-firestore.js";
+    import { 
+      getFirestore, 
+      collection, 
+      addDoc, 
+      onSnapshot, 
+      query, 
+      orderBy,
+      doc,
+      setDoc,
+      getDocs
+    } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-firestore.js";
 
     const firebaseConfig = {
       apiKey: "AIzaSyBNoenb7tM6mFK8DEruxFtYLo_FwUXY7uc",
@@ -381,7 +448,6 @@
 
     const app = initializeApp(firebaseConfig);
     const db = getFirestore(app);
-
     const icerik = document.getElementById("icerik");
 
     function urlParametresiAl(parametreAdi){
@@ -423,6 +489,15 @@
       return "izledim_" + filmId;
     }
 
+    function cihazAnahtari(){
+      let id = localStorage.getItem("filmizleful_cihaz_id");
+      if(!id){
+        id = "cihaz_" + Math.random().toString(36).slice(2) + Date.now().toString(36);
+        localStorage.setItem("filmizleful_cihaz_id", id);
+      }
+      return id;
+    }
+
     function tarihYazisiOlustur(){
       const tarih = new Date();
       const gun = String(tarih.getDate()).padStart(2, "0");
@@ -440,6 +515,27 @@
         .replace(/>/g, "&gt;")
         .replace(/"/g, "&quot;")
         .replace(/'/g, "&#39;");
+    }
+
+    function yorumTarihiFormatla(deger){
+      if(!deger) return "";
+      if(typeof deger === "string") return deger;
+
+      try{
+        if(typeof deger.toDate === "function"){
+          const t = deger.toDate();
+          const gun = String(t.getDate()).padStart(2, "0");
+          const ay = String(t.getMonth() + 1).padStart(2, "0");
+          const yil = t.getFullYear();
+          const saat = String(t.getHours()).padStart(2, "0");
+          const dakika = String(t.getMinutes()).padStart(2, "0");
+          return gun + "." + ay + "." + yil + " " + saat + ":" + dakika;
+        }
+      }catch(e){
+        return "";
+      }
+
+      return "";
     }
 
     function videoKutusuOlustur(film){
@@ -516,6 +612,31 @@
       `;
     }
 
+    function puanKutusuOlustur(){
+      return `
+        <div class="puan-kutu">
+          <h3>Puan Ver</h3>
+
+          <div class="puan-ozet">
+            <div class="puan-buyuk" id="ortalamaPuan">0.0</div>
+            <div class="puan-detay" id="puanDetay">Henüz oy yok</div>
+          </div>
+
+          <div class="yildizlar">
+            <button class="yildiz-btn" data-puan="1">★</button>
+            <button class="yildiz-btn" data-puan="2">★</button>
+            <button class="yildiz-btn" data-puan="3">★</button>
+            <button class="yildiz-btn" data-puan="4">★</button>
+            <button class="yildiz-btn" data-puan="5">★</button>
+          </div>
+
+          <div class="puan-bilgi" id="puanBilgi">
+            1 ile 5 arası puan verebilirsin.
+          </div>
+        </div>
+      `;
+    }
+
     function yorumKutusuOlustur(){
       return `
         <div class="yorum-kutu">
@@ -534,27 +655,6 @@
       `;
     }
 
-    function yorumTarihiFormatla(deger){
-      if(!deger) return "";
-      if(typeof deger === "string") return deger;
-
-      try{
-        if(typeof deger.toDate === "function"){
-          const t = deger.toDate();
-          const gun = String(t.getDate()).padStart(2, "0");
-          const ay = String(t.getMonth() + 1).padStart(2, "0");
-          const yil = t.getFullYear();
-          const saat = String(t.getHours()).padStart(2, "0");
-          const dakika = String(t.getMinutes()).padStart(2, "0");
-          return gun + "." + ay + "." + yil + " " + saat + ":" + dakika;
-        }
-      }catch(e){
-        return "";
-      }
-
-      return "";
-    }
-
     function yorumlariGosterFirebase(filmId){
       const yorumListesi = document.getElementById("yorumListesi");
       const yorumRef = collection(db, "yorumlar_" + filmId);
@@ -570,8 +670,8 @@
 
         let html = "";
 
-        snapshot.forEach(function(doc){
-          const yorum = doc.data();
+        snapshot.forEach(function(veri){
+          const yorum = veri.data();
           html += `
             <div class="yorum-item">
               <div class="yorum-ust">
@@ -589,6 +689,96 @@
           <div class="yorum-yok">Yorumlar yüklenemedi. Firestore kurallarını kontrol et.</div>
         `;
         console.error(error);
+      });
+    }
+
+    async function puanOzetiniGuncelle(filmId){
+      const puanlarRef = collection(db, "puanlar_" + filmId);
+      const snap = await getDocs(puanlarRef);
+
+      let toplam = 0;
+      let adet = 0;
+
+      snap.forEach(function(veri){
+        const puan = Number(veri.data().puan || 0);
+        if(puan >= 1 && puan <= 5){
+          toplam += puan;
+          adet++;
+        }
+      });
+
+      const ortalamaAlan = document.getElementById("ortalamaPuan");
+      const detayAlan = document.getElementById("puanDetay");
+
+      if(!adet){
+        ortalamaAlan.innerText = "0.0";
+        detayAlan.innerText = "Henüz oy yok";
+        return;
+      }
+
+      const ortalama = (toplam / adet).toFixed(1);
+      ortalamaAlan.innerText = ortalama;
+      detayAlan.innerText = adet + " oy kullanıldı";
+    }
+
+    function yildizlariBoya(seciliPuan){
+      document.querySelectorAll(".yildiz-btn").forEach(function(btn){
+        const btnPuan = Number(btn.getAttribute("data-puan"));
+        if(btnPuan <= seciliPuan){
+          btn.classList.add("aktif");
+        }else{
+          btn.classList.remove("aktif");
+        }
+      });
+    }
+
+    function puanSisteminiBaslat(film){
+      const filmId = film.id;
+      const cihazId = cihazAnahtari();
+      const puanBilgi = document.getElementById("puanBilgi");
+      const puanlarRef = collection(db, "puanlar_" + filmId);
+
+      const puanDocRef = doc(db, "puanlar_" + filmId, cihazId);
+
+      onSnapshot(puanDocRef, function(docSnap){
+        if(docSnap.exists()){
+          const veri = docSnap.data();
+          const benimPuanim = Number(veri.puan || 0);
+          if(benimPuanim){
+            yildizlariBoya(benimPuanim);
+            puanBilgi.innerText = "Senin puanın: " + benimPuanim + " yıldız";
+          }else{
+            yildizlariBoya(0);
+            puanBilgi.innerText = "1 ile 5 arası puan verebilirsin.";
+          }
+        }else{
+          yildizlariBoya(0);
+          puanBilgi.innerText = "1 ile 5 arası puan verebilirsin.";
+        }
+      });
+
+      onSnapshot(puanlarRef, function(){
+        puanOzetiniGuncelle(filmId);
+      });
+
+      document.querySelectorAll(".yildiz-btn").forEach(function(btn){
+        btn.addEventListener("click", async function(){
+          const puan = Number(btn.getAttribute("data-puan"));
+
+          try{
+            await setDoc(puanDocRef, {
+              puan: puan,
+              cihazId: cihazId,
+              zamanText: tarihYazisiOlustur()
+            });
+
+            yildizlariBoya(puan);
+            puanBilgi.innerText = "Senin puanın: " + puan + " yıldız";
+          }catch(e){
+            alert("Puan gönderilemedi.");
+            console.error(e);
+          }
+        });
       });
     }
 
@@ -734,12 +924,14 @@
             </div>
 
             ${videoKutusuOlustur(film)}
+            ${puanKutusuOlustur()}
             ${yorumKutusuOlustur()}
           </div>
         </div>
       `;
 
       izledimSisteminiBaslat(film);
+      puanSisteminiBaslat(film);
       yorumSisteminiBaslat(film);
     }
 

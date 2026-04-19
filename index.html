@@ -778,16 +778,28 @@ body{
     <a href="rooms.html" class="online-buton">💬 Online Odaya Gir</a>
 </div>
 
-<div class="sayaclar">
+<<div class="sayaclar">
     <div class="sayac-kutu">
-        <div class="sayac-sayi">12+</div>
+        <div class="sayac-sayi" id="toplamFilm">0</div>
         <div class="sayac-yazi">Toplam Film</div>
     </div>
 
     <div class="sayac-kutu">
-        <div class="sayac-sayi">4</div>
+        <div class="sayac-sayi" id="kategoriSayisi">0</div>
         <div class="sayac-yazi">Kategori</div>
     </div>
+</div>
+
+<script src="filmler.js"></script>
+<script>
+const toplamFilm = document.getElementById("toplamFilm");
+const kategori = document.getElementById("kategoriSayisi");
+
+if (typeof FILMLER !== "undefined") {
+  toplamFilm.textContent = FILMLER.length + "+";
+  kategori.textContent = [...new Set(FILMLER.map(f => f.tur))].length;
+}
+</script>
 
     <div class="sayac-kutu">
         <div class="sayac-sayi">Canlı</div>

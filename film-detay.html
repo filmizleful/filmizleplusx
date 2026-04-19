@@ -365,7 +365,23 @@
 
   <script src="filmler.js"></script>
 
-  <script>
+  <script type="module">
+    import { initializeApp } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-app.js";
+    import { getFirestore, collection, addDoc, onSnapshot, query, orderBy } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-firestore.js";
+
+    const firebaseConfig = {
+      apiKey: "AIzaSyBNoenb7tM6mFK8DEruxFtYLo_FwUXY7uc",
+      authDomain: "filmizleful-chat.firebaseapp.com",
+      projectId: "filmizleful-chat",
+      storageBucket: "filmizleful-chat.firebasestorage.app",
+      messagingSenderId: "873061099685",
+      appId: "1:873061099685:web:aa697ed2baadd453dc454c",
+      measurementId: "G-BQ9P47BS8S"
+    };
+
+    const app = initializeApp(firebaseConfig);
+    const db = getFirestore(app);
+
     const icerik = document.getElementById("icerik");
 
     function urlParametresiAl(parametreAdi){
@@ -405,10 +421,6 @@
 
     function izledimAnahtari(filmId){
       return "izledim_" + filmId;
-    }
-
-    function yorumAnahtari(filmId){
-      return "yorumlar_" + filmId;
     }
 
     function tarihYazisiOlustur(){
@@ -522,36 +534,62 @@
       `;
     }
 
-    function yorumlariGetir(filmId){
-      return JSON.parse(localStorage.getItem(yorumAnahtari(filmId))) || [];
-    }
+    function yorumTarihiFormatla(deger){
+      if(!deger) return "";
+      if(typeof deger === "string") return deger;
 
-    function yorumlariKaydet(filmId, yorumlar){
-      localStorage.setItem(yorumAnahtari(filmId), JSON.stringify(yorumlar));
-    }
-
-    function yorumlariGoster(filmId){
-      const yorumListesi = document.getElementById("yorumListesi");
-      const yorumlar = yorumlariGetir(filmId);
-
-      if(!yorumlar.length){
-        yorumListesi.innerHTML = `
-          <div class="yorum-yok">Bu filme henüz yorum yapılmamış. İlk yorumu sen yaz.</div>
-        `;
-        return;
+      try{
+        if(typeof deger.toDate === "function"){
+          const t = deger.toDate();
+          const gun = String(t.getDate()).padStart(2, "0");
+          const ay = String(t.getMonth() + 1).padStart(2, "0");
+          const yil = t.getFullYear();
+          const saat = String(t.getHours()).padStart(2, "0");
+          const dakika = String(t.getMinutes()).padStart(2, "0");
+          return gun + "." + ay + "." + yil + " " + saat + ":" + dakika;
+        }
+      }catch(e){
+        return "";
       }
 
-      yorumListesi.innerHTML = yorumlar.map(function(yorum){
-        return `
-          <div class="yorum-item">
-            <div class="yorum-ust">
-              <div class="yorum-ad">${guvenliMetin(yorum.ad)}</div>
-              <div class="yorum-tarih">${guvenliMetin(yorum.tarih)}</div>
+      return "";
+    }
+
+    function yorumlariGosterFirebase(filmId){
+      const yorumListesi = document.getElementById("yorumListesi");
+      const yorumRef = collection(db, "yorumlar_" + filmId);
+      const q = query(yorumRef, orderBy("zaman", "desc"));
+
+      onSnapshot(q, function(snapshot){
+        if(snapshot.empty){
+          yorumListesi.innerHTML = `
+            <div class="yorum-yok">Bu filme henüz yorum yapılmamış. İlk yorumu sen yaz.</div>
+          `;
+          return;
+        }
+
+        let html = "";
+
+        snapshot.forEach(function(doc){
+          const yorum = doc.data();
+          html += `
+            <div class="yorum-item">
+              <div class="yorum-ust">
+                <div class="yorum-ad">${guvenliMetin(yorum.ad || "Misafir")}</div>
+                <div class="yorum-tarih">${guvenliMetin(yorumTarihiFormatla(yorum.zamanText || yorum.zaman))}</div>
+              </div>
+              <div class="yorum-metin">${guvenliMetin(yorum.metin || "")}</div>
             </div>
-            <div class="yorum-metin">${guvenliMetin(yorum.metin)}</div>
-          </div>
+          `;
+        });
+
+        yorumListesi.innerHTML = html;
+      }, function(error){
+        yorumListesi.innerHTML = `
+          <div class="yorum-yok">Yorumlar yüklenemedi. Firestore kurallarını kontrol et.</div>
         `;
-      }).reverse().join("");
+        console.error(error);
+      });
     }
 
     function yorumSisteminiBaslat(film){
@@ -564,9 +602,9 @@
         yorumAd.value = kayitliAd;
       }
 
-      yorumlariGoster(film.id);
+      yorumlariGosterFirebase(film.id);
 
-      yorumGonderBtn.addEventListener("click", function(){
+      yorumGonderBtn.addEventListener("click", async function(){
         const ad = yorumAd.value.trim();
         const metin = yorumMetin.value.trim();
 
@@ -580,17 +618,27 @@
           return;
         }
 
-        const yorumlar = yorumlariGetir(film.id);
+        yorumGonderBtn.disabled = true;
+        yorumGonderBtn.innerText = "Gönderiliyor...";
 
-        yorumlar.push({
-          ad: ad,
-          metin: metin,
-          tarih: tarihYazisiOlustur()
-        });
+        try{
+          const yorumRef = collection(db, "yorumlar_" + film.id);
 
-        yorumlariKaydet(film.id, yorumlar);
-        yorumMetin.value = "";
-        yorumlariGoster(film.id);
+          await addDoc(yorumRef, {
+            ad: ad,
+            metin: metin,
+            zaman: new Date(),
+            zamanText: tarihYazisiOlustur()
+          });
+
+          yorumMetin.value = "";
+        }catch(e){
+          alert("Yorum gönderilemedi. Firestore rules ayarını kontrol et.");
+          console.error(e);
+        }finally{
+          yorumGonderBtn.disabled = false;
+          yorumGonderBtn.innerText = "Yorumu Gönder";
+        }
       });
     }
 

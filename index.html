@@ -23,7 +23,9 @@
 *{
   box-sizing:border-box;
 }
-
+.araclar-kutu{
+    background:linear-gradient(135deg,#ff3b3b,#b30000) !important;
+}
 body{
   margin:0;
   font-family:Arial, sans-serif;
@@ -755,6 +757,37 @@ body{
         bottom:145px;
         width:calc(100% - 24px);
     }
+/* Bugün ne izlesem butonu */
+.oner-kutu{
+    display:flex;
+    flex-direction:column;
+    align-items:center;
+    justify-content:center;
+    margin:14px auto 6px;
+    width:100%;
+    text-align:center;
+}
+
+.oner-btn{
+    border:none;
+    border-radius:16px;
+    padding:14px 26px;
+    background:linear-gradient(90deg,#ffb58b,#ff7588);
+    color:white;
+    font-size:17px;
+    font-weight:bold;
+    cursor:pointer;
+}
+
+.oner-btn:hover{
+    transform:scale(1.05);
+}
+
+#oner-sonuc{
+    margin-top:12px;
+    font-size:18px;
+    color:#ffe0a8;
+    font-weight:bold;
 }
 </style>
 </head>
@@ -785,11 +818,13 @@ body{
             <p>Kategorileri keşfet, popüler filmleri incele, odalara katıl ve arkadaşlarınla birlikte keyifli vakit geçir.</p>
 
             <div class="kapak-butonlar">
-                <a href="rooms.html" class="kapak-buton ilk">💬 Online Odaya Gir</a>
-                <a href="#filmler" class="kapak-buton ikinci">🎞️ Filmlere Git</a>
-            </div>
-        </div>
-    </div>
+    <a href="rooms.html" class="kapak-buton ilk">💬 Online Odaya Gir</a>
+    <a href="#filmler" class="kapak-buton ikinci">🎞️ Filmlere Git</a>
+    <button onclick="filmOner()" class="kapak-buton ilk" style="border:none; cursor:pointer;">🎬 Bugün Ne İzlesem?</button>
+</div>
+
+<div id="oner-sonuc" style="margin-top:14px; font-size:18px; color:#ffe0a8; font-weight:bold;"></div>    </div>
+
 </div>
 
 <div class="hero">
@@ -872,6 +907,12 @@ if (typeof FILMLER !== "undefined") {
     <div class="ikon">🕌</div>
     <div class="ad">Dini Filmler</div>
     <div class="yazi">İslami ve tarihi yapımlar</div>
+</a>
+
+<a href="araclar.html" class="kategori araclar-kutu animasyon arama-ogesi" data-ara="araçlar hesaplama rastgele film öneri">
+    <div class="ikon">🛠️</div>
+    <div class="ad">Araçlar</div>
+    <div class="yazi">Film araçları, öneriler, sağlık, şiir… aradığın her şey burada</div>
 </a>
 </div>
 
@@ -1134,6 +1175,76 @@ function filmKartlariniHazirla(){
         });
     });
 }
+
+function filmOner(){
+   var filmler = [
+"John Wick 4",
+"The Batman",
+"Superman (2025)",
+"Dune",
+"Dune Part Two",
+"Oppenheimer",
+"Barbie",
+"Napoleon",
+"Killers of the Flower Moon",
+"The Creator",
+"Rebel Moon",
+"Mission Impossible Dead Reckoning",
+"Fast X",
+"Transformers Rise of the Beasts",
+"Guardians of the Galaxy Vol 3",
+"Spider Man No Way Home",
+"Doctor Strange Multiverse of Madness",
+"Black Panther Wakanda Forever",
+"Thor Love and Thunder",
+"The Flash",
+"Blue Beetle",
+"Aquaman 2",
+"Avatar The Way of Water",
+"Top Gun Maverick",
+"The Equalizer 3",
+"Extraction 2",
+"The Gray Man",
+"Red Notice",
+"6 Underground",
+"Army of the Dead",
+"Bird Box",
+"A Quiet Place 2",
+"The Nun 2",
+"Insidious The Red Door",
+"Scream 6",
+"Evil Dead Rise",
+"It Chapter Two",
+"Smile",
+"Talk to Me",
+"Hereditary",
+"Midsommar",
+"The Menu",
+"Glass Onion",
+"Knives Out",
+"Shutter Island",
+"Inception",
+"Interstellar",
+"The Prestige",
+"Fight Club",
+"Seven",
+"Joker",
+"The Dark Knight",
+"Harry Potter and the Sorcerers Stone",
+"Lord of the Rings The Fellowship of the Ring",
+"The Hobbit An Unexpected Journey"
+    ];
+
+    var secilen = filmler[Math.floor(Math.random() * filmler.length)];
+    var sonuc = document.getElementById("oner-sonuc");
+
+    if (sonuc) {
+        sonuc.innerText = "👉 Önerilen film: " + secilen;
+    }
+}
+
+filmKartlariniHazirla();
+</script>
 
 filmKartlariniHazirla();
 </script>

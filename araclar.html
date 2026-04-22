@@ -1,0 +1,452 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Araçlar - Filmizleplusx</title>
+
+<style>
+*{
+    box-sizing:border-box;
+}
+
+body{
+    margin:0;
+    font-family:Arial, sans-serif;
+    background:radial-gradient(circle at top, #1d1a33 0%, #0b0b14 55%, #000 100%);
+    color:white;
+}
+
+.ustbar{
+    background:rgba(10,10,16,0.95);
+    padding:15px 20px;
+    display:flex;
+    justify-content:space-between;
+    align-items:center;
+    gap:12px;
+    flex-wrap:wrap;
+    border-bottom:1px solid rgba(255,255,255,0.06);
+}
+
+.logo{
+    color:#ff7588;
+    font-weight:bold;
+    font-size:28px;
+}
+
+.geri-btn{
+    color:white;
+    text-decoration:none;
+    background:linear-gradient(90deg,#ffb58b,#ff7588);
+    padding:10px 16px;
+    border-radius:12px;
+    font-weight:bold;
+    box-shadow:0 8px 20px rgba(255,120,140,0.25);
+}
+
+.hero{
+    max-width:1200px;
+    margin:25px auto 10px;
+    padding:0 20px;
+    text-align:center;
+}
+
+.hero h1{
+    margin:0 0 10px;
+    font-size:38px;
+}
+
+.hero p{
+    margin:0;
+    color:#d4d4e1;
+    font-size:17px;
+}
+
+.container{
+    max-width:1200px;
+    margin:auto;
+    padding:20px;
+}
+
+.grid{
+    display:grid;
+    grid-template-columns:repeat(auto-fit,minmax(260px,1fr));
+    gap:20px;
+}
+
+.kutu{
+    background:rgba(255,255,255,0.05);
+    padding:22px;
+    border-radius:22px;
+    box-shadow:0 10px 25px rgba(0,0,0,0.35);
+    border:1px solid rgba(255,255,255,0.05);
+}
+
+.kutu h3{
+    margin-top:0;
+    margin-bottom:16px;
+    font-size:22px;
+}
+
+.kutu p{
+    color:#e5e5ee;
+    line-height:1.6;
+}
+
+button{
+    margin-top:12px;
+    padding:10px 16px;
+    border:none;
+    border-radius:12px;
+    background:#ff7588;
+    color:white;
+    cursor:pointer;
+    font-weight:bold;
+}
+
+button:hover{
+    opacity:0.95;
+}
+
+input, select, textarea{
+    width:100%;
+    padding:12px;
+    border-radius:12px;
+    border:none;
+    margin-top:10px;
+    background:#f1f1f1;
+    color:#111;
+    font-size:15px;
+}
+
+.sonuc{
+    margin-top:12px;
+    color:#ffe2a8;
+    font-weight:bold;
+}
+
+.mini-yazi{
+    font-size:15px;
+    color:#d6d6e8;
+}
+
+.alt{
+    text-align:center;
+    color:#9ea0b8;
+    padding:25px;
+    margin-top:20px;
+    border-top:1px solid rgba(255,255,255,0.06);
+}
+
+@media(max-width:700px){
+    .hero h1{
+        font-size:28px;
+    }
+
+    .hero p{
+        font-size:15px;
+    }
+
+    .logo{
+        font-size:24px;
+    }
+}
+</style>
+</head>
+<body>
+
+<div class="ustbar">
+    <div class="logo">🎬 Filmizleplusx</div>
+    <a href="index.html" class="geri-btn">← Geri Dön</a>
+</div>
+
+<div class="hero">
+    <h1>🛠️ Araçlar & Ekstra</h1>
+    <p>Film araçları, günlük bilgiler, mini içerikler ve dikkat çeken küçük bölümler burada.</p>
+</div>
+
+<div class="container">
+    <div class="grid">
+
+        <div class="kutu">
+            <h3>🎬 Rastgele Film</h3>
+            <button onclick="filmSec()">Seç</button>
+            <div class="sonuc" id="filmSonuc"></div>
+        </div>
+
+        <div class="kutu">
+            <h3>🎂 Yaş Hesapla</h3>
+            <input type="number" id="yasInput" placeholder="Doğum yılı">
+            <button onclick="yasHesap()">Hesapla</button>
+            <div class="sonuc" id="yasSonuc"></div>
+        </div>
+
+        <div class="kutu">
+            <h3>📅 Gün Hesapla</h3>
+            <input type="number" id="gunInput" placeholder="Gün sayısı">
+            <button onclick="gunHesap()">Hesapla</button>
+            <div class="sonuc" id="gunSonuc"></div>
+        </div>
+
+        <div class="kutu">
+            <h3>⏱️ Film Süresi</h3>
+            <input type="number" id="sureInput" placeholder="Dakika">
+            <button onclick="sureHesap()">Hesapla</button>
+            <div class="sonuc" id="sureSonuc"></div>
+        </div>
+
+        <div class="kutu">
+            <h3>🎲 Rastgele Sayı</h3>
+            <button onclick="sayiUret()">Üret</button>
+            <div class="sonuc" id="sayiSonuc"></div>
+        </div>
+
+        <div class="kutu">
+            <h3>🎥 Film Öner</h3>
+            <button onclick="filmOner()">Öner</button>
+            <div class="sonuc" id="onerSonuc"></div>
+        </div>
+
+        <div class="kutu">
+            <h3>✏️ Metin Uzunluğu</h3>
+            <input id="metinInput" placeholder="Metin yaz">
+            <button onclick="metinUzunluk()">Hesapla</button>
+            <div class="sonuc" id="metinSonuc"></div>
+        </div>
+
+        <div class="kutu">
+            <h3>💯 Yüzde Hesapla</h3>
+            <input id="yuzdeSayi" placeholder="Sayı">
+            <input id="yuzdeOran" placeholder="%">
+            <button onclick="yuzdeHesapla()">Hesapla</button>
+            <div class="sonuc" id="yuzdeSonuc"></div>
+        </div>
+
+        <div class="kutu">
+            <h3>📊 Ortalama</h3>
+            <input id="n1" placeholder="1. sayı">
+            <input id="n2" placeholder="2. sayı">
+            <input id="n3" placeholder="3. sayı">
+            <button onclick="ortalamaHesapla()">Hesapla</button>
+            <div class="sonuc" id="ortalamaSonuc"></div>
+        </div>
+
+        <div class="kutu">
+            <h3>⏳ Dakika → Saat</h3>
+            <input id="dkInput" placeholder="Dakika">
+            <button onclick="dakikaCevir()">Çevir</button>
+            <div class="sonuc" id="cevirSonuc"></div>
+        </div>
+
+        <div class="kutu">
+            <h3>🥗 Günün Sağlık Bilgisi</h3>
+            <p id="saglikYazi" class="mini-yazi"></p>
+            <button onclick="saglikGetir()">Yenile</button>
+        </div>
+
+        <div class="kutu">
+            <h3>🍽️ Günün Yemeği</h3>
+            <p id="yemekYazi" class="mini-yazi"></p>
+            <button onclick="yemekGetir()">Yenile</button>
+        </div>
+
+        <div class="kutu">
+            <h3>📝 Günün Sözü</h3>
+            <p id="sozYazi" class="mini-yazi"></p>
+            <button onclick="sozGetir()">Yeni Söz</button>
+        </div>
+
+        <div class="kutu">
+            <h3>📚 Kısa Okuma Köşesi</h3>
+            <p id="okumaYazi" class="mini-yazi"></p>
+            <button onclick="okumaGetir()">Yeni Yazı</button>
+        </div>
+
+        <div class="kutu">
+            <h3>🧠 Film Bilgisi</h3>
+            <p id="bilgiYazi" class="mini-yazi"></p>
+            <button onclick="bilgiGetir()">Yeni Bilgi</button>
+        </div>
+
+        <div class="kutu">
+            <h3>❓ Mini Soru</h3>
+            <p id="soruYazi" class="mini-yazi"></p>
+            <button onclick="soruGetir()">Yeni Soru</button>
+        </div>
+
+    </div>
+</div>
+
+<div class="alt">
+    © 2026 Filmizleplusx - Araçlar Sayfası
+</div>
+
+<script>
+const filmler = [
+    "John Wick",
+    "Batman",
+    "Interstellar",
+    "Avatar",
+    "Matrix",
+    "Inception",
+    "Mad Max",
+    "The Conjuring",
+    "Gladyatör",
+    "Prestij"
+];
+
+const saglikList = [
+    "Gün içinde yeterli su içmek vücudun daha iyi çalışmasına yardımcı olur.",
+    "Düzenli uyku odaklanmayı ve günlük enerjiyi artırabilir.",
+    "Sebze ve meyve tüketmek genel beslenme düzenine katkı sağlar.",
+    "Uzun süre oturuyorsan ara ara kalkıp kısa yürüyüş yapmak iyi gelir.",
+    "Aşırı geç saatlerde ağır yemekler yemek bazı kişilerde rahatsızlık yapabilir."
+];
+
+const yemekList = [
+    "Sebze yemeği + yoğurt",
+    "Tavuklu pilav + salata",
+    "Mercimek çorbası + makarna",
+    "Köfte + patates + ayran",
+    "Fırında tavuk + pirinç pilavı",
+    "Menemen + ekmek + çay",
+    "Nohut + pilav",
+    "Makarna + yoğurt"
+];
+
+const sozList = [
+    "Küçük bir adım, bazen en büyük başlangıçtır.",
+    "Bugün yaptığın şey, yarının şeklini değiştirebilir.",
+    "Sabır, aceleden daha çok kapı açar.",
+    "Kendini geliştirmen, en sağlam yatırımdır.",
+    "Bazen durup dinlenmek de ilerlemenin parçasıdır."
+];
+
+const okumaList = [
+    "İyi bir gün bazen büyük olaylarla değil, küçük düzenlerle başlar. Erken kalkmak, kısa bir plan yapmak ve bir işi bitirmek insanı daha düzenli hissettirebilir.",
+    "İnsanlar en çok sade ve anlaşılır şeyleri sever. Bir sayfa ya da proje hazırlarken karmaşıktan çok düzen önemli olur.",
+    "Bir siteyi güçlü yapan şey sadece görünüşü değil, kullanıcıyı içeride tutacak faydalı bölümlerdir. Fayda varsa ziyaretçi geri gelir.",
+    "Düzenli küçük adımlar, düzensiz büyük adımlardan çoğu zaman daha güçlüdür. Her gün biraz ilerlemek uzun vadede büyük fark oluşturur."
+];
+
+const bilgiList = [
+    "Birçok film sahnesi çekilirken aynı sahnenin birden fazla açısı kaydedilir.",
+    "Film afişleri izleyicide ilk izlenimi oluşturan en güçlü parçalardan biridir.",
+    "Bazı filmler çekim sırasında planlanan süreden çok daha uzun sürede tamamlanır.",
+    "Fragmanlar bazen filmin en dikkat çekici anlarını özellikle kısa ve hızlı gösterir.",
+    "Bir filmin müziği, sahnenin hissini doğrudan değiştirebilir."
+];
+
+const soruList = [
+    "Bugün korku mu izlersin, aksiyon mu?",
+    "Tek bir film seçecek olsan eski film mi yeni film mi?",
+    "Yalnız izlemek mi daha iyi, arkadaşlarla izlemek mi?",
+    "Uzun film mi seversin kısa film mi?",
+    "Bir filmi iyi yapan şey sence hikâye mi oyunculuk mu?"
+];
+
+function filmSec(){
+    document.getElementById("filmSonuc").innerText = filmler[Math.floor(Math.random()*filmler.length)];
+}
+
+function yasHesap(){
+    let yil = Number(document.getElementById("yasInput").value);
+    if(!yil){
+        document.getElementById("yasSonuc").innerText = "Yıl gir.";
+        return;
+    }
+    let yas = new Date().getFullYear() - yil;
+    document.getElementById("yasSonuc").innerText = yas + " yaş";
+}
+
+function gunHesap(){
+    let gun = Number(document.getElementById("gunInput").value);
+    if(!gun){
+        document.getElementById("gunSonuc").innerText = "Gün gir.";
+        return;
+    }
+    document.getElementById("gunSonuc").innerText = (gun/7).toFixed(2) + " hafta";
+}
+
+function sureHesap(){
+    let dk = Number(document.getElementById("sureInput").value);
+    if(!dk){
+        document.getElementById("sureSonuc").innerText = "Dakika gir.";
+        return;
+    }
+    document.getElementById("sureSonuc").innerText = (dk/60).toFixed(2) + " saat";
+}
+
+function sayiUret(){
+    document.getElementById("sayiSonuc").innerText = Math.floor(Math.random()*100);
+}
+
+function filmOner(){
+    document.getElementById("onerSonuc").innerText = filmler[Math.floor(Math.random()*filmler.length)];
+}
+
+function metinUzunluk(){
+    let t = document.getElementById("metinInput").value;
+    document.getElementById("metinSonuc").innerText = t.length + " karakter";
+}
+
+function yuzdeHesapla(){
+    let sayi = Number(document.getElementById("yuzdeSayi").value);
+    let oran = Number(document.getElementById("yuzdeOran").value);
+    if(isNaN(sayi) || isNaN(oran)){
+        document.getElementById("yuzdeSonuc").innerText = "Değer gir.";
+        return;
+    }
+    document.getElementById("yuzdeSonuc").innerText = (sayi * oran / 100);
+}
+
+function ortalamaHesapla(){
+    let a = Number(document.getElementById("n1").value);
+    let b = Number(document.getElementById("n2").value);
+    let c = Number(document.getElementById("n3").value);
+    document.getElementById("ortalamaSonuc").innerText = ((a+b+c)/3).toFixed(2);
+}
+
+function dakikaCevir(){
+    let dk = Number(document.getElementById("dkInput").value);
+    if(!dk){
+        document.getElementById("cevirSonuc").innerText = "Dakika gir.";
+        return;
+    }
+    document.getElementById("cevirSonuc").innerText = (dk/60).toFixed(2) + " saat";
+}
+
+function saglikGetir(){
+    document.getElementById("saglikYazi").innerText = saglikList[Math.floor(Math.random()*saglikList.length)];
+}
+
+function yemekGetir(){
+    document.getElementById("yemekYazi").innerText = yemekList[Math.floor(Math.random()*yemekList.length)];
+}
+
+function sozGetir(){
+    document.getElementById("sozYazi").innerText = sozList[Math.floor(Math.random()*sozList.length)];
+}
+
+function okumaGetir(){
+    document.getElementById("okumaYazi").innerText = okumaList[Math.floor(Math.random()*okumaList.length)];
+}
+
+function bilgiGetir(){
+    document.getElementById("bilgiYazi").innerText = bilgiList[Math.floor(Math.random()*bilgiList.length)];
+}
+
+function soruGetir(){
+    document.getElementById("soruYazi").innerText = soruList[Math.floor(Math.random()*soruList.length)];
+}
+
+saglikGetir();
+yemekGetir();
+sozGetir();
+okumaGetir();
+bilgiGetir();
+soruGetir();
+</script>
+
+</body>
+</html>

@@ -1,338 +1,353 @@
 <!DOCTYPE html>
 <html lang="tr">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Admin Panel - Filmizleplusx</title>
-
-<style>
-*{
-    box-sizing:border-box;
-}
-
-body{
-    margin:0;
-    font-family:Arial, sans-serif;
-    background:radial-gradient(circle at top, #1d1a33 0%, #0b0b14 55%, #000 100%);
-    color:white;
-}
-
-.ustbar{
-    background:rgba(10,10,16,0.95);
-    padding:18px 28px;
-    display:flex;
-    justify-content:space-between;
-    align-items:center;
-    flex-wrap:wrap;
-    gap:12px;
-    border-bottom:1px solid rgba(255,255,255,0.06);
-}
-
-.logo{
-    font-size:28px;
-    color:#ff6d7a;
-    font-weight:bold;
-}
-
-.menu{
-    display:flex;
-    gap:12px;
-    flex-wrap:wrap;
-}
-
-.menu a{
-    color:white;
-    text-decoration:none;
-    padding:8px 14px;
-    border-radius:10px;
-    background:rgba(255,255,255,0.06);
-    font-weight:bold;
-}
-
-.kapsayici{
-    max-width:1100px;
-    margin:30px auto;
-    padding:0 20px 40px;
-}
-
-.baslik{
-    text-align:center;
-    font-size:34px;
-    margin-bottom:12px;
-}
-
-.aciklama{
-    text-align:center;
-    color:#cfd0df;
-    margin-bottom:28px;
-}
-
-.panel{
-    display:grid;
-    grid-template-columns:1fr 1fr;
-    gap:24px;
-}
-
-.kutu{
-    background:rgba(255,255,255,0.05);
-    border:1px solid rgba(255,255,255,0.08);
-    border-radius:22px;
-    padding:22px;
-    box-shadow:0 10px 25px rgba(0,0,0,0.18);
-}
-
-.kutu h2{
-    margin-top:0;
-    margin-bottom:18px;
-    font-size:24px;
-}
-
-.form-alan{
-    display:flex;
-    flex-direction:column;
-    gap:12px;
-}
-
-.input,
-.textarea,
-.select{
-    width:100%;
-    padding:14px;
-    border:none;
-    border-radius:12px;
-    background:#1f2937;
-    color:white;
-    font-size:15px;
-    outline:none;
-}
-
-.textarea{
-    min-height:110px;
-    resize:vertical;
-}
-
-.buton{
-    border:none;
-    border-radius:12px;
-    padding:14px 18px;
-    font-size:15px;
-    font-weight:bold;
-    cursor:pointer;
-    transition:0.2s;
-}
-
-.buton-ekle{
-    background:#e50914;
-    color:white;
-}
-
-.buton-ekle:hover{
-    opacity:0.95;
-}
-
-.buton-sil{
-    background:#374151;
-    color:white;
-}
-
-.buton-sil:hover{
-    opacity:0.95;
-}
-
-.film-listesi{
-    display:flex;
-    flex-direction:column;
-    gap:14px;
-}
-
-.film-item{
-    background:#1f2937;
-    border-radius:14px;
-    padding:14px;
-    display:flex;
-    justify-content:space-between;
-    align-items:center;
-    gap:14px;
-    flex-wrap:wrap;
-}
-
-.film-sol{
-    display:flex;
-    flex-direction:column;
-    gap:6px;
-}
-
-.film-ad{
-    font-size:18px;
-    font-weight:bold;
-}
-
-.film-detay{
-    color:#cfd0df;
-    font-size:14px;
-}
-
-.mesaj{
-    margin-top:14px;
-    font-weight:bold;
-    color:#86efac;
-}
-
-.bos{
-    color:#aaa;
-    text-align:center;
-    padding:16px;
-    background:#1f2937;
-    border-radius:14px;
-}
-
-@media(max-width:900px){
-    .panel{
-        grid-template-columns:1fr;
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Admin Panel - Filmizleplusx</title>
+  <style>
+    *{margin:0;padding:0;box-sizing:border-box}
+    body{
+      font-family:Arial,sans-serif;
+      background:linear-gradient(180deg,#0b1020,#111827);
+      color:#fff;
+      min-height:100vh;
+      padding:20px;
     }
-}
-</style>
+    .kapsa{max-width:1200px;margin:auto}
+    .ust{display:flex;justify-content:space-between;align-items:center;gap:10px;flex-wrap:wrap;margin-bottom:20px}
+    .logo{font-size:30px;font-weight:bold;color:#e50914}
+    .geri{
+      text-decoration:none;color:#fff;background:#374151;
+      padding:10px 14px;border-radius:10px;font-weight:bold
+    }
+    .grid{display:grid;grid-template-columns:1fr 1fr;gap:20px}
+    .kart{
+      background:rgba(255,255,255,0.04);
+      border:1px solid rgba(255,255,255,0.08);
+      border-radius:20px;padding:20px
+    }
+    .kart h2{margin-bottom:16px;color:#ffe082}
+    .satir{margin-bottom:12px}
+    label{display:block;margin-bottom:6px;font-weight:bold}
+    input,textarea{
+      width:100%;padding:12px;border:none;outline:none;
+      border-radius:12px;background:#1f2937;color:#fff;font-size:15px
+    }
+    textarea{min-height:90px;resize:vertical}
+    .butonlar{display:flex;gap:10px;flex-wrap:wrap;margin-top:14px}
+    button{
+      border:none;border-radius:12px;padding:12px 16px;
+      font-size:15px;font-weight:bold;cursor:pointer
+    }
+    .btn-ekle{background:#e50914;color:#fff}
+    .btn-temizle{background:#374151;color:#fff}
+    .btn-sil{background:#b91c1c;color:#fff}
+    .btn-duzenle{background:#d97706;color:#fff}
+    .durum{margin-top:14px;min-height:22px;color:#86efac;font-size:14px;font-weight:bold}
+    .liste{display:flex;flex-direction:column;gap:12px;max-height:800px;overflow:auto}
+    .film-item{
+      background:#111827;border:1px solid rgba(255,255,255,0.08);
+      border-radius:16px;padding:14px
+    }
+    .film-baslik{font-size:18px;font-weight:bold;color:#fff}
+    .film-alt{color:#cbd5e1;font-size:14px;line-height:1.6;margin-top:8px}
+    .film-butonlar{display:flex;gap:8px;flex-wrap:wrap;margin-top:12px}
+    .bos{color:#9ca3af;text-align:center;padding:20px;background:#111827;border-radius:14px}
+    .onizleme{
+      margin-top:12px;width:120px;height:170px;object-fit:cover;
+      border-radius:12px;border:1px solid rgba(255,255,255,0.08);
+      background:#1f2937;display:block
+    }
+    @media (max-width:900px){.grid{grid-template-columns:1fr}}
+  </style>
 </head>
 <body>
-
-<div class="ustbar">
-    <div class="logo">🎬 Filmizleplusx Admin</div>
-    <div class="menu">
-        <a href="index.html">Ana Sayfa</a>
-        <a href="admin.html">Admin</a>
+  <div class="kapsa">
+    <div class="ust">
+      <div class="logo">Filmizleplusx Admin</div>
+      <a class="geri" href="index.html">Ana Sayfaya Dön</a>
     </div>
-</div>
 
-<div class="kapsayici">
-    <div class="baslik">Film Yönetim Paneli</div>
-    <div class="aciklama">Buradan test amaçlı film ekleyebilir ve silebilirsin.</div>
+    <div class="grid">
+      <div class="kart">
+        <h2>Film Ekle / Düzenle</h2>
 
-    <div class="panel">
-        <div class="kutu">
-            <h2>Yeni Film Ekle</h2>
-
-            <div class="form-alan">
-                <input id="filmId" class="input" placeholder="Film ID (örnek: john-wick-4)">
-                <input id="filmIsim" class="input" placeholder="Film adı">
-                <input id="filmTur" class="input" placeholder="Tür (örnek: Aksiyon)">
-                <input id="filmYil" class="input" placeholder="Yıl">
-                <input id="filmPuan" class="input" placeholder="Puan (örnek: 8.1)">
-                <input id="filmAfis" class="input" placeholder="Afiş linki">
-                <input id="filmFragman" class="input" placeholder="Fragman linki">
-                <textarea id="filmOzet" class="textarea" placeholder="Film özeti"></textarea>
-
-                <button class="buton buton-ekle" onclick="filmEkle()">➕ Filmi Kaydet</button>
-                <div class="mesaj" id="mesajAlani"></div>
-            </div>
+        <div class="satir">
+          <label>Film ID</label>
+          <input type="text" id="filmId" placeholder="ornek: testfilm">
         </div>
 
-        <div class="kutu">
-            <h2>Eklenen Filmler</h2>
-            <div class="film-listesi" id="filmListesi"></div>
+        <div class="satir">
+          <label>Film Adı</label>
+          <input type="text" id="filmIsim" placeholder="Film adı">
         </div>
+
+        <div class="satir">
+          <label>Tür</label>
+          <input type="text" id="filmTur" placeholder="aksiyon">
+        </div>
+
+        <div class="satir">
+          <label>Yıl</label>
+          <input type="text" id="filmYil" placeholder="2026">
+        </div>
+
+        <div class="satir">
+          <label>Puan</label>
+          <input type="text" id="filmPuan" placeholder="8.5">
+        </div>
+
+        <div class="satir">
+          <label>Afiş Linki</label>
+          <input type="text" id="filmAfis" placeholder="https://...">
+          <img id="afisOnizleme" class="onizleme" src="" alt="Afiş önizleme" style="display:none;">
+        </div>
+
+        <div class="satir">
+          <label>Fragman Linki</label>
+          <input type="text" id="filmFragman" placeholder="https://www.youtube.com/watch?v=...">
+        </div>
+
+        <div class="satir">
+          <label>Özet</label>
+          <textarea id="filmOzet" placeholder="Kısa özet"></textarea>
+        </div>
+
+        <div class="satir">
+          <label>Hakkında 1</label>
+          <textarea id="filmHakkinda1" placeholder="İlk açıklama"></textarea>
+        </div>
+
+        <div class="satir">
+          <label>Hakkında 2</label>
+          <textarea id="filmHakkinda2" placeholder="İkinci açıklama"></textarea>
+        </div>
+
+        <div class="satir">
+          <label>İzle Linki</label>
+          <input type="text" id="filmIzle" value="#">
+        </div>
+
+        <div class="butonlar">
+          <button class="btn-ekle" onclick="filmKaydet()">Filmi Kaydet</button>
+          <button class="btn-temizle" onclick="formuTemizle()">Formu Temizle</button>
+        </div>
+
+        <div class="durum" id="durumYazisi"></div>
+      </div>
+
+      <div class="kart">
+        <h2>Eklenen Filmler</h2>
+        <div id="filmListesi" class="liste"></div>
+      </div>
     </div>
-</div>
+  </div>
 
-<script>
-function filmleriAl(){
-    return JSON.parse(localStorage.getItem("admin_filmler")) || [];
-}
+  <script>
+    const FILM_KEY = "panelFilmler";
+    let duzenlenenFilmId = null;
 
-function filmleriKaydet(liste){
-    localStorage.setItem("admin_filmler", JSON.stringify(liste));
-}
+    const filmIdInput = document.getElementById("filmId");
+    const filmIsimInput = document.getElementById("filmIsim");
+    const filmTurInput = document.getElementById("filmTur");
+    const filmYilInput = document.getElementById("filmYil");
+    const filmPuanInput = document.getElementById("filmPuan");
+    const filmAfisInput = document.getElementById("filmAfis");
+    const filmFragmanInput = document.getElementById("filmFragman");
+    const filmOzetInput = document.getElementById("filmOzet");
+    const filmHakkinda1Input = document.getElementById("filmHakkinda1");
+    const filmHakkinda2Input = document.getElementById("filmHakkinda2");
+    const filmIzleInput = document.getElementById("filmIzle");
+    const durumYazisi = document.getElementById("durumYazisi");
+    const filmListesi = document.getElementById("filmListesi");
+    const afisOnizleme = document.getElementById("afisOnizleme");
 
-function mesajYaz(yazi, renk="#86efac"){
-    const alan = document.getElementById("mesajAlani");
-    alan.innerText = yazi;
-    alan.style.color = renk;
-}
-
-function alanlariTemizle(){
-    document.getElementById("filmId").value = "";
-    document.getElementById("filmIsim").value = "";
-    document.getElementById("filmTur").value = "";
-    document.getElementById("filmYil").value = "";
-    document.getElementById("filmPuan").value = "";
-    document.getElementById("filmAfis").value = "";
-    document.getElementById("filmFragman").value = "";
-    document.getElementById("filmOzet").value = "";
-}
-
-function filmEkle(){
-    const id = document.getElementById("filmId").value.trim();
-    const isim = document.getElementById("filmIsim").value.trim();
-    const tur = document.getElementById("filmTur").value.trim();
-    const yil = document.getElementById("filmYil").value.trim();
-    const puan = document.getElementById("filmPuan").value.trim();
-    const afis = document.getElementById("filmAfis").value.trim();
-    const fragman = document.getElementById("filmFragman").value.trim();
-    const ozet = document.getElementById("filmOzet").value.trim();
-
-    if(!id || !isim){
-        mesajYaz("ID ve film adı zorunlu.", "#fca5a5");
-        return;
+    function panelFilmleriniGetir(){
+      try{
+        return JSON.parse(window.localStorage.getItem(FILM_KEY)) || [];
+      }catch(e){
+        return [];
+      }
     }
 
-    let filmler = filmleriAl();
-
-    const varMi = filmler.find(film => film.id === id);
-    if(varMi){
-        mesajYaz("Bu ID zaten kayıtlı.", "#fca5a5");
-        return;
+    function panelFilmleriniKaydet(filmler){
+      window.localStorage.setItem(FILM_KEY, JSON.stringify(filmler));
     }
 
-    filmler.push({
-        id:id,
-        isim:isim,
-        tur:tur,
-        yil:yil,
-        puan:puan,
-        afis:afis,
-        fragman:fragman,
-        ozet:ozet,
-        meta:"Admin Panel"
-    });
-
-    filmleriKaydet(filmler);
-    alanlariTemizle();
-    mesajYaz("Film başarıyla eklendi.");
-    listeyiGoster();
-}
-
-function filmSil(id){
-    let filmler = filmleriAl();
-    filmler = filmler.filter(film => film.id !== id);
-    filmleriKaydet(filmler);
-    listeyiGoster();
-}
-
-function listeyiGoster(){
-    const liste = document.getElementById("filmListesi");
-    const filmler = filmleriAl();
-
-    if(filmler.length === 0){
-        liste.innerHTML = '<div class="bos">Henüz panelden film eklenmedi.</div>';
-        return;
+    function guvenliIdYap(metin){
+      return String(metin || "")
+        .toLowerCase()
+        .trim()
+        .replace(/ğ/g, "g").replace(/ü/g, "u").replace(/ş/g, "s")
+        .replace(/ı/g, "i").replace(/ö/g, "o").replace(/ç/g, "c")
+        .replace(/\s+/g, "-")
+        .replace(/[^a-z0-9-_]/g, "");
     }
 
-    liste.innerHTML = "";
+    function durumGoster(metin, renk="#86efac"){
+      durumYazisi.textContent = metin;
+      durumYazisi.style.color = renk;
+    }
 
-    filmler.forEach(film => {
-        liste.innerHTML += `
-            <div class="film-item">
-                <div class="film-sol">
-                    <div class="film-ad">${film.isim}</div>
-                    <div class="film-detay">ID: ${film.id} • ${film.tur || "-"} • ${film.yil || "-"}</div>
-                </div>
-                <button class="buton buton-sil" onclick="filmSil('${film.id}')">🗑 Sil</button>
-            </div>
-        `;
-    });
-}
+    function afisOnizlemeGuncelle(){
+      const deger = filmAfisInput.value.trim();
+      if(!deger){
+        afisOnizleme.style.display = "none";
+        afisOnizleme.src = "";
+        return;
+      }
+      afisOnizleme.src = deger;
+      afisOnizleme.style.display = "block";
+    }
 
-listeyiGoster();
-</script>
+    filmAfisInput.addEventListener("input", afisOnizlemeGuncelle);
 
+    function formuTemizle(){
+      duzenlenenFilmId = null;
+      filmIdInput.value = "";
+      filmIsimInput.value = "";
+      filmTurInput.value = "";
+      filmYilInput.value = "";
+      filmPuanInput.value = "";
+      filmAfisInput.value = "";
+      filmFragmanInput.value = "";
+      filmOzetInput.value = "";
+      filmHakkinda1Input.value = "";
+      filmHakkinda2Input.value = "";
+      filmIzleInput.value = "#";
+      afisOnizleme.style.display = "none";
+      afisOnizleme.src = "";
+      durumGoster("Form temizlendi.", "#93c5fd");
+    }
+
+    function filmKaydet(){
+      let id = guvenliIdYap(filmIdInput.value);
+      const isim = filmIsimInput.value.trim();
+      const tur = filmTurInput.value.trim();
+      const yil = filmYilInput.value.trim();
+      const puan = filmPuanInput.value.trim();
+      const afis = filmAfisInput.value.trim();
+      const fragman = filmFragmanInput.value.trim();
+      const ozet = filmOzetInput.value.trim();
+      const hakkinda1 = filmHakkinda1Input.value.trim();
+      const hakkinda2 = filmHakkinda2Input.value.trim();
+      const izle = filmIzleInput.value.trim() || "#";
+
+      if(!isim){
+        durumGoster("Film adı zorunlu.", "#fca5a5");
+        return;
+      }
+
+      if(!id){
+        id = guvenliIdYap(isim);
+      }
+
+      const meta = (tur ? tur.charAt(0).toUpperCase() + tur.slice(1) : "Film") + (puan ? " • IMDb " + puan : "");
+
+      const yeniFilm = {
+        id,
+        isim,
+        tur,
+        yil,
+        puan,
+        afis,
+        ara: `${isim} ${tur} ${yil}`.trim().toLowerCase(),
+        meta,
+        ozet,
+        hakkinda1,
+        hakkinda2,
+        fragman,
+        izle
+      };
+
+      const filmler = panelFilmleriniGetir();
+      const ayniIdIndex = filmler.findIndex(film => String(film.id) === String(id));
+
+      if(duzenlenenFilmId){
+        const duzenleIndex = filmler.findIndex(film => String(film.id) === String(duzenlenenFilmId));
+        if(duzenleIndex !== -1){
+          filmler[duzenleIndex] = yeniFilm;
+          panelFilmleriniKaydet(filmler);
+          durumGoster("Film güncellendi.");
+          formuTemizle();
+          filmListesiniGoster();
+          return;
+        }
+      }
+
+      if(ayniIdIndex !== -1){
+        durumGoster("Bu ID zaten var. Başka bir ID yaz.", "#fca5a5");
+        return;
+      }
+
+      filmler.unshift(yeniFilm);
+      panelFilmleriniKaydet(filmler);
+      durumGoster("Film başarıyla eklendi.");
+      formuTemizle();
+      filmListesiniGoster();
+    }
+
+    function filmSil(id){
+      const filmler = panelFilmleriniGetir().filter(film => String(film.id) !== String(id));
+      panelFilmleriniKaydet(filmler);
+      durumGoster("Film silindi.", "#fca5a5");
+      filmListesiniGoster();
+    }
+
+    function filmDuzenle(id){
+      const filmler = panelFilmleriniGetir();
+      const film = filmler.find(item => String(item.id) === String(id));
+      if(!film) return;
+
+      duzenlenenFilmId = film.id;
+      filmIdInput.value = film.id || "";
+      filmIsimInput.value = film.isim || "";
+      filmTurInput.value = film.tur || "";
+      filmYilInput.value = film.yil || "";
+      filmPuanInput.value = film.puan || "";
+      filmAfisInput.value = film.afis || "";
+      filmFragmanInput.value = film.fragman || "";
+      filmOzetInput.value = film.ozet || "";
+      filmHakkinda1Input.value = film.hakkinda1 || "";
+      filmHakkinda2Input.value = film.hakkinda2 || "";
+      filmIzleInput.value = film.izle || "#";
+      afisOnizlemeGuncelle();
+      durumGoster("Film düzenleme için yüklendi.", "#fcd34d");
+      window.scrollTo({ top: 0, behavior: "smooth" });
+    }
+
+    function filmListesiniGoster(){
+      const filmler = panelFilmleriniGetir();
+
+      if(!filmler.length){
+        filmListesi.innerHTML = '<div class="bos">Henüz panelden eklenmiş film yok.</div>';
+        return;
+      }
+
+      filmListesi.innerHTML = filmler.map(film => `
+        <div class="film-item">
+          <div class="film-baslik">${film.isim || "Adsız Film"}</div>
+          <div class="film-alt">
+            ID: <b>${film.id || "-"}</b><br>
+            Tür: ${film.tur || "-"}<br>
+            Yıl: ${film.yil || "-"}<br>
+            Puan: ${film.puan || "-"}
+          </div>
+
+          ${film.afis ? `<img class="onizleme" src="${film.afis}" alt="${film.isim || "Film"}">` : ""}
+
+          <div class="film-butonlar">
+            <button class="btn-duzenle" onclick="filmDuzenle('${film.id}')">Düzenle</button>
+            <button class="btn-sil" onclick="filmSil('${film.id}')">Sil</button>
+          </div>
+        </div>
+      `).join("");
+    }
+
+    window.filmSil = filmSil;
+    window.filmDuzenle = filmDuzenle;
+
+    filmListesiniGoster();
+  </script>
 </body>
 </html>

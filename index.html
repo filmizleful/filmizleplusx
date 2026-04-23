@@ -757,6 +757,8 @@ body{
         bottom:145px;
         width:calc(100% - 24px);
     }
+}
+
 /* Bugün ne izlesem butonu */
 .oner-kutu{
     display:flex;
@@ -1161,12 +1163,8 @@ function reklamKutusuKapat(){
 function filmKartlariniHazirla(){
     document.querySelectorAll(".film").forEach(function(kart){
         kart.addEventListener("click", function(e){
-            if(e.target.tagName.toLowerCase() === "button"){
-                return;
-            }
-            if(e.target.tagName.toLowerCase() === "a"){
-                return;
-            }
+            if(e.target.tagName.toLowerCase() === "button") return;
+            if(e.target.tagName.toLowerCase() === "a") return;
 
             const link = kart.getAttribute("data-link");
             if(link){
@@ -1177,77 +1175,130 @@ function filmKartlariniHazirla(){
 }
 
 function filmOner(){
-   var filmler = [
-"John Wick 4",
-"The Batman",
-"Superman (2025)",
-"Dune",
-"Dune Part Two",
-"Oppenheimer",
-"Barbie",
-"Napoleon",
-"Killers of the Flower Moon",
-"The Creator",
-"Rebel Moon",
-"Mission Impossible Dead Reckoning",
-"Fast X",
-"Transformers Rise of the Beasts",
-"Guardians of the Galaxy Vol 3",
-"Spider Man No Way Home",
-"Doctor Strange Multiverse of Madness",
-"Black Panther Wakanda Forever",
-"Thor Love and Thunder",
-"The Flash",
-"Blue Beetle",
-"Aquaman 2",
-"Avatar The Way of Water",
-"Top Gun Maverick",
-"The Equalizer 3",
-"Extraction 2",
-"The Gray Man",
-"Red Notice",
-"6 Underground",
-"Army of the Dead",
-"Bird Box",
-"A Quiet Place 2",
-"The Nun 2",
-"Insidious The Red Door",
-"Scream 6",
-"Evil Dead Rise",
-"It Chapter Two",
-"Smile",
-"Talk to Me",
-"Hereditary",
-"Midsommar",
-"The Menu",
-"Glass Onion",
-"Knives Out",
-"Shutter Island",
-"Inception",
-"Interstellar",
-"The Prestige",
-"Fight Club",
-"Seven",
-"Joker",
-"The Dark Knight",
-"Harry Potter and the Sorcerers Stone",
-"Lord of the Rings The Fellowship of the Ring",
-"The Hobbit An Unexpected Journey"
+    var filmler = [
+        "John Wick 4",
+        "The Batman",
+        "Superman (2025)",
+        "Dune",
+        "Dune Part Two",
+        "Oppenheimer",
+        "Barbie",
+        "Napoleon",
+        "Killers of the Flower Moon",
+        "The Creator",
+        "Rebel Moon",
+        "Mission Impossible Dead Reckoning",
+        "Fast X",
+        "Transformers Rise of the Beasts",
+        "Guardians of the Galaxy Vol 3",
+        "Spider Man No Way Home",
+        "Doctor Strange Multiverse of Madness",
+        "Black Panther Wakanda Forever",
+        "Thor Love and Thunder",
+        "The Flash",
+        "Blue Beetle",
+        "Aquaman 2",
+        "Avatar The Way of Water",
+        "Top Gun Maverick",
+        "The Equalizer 3",
+        "Extraction 2",
+        "The Gray Man",
+        "Red Notice",
+        "6 Underground",
+        "Army of the Dead",
+        "Bird Box",
+        "A Quiet Place 2",
+        "The Nun 2",
+        "Insidious The Red Door",
+        "Scream 6",
+        "Evil Dead Rise",
+        "It Chapter Two",
+        "Smile",
+        "Talk to Me",
+        "Hereditary",
+        "Midsommar",
+        "The Menu",
+        "Glass Onion",
+        "Knives Out",
+        "Shutter Island",
+        "Inception",
+        "Interstellar",
+        "The Prestige",
+        "Fight Club",
+        "Seven",
+        "Joker",
+        "The Dark Knight",
+        "Harry Potter and the Sorcerers Stone",
+        "Lord of the Rings The Fellowship of the Ring",
+        "The Hobbit An Unexpected Journey"
     ];
 
     var secilen = filmler[Math.floor(Math.random() * filmler.length)];
     var sonuc = document.getElementById("oner-sonuc");
 
-    if (sonuc) {
+    if(sonuc){
         sonuc.innerText = "👉 Önerilen film: " + secilen;
     }
 }
 
-filmKartlariniHazirla();
+function panelFilmleriniGoster(){
+    try{
+        const panelFilmler = JSON.parse(window.localStorage.getItem("panelFilmler")) || [];
+        if(!panelFilmler.length) return;
+
+        let alan = document.getElementById("panelFilmlerAlani");
+
+        if(!alan){
+            alan = document.createElement("section");
+            alan.id = "panelFilmlerAlani";
+            alan.style.maxWidth = "1300px";
+            alan.style.margin = "0 auto";
+            alan.style.padding = "0 20px 40px";
+
+            alan.innerHTML = `
+                <div class="baslik">🆕 Yeni Eklenenler</div>
+                <div id="panelFilmGrid" class="filmler"></div>
+            `;
+
+            const footer = document.querySelector("footer");
+            if(footer){
+                footer.parentNode.insertBefore(alan, footer);
+            }else{
+                document.body.appendChild(alan);
+            }
+        }
+
+        const grid = document.getElementById("panelFilmGrid");
+        grid.innerHTML = "";
+
+        panelFilmler.slice().reverse().forEach(function(film){
+            const kart = document.createElement("div");
+            kart.className = "film arama-ogesi";
+            kart.setAttribute("data-link", "film-detay.html?id=" + encodeURIComponent(film.id || ""));
+            kart.setAttribute("data-ara", ((film.isim || "") + " " + (film.tur || "") + " " + (film.yil || "")).toLowerCase());
+
+            kart.innerHTML = `
+                <img src="${film.afis || ""}" alt="${film.isim || ""}">
+                <h3>${film.isim || "Adsız Film"}</h3>
+                <div class="film-bilgi">${film.tur || "Film"}${film.yil ? " • " + film.yil : ""}</div>
+                <div class="film-puan">⭐ Yeni Eklendi</div>
+                <a href="film-detay.html?id=${encodeURIComponent(film.id || "")}">İzle</a>
+            `;
+
+            grid.appendChild(kart);
+        });
+    }catch(e){
+        console.log("Panel filmleri yüklenemedi:", e);
+    }
+}
+
+document.addEventListener("DOMContentLoaded", function(){
+    panelFilmleriniGoster();
+    filmKartlariniHazirla();
+    favoriButonlariniHazirla();
+});
 </script>
 
-filmKartlariniHazirla();
-</script>
 <footer style="text-align:center; padding:20px; background:#000; margin-top:40px;">
   <a href="gizlilik.html" style="color:white; margin:10px;">Gizlilik Politikası</a>
   <a href="iletisim.html" style="color:white; margin:10px;">İletişim</a>

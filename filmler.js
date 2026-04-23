@@ -740,6 +740,22 @@ hakkinda1:"Disney yapımı.",
 hakkinda2:"Çok ünlü animasyon.",
 fragman:"https://www.youtube.com/watch?v=TbQm5doF_Uc",
 izle:"#"
+},
+
+{
+id:"johnwick1",
+isim:"John Wick",
+tur:"aksiyon",
+yil:"2014",
+puan:"7.4",
+afis:"https://image.tmdb.org/t/p/w500/fZPSd91yGE9fCcCe6OoQr6E3Bev.jpg",
+ara:"john wick aksiyon 2014",
+meta:"Aksiyon • IMDb 7.4",
+ozet:"Emekli bir suikastçı olan John Wick, sevdiği her şeyi kaybettikten sonra intikam almak için geri döner.",
+hakkinda1:"Keanu Reeves başrolde yer alıyor.",
+hakkinda2:"Modern aksiyon sinemasının en başarılı serilerinden biridir.",
+fragman:"https://www.youtube.com/watch?v=C0BMx-qxsP4",
+izle:"#"
 }
 
 ];

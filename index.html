@@ -1243,9 +1243,6 @@ function filmOner(){
 
 function panelFilmleriniGoster(){
     try{
-        const panelFilmler = JSON.parse(window.localStorage.getItem("panelFilmler")) || [];
-        if(!panelFilmler.length) return;
-
         let alan = document.getElementById("panelFilmlerAlani");
 
         if(!alan){
@@ -1271,24 +1268,40 @@ function panelFilmleriniGoster(){
         const grid = document.getElementById("panelFilmGrid");
         grid.innerHTML = "";
 
-        panelFilmler.slice().reverse().forEach(function(film){
-            const kart = document.createElement("div");
-            kart.className = "film arama-ogesi";
-            kart.setAttribute("data-link", "film-detay.html?id=" + encodeURIComponent(film.id || ""));
-            kart.setAttribute("data-ara", ((film.isim || "") + " " + (film.tur || "") + " " + (film.yil || "")).toLowerCase());
+        db.collection("filmler").orderBy("tarih", "desc").get()
+        .then((snapshot) => {
 
-            kart.innerHTML = `
-                <img src="${film.afis || ""}" alt="${film.isim || ""}">
-                <h3>${film.isim || "Adsız Film"}</h3>
-                <div class="film-bilgi">${film.tur || "Film"}${film.yil ? " • " + film.yil : ""}</div>
-                <div class="film-puan">⭐ Yeni Eklendi</div>
-                <a href="film-detay.html?id=${encodeURIComponent(film.id || "")}">İzle</a>
-            `;
+            if(snapshot.empty){
+                alan.style.display = "none";
+                return;
+            }
 
-            grid.appendChild(kart);
+            alan.style.display = "block";
+
+            snapshot.forEach((doc) => {
+                const film = doc.data();
+
+                const kart = document.createElement("div");
+                kart.className = "film arama-ogesi";
+                kart.setAttribute("data-link", "film-detay.html?id=" + encodeURIComponent(film.id || ""));
+                kart.setAttribute("data-ara", ((film.isim || "") + " " + (film.tur || "") + " " + (film.yil || "")).toLowerCase());
+
+                kart.innerHTML = `
+                    <img src="${film.afis || ""}" alt="${film.isim || ""}">
+                    <h3>${film.isim || "Adsız Film"}</h3>
+                    <div class="film-bilgi">${film.tur || "Film"}${film.yil ? " • " + film.yil : ""}</div>
+                    <div class="film-puan">⭐ Yeni Eklendi</div>
+                    <a href="film-detay.html?id=${encodeURIComponent(film.id || "")}">İzle</a>
+                `;
+
+                grid.appendChild(kart);
+            });
+
+            filmKartlariniHazirla();
         });
+
     }catch(e){
-        console.log("Panel filmleri yüklenemedi:", e);
+        console.log("Firebase hata:", e);
     }
 }
 
@@ -1303,5 +1316,24 @@ document.addEventListener("DOMContentLoaded", function(){
   <a href="gizlilik.html" style="color:white; margin:10px;">Gizlilik Politikası</a>
   <a href="iletisim.html" style="color:white; margin:10px;">İletişim</a>
 </footer>
+<!-- Firebase -->
+<script src="https://www.gstatic.com/firebasejs/10.12.2/firebase-app-compat.js"></script>
+<script src="https://www.gstatic.com/firebasejs/10.12.2/firebase-firestore-compat.js"></script>
+
+<script>
+const firebaseConfig = {
+  apiKey: "AIzaSyBmSzMlnTX94BKdUuHDPiVRqwu8of1RqHw",
+  authDomain: "filmizleplusx.firebaseapp.com",
+  projectId: "filmizleplusx",
+  storageBucket: "filmizleplusx.firebasestorage.app",
+  messagingSenderId: "296091084316",
+  appId: "1:296091084316:web:aba2def23f6ce2b03761d9",
+  measurementId: "G-SFQ2RQQH19"
+};
+
+firebase.initializeApp(firebaseConfig);
+const db = firebase.firestore();
+</script>
+
 </body>
 </html>

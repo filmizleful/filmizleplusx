@@ -219,6 +219,24 @@
       afisOnizleme.src = "";
       durumGoster("Form temizlendi.", "#93c5fd");
     }
+  </script>
+
+  <script src="https://www.gstatic.com/firebasejs/10.12.2/firebase-app-compat.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/10.12.2/firebase-firestore-compat.js"></script>
+
+  <script>
+    const firebaseConfig = {
+      apiKey: "AIzaSyBmSzMlnTX94BKdUuHDPiVRqwu8of1RqHw",
+      authDomain: "filmizleplusx.firebaseapp.com",
+      projectId: "filmizleplusx",
+      storageBucket: "filmizleplusx.firebasestorage.app",
+      messagingSenderId: "296091084316",
+      appId: "1:296091084316:web:aba2def23f6ce2b03761d9",
+      measurementId: "G-SFQ2RQQH19"
+    };
+
+    firebase.initializeApp(firebaseConfig);
+    const db = firebase.firestore();
 
     function filmKaydet(){
       let id = guvenliIdYap(filmIdInput.value);
@@ -257,97 +275,108 @@
         hakkinda1,
         hakkinda2,
         fragman,
-        izle
+        izle,
+        tarih: Date.now()
       };
 
-      const filmler = panelFilmleriniGetir();
-      const ayniIdIndex = filmler.findIndex(film => String(film.id) === String(id));
-
-      if(duzenlenenFilmId){
-        const duzenleIndex = filmler.findIndex(film => String(film.id) === String(duzenlenenFilmId));
-        if(duzenleIndex !== -1){
-          filmler[duzenleIndex] = yeniFilm;
-          panelFilmleriniKaydet(filmler);
-          durumGoster("Film güncellendi.");
+      db.collection("filmler").doc(id).set(yeniFilm)
+        .then(() => {
+          durumGoster("Film başarıyla eklendi.");
           formuTemizle();
           filmListesiniGoster();
-          return;
-        }
-      }
-
-      if(ayniIdIndex !== -1){
-        durumGoster("Bu ID zaten var. Başka bir ID yaz.", "#fca5a5");
-        return;
-      }
-
-      filmler.unshift(yeniFilm);
-      panelFilmleriniKaydet(filmler);
-      durumGoster("Film başarıyla eklendi.");
-      formuTemizle();
-      filmListesiniGoster();
+        })
+        .catch((error) => {
+          console.error(error);
+          durumGoster("Kayıt sırasında hata oluştu.", "#fca5a5");
+        });
     }
 
     function filmSil(id){
-      const filmler = panelFilmleriniGetir().filter(film => String(film.id) !== String(id));
-      panelFilmleriniKaydet(filmler);
-      durumGoster("Film silindi.", "#fca5a5");
-      filmListesiniGoster();
+      db.collection("filmler").doc(id).delete()
+        .then(() => {
+          durumGoster("Film silindi.", "#fca5a5");
+          filmListesiniGoster();
+        })
+        .catch((error) => {
+          console.error(error);
+          durumGoster("Silme sırasında hata oluştu.", "#fca5a5");
+        });
     }
 
     function filmDuzenle(id){
-      const filmler = panelFilmleriniGetir();
-      const film = filmler.find(item => String(item.id) === String(id));
-      if(!film) return;
+      db.collection("filmler").doc(id).get()
+        .then((doc) => {
+          if(!doc.exists) return;
 
-      duzenlenenFilmId = film.id;
-      filmIdInput.value = film.id || "";
-      filmIsimInput.value = film.isim || "";
-      filmTurInput.value = film.tur || "";
-      filmYilInput.value = film.yil || "";
-      filmPuanInput.value = film.puan || "";
-      filmAfisInput.value = film.afis || "";
-      filmFragmanInput.value = film.fragman || "";
-      filmOzetInput.value = film.ozet || "";
-      filmHakkinda1Input.value = film.hakkinda1 || "";
-      filmHakkinda2Input.value = film.hakkinda2 || "";
-      filmIzleInput.value = film.izle || "#";
-      afisOnizlemeGuncelle();
-      durumGoster("Film düzenleme için yüklendi.", "#fcd34d");
-      window.scrollTo({ top: 0, behavior: "smooth" });
+          const film = doc.data();
+          duzenlenenFilmId = film.id;
+          filmIdInput.value = film.id || "";
+          filmIsimInput.value = film.isim || "";
+          filmTurInput.value = film.tur || "";
+          filmYilInput.value = film.yil || "";
+          filmPuanInput.value = film.puan || "";
+          filmAfisInput.value = film.afis || "";
+          filmFragmanInput.value = film.fragman || "";
+          filmOzetInput.value = film.ozet || "";
+          filmHakkinda1Input.value = film.hakkinda1 || "";
+          filmHakkinda2Input.value = film.hakkinda2 || "";
+          filmIzleInput.value = film.izle || "#";
+          afisOnizlemeGuncelle();
+          durumGoster("Film düzenleme için yüklendi.", "#fcd34d");
+          window.scrollTo({ top: 0, behavior: "smooth" });
+        })
+        .catch((error) => {
+          console.error(error);
+          durumGoster("Film yüklenirken hata oluştu.", "#fca5a5");
+        });
     }
 
     function filmListesiniGoster(){
-      const filmler = panelFilmleriniGetir();
+      db.collection("filmler").orderBy("tarih", "desc").get()
+        .then((snapshot) => {
+          if(snapshot.empty){
+            filmListesi.innerHTML = '<div class="bos">Henüz panelden eklenmiş film yok.</div>';
+            return;
+          }
 
-      if(!filmler.length){
-        filmListesi.innerHTML = '<div class="bos">Henüz panelden eklenmiş film yok.</div>';
-        return;
-      }
+          const filmler = [];
+          snapshot.forEach((doc) => {
+            filmler.push(doc.data());
+          });
 
-      filmListesi.innerHTML = filmler.map(film => `
-        <div class="film-item">
-          <div class="film-baslik">${film.isim || "Adsız Film"}</div>
-          <div class="film-alt">
-            ID: <b>${film.id || "-"}</b><br>
-            Tür: ${film.tur || "-"}<br>
-            Yıl: ${film.yil || "-"}<br>
-            Puan: ${film.puan || "-"}
-          </div>
+          filmListesi.innerHTML = filmler.map(film => `
+            <div class="film-item">
+              <div class="film-baslik">${film.isim || "Adsız Film"}</div>
+              <div class="film-alt">
+                ID: <b>${film.id || "-"}</b><br>
+                Tür: ${film.tur || "-"}<br>
+                Yıl: ${film.yil || "-"}<br>
+                Puan: ${film.puan || "-"}
+              </div>
 
-          ${film.afis ? `<img class="onizleme" src="${film.afis}" alt="${film.isim || "Film"}">` : ""}
+              ${film.afis ? `<img class="onizleme" src="${film.afis}" alt="${film.isim || "Film"}">` : ""}
 
-          <div class="film-butonlar">
-            <button class="btn-duzenle" onclick="filmDuzenle('${film.id}')">Düzenle</button>
-            <button class="btn-sil" onclick="filmSil('${film.id}')">Sil</button>
-          </div>
-        </div>
-      `).join("");
+              <div class="film-butonlar">
+                <button class="btn-duzenle" onclick="filmDuzenle('${film.id}')">Düzenle</button>
+                <button class="btn-sil" onclick="filmSil('${film.id}')">Sil</button>
+              </div>
+            </div>
+          `).join("");
+        })
+        .catch((error) => {
+          console.error(error);
+          filmListesi.innerHTML = '<div class="bos">Filmler yüklenemedi.</div>';
+        });
     }
 
     window.filmSil = filmSil;
     window.filmDuzenle = filmDuzenle;
 
     filmListesiniGoster();
+window.filmKaydet = filmKaydet;
+window.formuTemizle = formuTemizle;
+window.filmSil = filmSil;
+window.filmDuzenle = filmDuzenle;
   </script>
 </body>
 </html>

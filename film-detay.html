@@ -436,7 +436,7 @@
   <script src="filmler.js"></script>
 
   <script type="module">
-    import { initializeApp } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-app.js";
+    import { initializeApp, getApps, getApp } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-app.js";
     import { 
       getFirestore, 
       collection, 
@@ -446,7 +446,8 @@
       orderBy,
       doc,
       setDoc,
-      getDocs
+      getDocs,
+      getDoc
     } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-firestore.js";
 
     const firebaseConfig = {
@@ -459,8 +460,22 @@
       measurementId: "G-BQ9P47BS8S"
     };
 
-    const app = initializeApp(firebaseConfig);
+    const filmPanelConfig = {
+      apiKey: "AIzaSyBmSzMlnTX94BKdUuHDPiVRqwu8of1RqHw",
+      authDomain: "filmizleplusx.firebaseapp.com",
+      projectId: "filmizleplusx",
+      storageBucket: "filmizleplusx.firebasestorage.app",
+      messagingSenderId: "296091084316",
+      appId: "1:296091084316:web:aba2def23f6ce2b03761d9",
+      measurementId: "G-SFQ2RQQH19"
+    };
+
+    const app = getApps().length ? getApp() : initializeApp(firebaseConfig);
     const db = getFirestore(app);
+
+    const panelApp = initializeApp(filmPanelConfig, "filmizleplusxPanel");
+    const panelDb = getFirestore(panelApp);
+
     const icerik = document.getElementById("icerik");
 
     function urlParametresiAl(parametreAdi){
@@ -618,7 +633,7 @@
 
           ${videoHTML}
 
-          <a class="btn btn-kirmizi" href="${film.fragman}" target="_blank">
+          <a class="btn btn-kirmizi" href="${film.fragman || "#"}" target="_blank">
             YouTube'da Aç
           </a>
 
@@ -893,7 +908,7 @@
       guncelle();
     }
 
-    function filmDetayGoster(){
+    async function filmDetayGoster(){
       const filmId = urlParametresiAl("id");
 
       if(typeof FILMLER === "undefined" || !Array.isArray(FILMLER)){
@@ -907,7 +922,20 @@
         return;
       }
 
-      const film = FILMLER.find(item => String(item.id) === String(filmId));
+      let film = FILMLER.find(item => String(item.id) === String(filmId));
+
+      if(!film && filmId){
+        try{
+          const panelFilmRef = doc(panelDb, "filmler", filmId);
+          const panelFilmSnap = await getDoc(panelFilmRef);
+
+          if(panelFilmSnap.exists()){
+            film = panelFilmSnap.data();
+          }
+        }catch(e){
+          console.error("Firebase film çekme hatası:", e);
+        }
+      }
 
       if(!film){
         icerik.innerHTML = `
@@ -921,21 +949,22 @@
       }
 
       document.title = film.isim + " - Filmizleful";
-      // SEO EKLEME (güvenli)
-const desc = document.querySelector('meta[name="description"]');
-if(desc) desc.setAttribute("content", film.ozet || film.isim + " filmi hakkında bilgi");
 
-const canonical = document.querySelector('link[rel="canonical"]');
-if(canonical) canonical.setAttribute("href", window.location.href);
+      const desc = document.querySelector('meta[name="description"]');
+      if(desc) desc.setAttribute("content", film.ozet || film.isim + " filmi hakkında bilgi");
 
-const ogTitle = document.querySelector('meta[property="og:title"]');
-if(ogTitle) ogTitle.setAttribute("content", film.isim + " - Filmizleful");
+      const canonical = document.querySelector('link[rel="canonical"]');
+      if(canonical) canonical.setAttribute("href", window.location.href);
 
-const ogDesc = document.querySelector('meta[property="og:description"]');
-if(ogDesc) ogDesc.setAttribute("content", film.ozet || "");
+      const ogTitle = document.querySelector('meta[property="og:title"]');
+      if(ogTitle) ogTitle.setAttribute("content", film.isim + " - Filmizleful");
 
-const ogImg = document.querySelector('meta[property="og:image"]');
-if(ogImg) ogImg.setAttribute("content", film.afis || "");
+      const ogDesc = document.querySelector('meta[property="og:description"]');
+      if(ogDesc) ogDesc.setAttribute("content", film.ozet || "");
+
+      const ogImg = document.querySelector('meta[property="og:image"]');
+      if(ogImg) ogImg.setAttribute("content", film.afis || "");
+
       icerik.innerHTML = `
         <div class="film-kart">
           <div class="sol">

@@ -1,32 +1,76 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
 
-  <url>
-    <loc>https://filmizleful.github.io/filmizleful/</loc>
-  </url>
+  <url><loc>https://filmizleful.github.io/filmizleful/</loc></url>
+  <url><loc>https://filmizleful.github.io/filmizleful/index.html</loc></url>
+  <url><loc>https://filmizleful.github.io/filmizleful/aksiyon.html</loc></url>
+  <url><loc>https://filmizleful.github.io/filmizleful/korku.html</loc></url>
+  <url><loc>https://filmizleful.github.io/filmizleful/bilimkurgu.html</loc></url>
+  <url><loc>https://filmizleful.github.io/filmizleful/macera.html</loc></url>
+  <url><loc>https://filmizleful.github.io/filmizleful/vip.html</loc></url>
+  <url><loc>https://filmizleful.github.io/filmizleful/vip-room.html</loc></url>
 
-  <url>
-    <loc>https://filmizleful.github.io/filmizleful/index.html</loc>
-  </url>
-
-  <url>
-    <loc>https://filmizleful.github.io/filmizleful/korku.html</loc>
-  </url>
-
-  <url>
-    <loc>https://filmizleful.github.io/filmizleful/aksiyon.html</loc>
-  </url>
-
-  <url>
-    <loc>https://filmizleful.github.io/filmizleful/bilimkurgu.html</loc>
-  </url>
-
-  <url>
-    <loc>https://filmizleful.github.io/filmizleful/macera.html</loc>
-  </url>
-
-  <url>
-    <loc>https://filmizleful.github.io/filmizleful/film-detay.html</loc>
-  </url>
+  <url><loc>https://filmizleful.github.io/filmizleful/film-detay.html?id=john-wick</loc></url>
+  <url><loc>https://filmizleful.github.io/filmizleful/film-detay.html?id=batman</loc></url>
+  <url><loc>https://filmizleful.github.io/filmizleful/film-detay.html?id=madmax</loc></url>
+  <url><loc>https://filmizleful.github.io/filmizleful/film-detay.html?id=interstellar</loc></url>
+  <url><loc>https://filmizleful.github.io/filmizleful/film-detay.html?id=inception</loc></url>
+  <url><loc>https://filmizleful.github.io/filmizleful/film-detay.html?id=matrix</loc></url>
+  <url><loc>https://filmizleful.github.io/filmizleful/film-detay.html?id=it</loc></url>
+  <url><loc>https://filmizleful.github.io/filmizleful/film-detay.html?id=conjuring</loc></url>
+  <url><loc>https://filmizleful.github.io/filmizleful/film-detay.html?id=avatar</loc></url>
+  <url><loc>https://filmizleful.github.io/filmizleful/film-detay.html?id=hobbit</loc></url>
+  <url><loc>https://filmizleful.github.io/filmizleful/film-detay.html?id=gladiator</loc></url>
+  <url><loc>https://filmizleful.github.io/filmizleful/film-detay.html?id=darkknight</loc></url>
+  <url><loc>https://filmizleful.github.io/filmizleful/film-detay.html?id=avengers</loc></url>
+  <url><loc>https://filmizleful.github.io/filmizleful/film-detay.html?id=fast7</loc></url>
+  <url><loc>https://filmizleful.github.io/filmizleful/film-detay.html?id=martian</loc></url>
+  <url><loc>https://filmizleful.github.io/filmizleful/film-detay.html?id=gravity</loc></url>
+  <url><loc>https://filmizleful.github.io/filmizleful/film-detay.html?id=dune</loc></url>
+  <url><loc>https://filmizleful.github.io/filmizleful/film-detay.html?id=nun</loc></url>
+  <url><loc>https://filmizleful.github.io/filmizleful/film-detay.html?id=insidious</loc></url>
+  <url><loc>https://filmizleful.github.io/filmizleful/film-detay.html?id=pirates</loc></url>
+  <url><loc>https://filmizleful.github.io/filmizleful/film-detay.html?id=junglecruise</loc></url>
+  <url><loc>https://filmizleful.github.io/filmizleful/film-detay.html?id=lordrings1</loc></url>
+  <url><loc>https://filmizleful.github.io/filmizleful/film-detay.html?id=jurassicpark</loc></url>
+  <url><loc>https://filmizleful.github.io/filmizleful/film-detay.html?id=lifeofpi</loc></url>
+  <url><loc>https://filmizleful.github.io/filmizleful/film-detay.html?id=matrix2</loc></url>
+  <url><loc>https://filmizleful.github.io/filmizleful/film-detay.html?id=alien</loc></url>
+  <url><loc>https://filmizleful.github.io/filmizleful/film-detay.html?id=terminator2</loc></url>
+  <url><loc>https://filmizleful.github.io/filmizleful/film-detay.html?id=hereditary</loc></url>
+  <url><loc>https://filmizleful.github.io/filmizleful/film-detay.html?id=ring</loc></url>
+  <url><loc>https://filmizleful.github.io/filmizleful/film-detay.html?id=quietplace</loc></url>
+  <url><loc>https://filmizleful.github.io/filmizleful/film-detay.html?id=fightclub</loc></url>
+  <url><loc>https://filmizleful.github.io/filmizleful/film-detay.html?id=se7en</loc></url>
+  <url><loc>https://filmizleful.github.io/filmizleful/film-detay.html?id=joker</loc></url>
+  <url><loc>https://filmizleful.github.io/filmizleful/film-detay.html?id=parasite</loc></url>
+  <url><loc>https://filmizleful.github.io/filmizleful/film-detay.html?id=avatar2</loc></url>
+  <url><loc>https://filmizleful.github.io/filmizleful/film-detay.html?id=thor</loc></url>
+  <url><loc>https://filmizleful.github.io/filmizleful/film-detay.html?id=ironman</loc></url>
+  <url><loc>https://filmizleful.github.io/filmizleful/film-detay.html?id=spiderman</loc></url>
+  <url><loc>https://filmizleful.github.io/filmizleful/film-detay.html?id=venom</loc></url>
+  <url><loc>https://filmizleful.github.io/filmizleful/film-detay.html?id=hulk</loc></url>
+  <url><loc>https://filmizleful.github.io/filmizleful/film-detay.html?id=kingarthur</loc></url>
+  <url><loc>https://filmizleful.github.io/filmizleful/film-detay.html?id=troy</loc></url>
+  <url><loc>https://filmizleful.github.io/filmizleful/film-detay.html?id=300</loc></url>
+  <url><loc>https://filmizleful.github.io/filmizleful/film-detay.html?id=worldwarz</loc></url>
+  <url><loc>https://filmizleful.github.io/filmizleful/film-detay.html?id=trainbusan</loc></url>
+  <url><loc>https://filmizleful.github.io/filmizleful/film-detay.html?id=nun2</loc></url>
+  <url><loc>https://filmizleful.github.io/filmizleful/film-detay.html?id=maze</loc></url>
+  <url><loc>https://filmizleful.github.io/filmizleful/film-detay.html?id=divergent</loc></url>
+  <url><loc>https://filmizleful.github.io/filmizleful/film-detay.html?id=hzsuleyman</loc></url>
+  <url><loc>https://filmizleful.github.io/filmizleful/film-detay.html?id=cagri</loc></url>
+  <url><loc>https://filmizleful.github.io/filmizleful/film-detay.html?id=hzmusa</loc></url>
+  <url><loc>https://filmizleful.github.io/filmizleful/film-detay.html?id=hzmuhammet</loc></url>
+  <url><loc>https://filmizleful.github.io/filmizleful/film-detay.html?id=hzomer</loc></url>
+  <url><loc>https://filmizleful.github.io/filmizleful/film-detay.html?id=hzyusuf</loc></url>
+  <url><loc>https://filmizleful.github.io/filmizleful/film-detay.html?id=hzali</loc></url>
+  <url><loc>https://filmizleful.github.io/filmizleful/film-detay.html?id=hzebubekir</loc></url>
+  <url><loc>https://filmizleful.github.io/filmizleful/film-detay.html?id=findingnemo</loc></url>
+  <url><loc>https://filmizleful.github.io/filmizleful/film-detay.html?id=toystory</loc></url>
+  <url><loc>https://filmizleful.github.io/filmizleful/film-detay.html?id=lionking</loc></url>
+  <url><loc>https://filmizleful.github.io/filmizleful/film-detay.html?id=shrek</loc></url>
+  <url><loc>https://filmizleful.github.io/filmizleful/film-detay.html?id=cars</loc></url>
+  <url><loc>https://filmizleful.github.io/filmizleful/film-detay.html?id=frozen</loc></url>
 
 </urlset>

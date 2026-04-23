@@ -1,0 +1,166 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Sitemap Oluşturucu - Filmizleful</title>
+  <style>
+    body{
+      margin:0;
+      font-family:Arial,sans-serif;
+      background:#0b1020;
+      color:#fff;
+      padding:30px;
+    }
+    .kutu{
+      max-width:900px;
+      margin:auto;
+      background:#111827;
+      border:1px solid rgba(255,255,255,0.08);
+      border-radius:18px;
+      padding:24px;
+    }
+    h1{
+      margin-top:0;
+      color:#ffd166;
+    }
+    p{
+      color:#d1d5db;
+      line-height:1.7;
+    }
+    button{
+      background:#e50914;
+      color:#fff;
+      border:none;
+      border-radius:12px;
+      padding:14px 20px;
+      font-size:16px;
+      font-weight:bold;
+      cursor:pointer;
+      margin-top:10px;
+    }
+    button:hover{
+      opacity:.95;
+    }
+    textarea{
+      width:100%;
+      height:420px;
+      margin-top:20px;
+      background:#0b1220;
+      color:#fff;
+      border:1px solid rgba(255,255,255,0.08);
+      border-radius:12px;
+      padding:14px;
+      font-family:monospace;
+      font-size:14px;
+      resize:vertical;
+    }
+    .durum{
+      margin-top:14px;
+      color:#86efac;
+      font-weight:bold;
+    }
+  </style>
+</head>
+<body>
+  <div class="kutu">
+    <h1>📄 Sitemap Oluşturucu</h1>
+    <p>
+      Bu sayfa <b>filmler.js</b> dosyasındaki tüm film ID’lerini okuyup otomatik
+      <b>sitemap.xml</b> üretir. Yeni film ekledikten sonra bu sayfayı açıp
+      butona basman yeterli.
+    </p>
+
+    <button onclick="sitemapOlustur()">Sitemap Oluştur</button>
+    <button onclick="sitemapIndir()">Sitemap.xml İndir</button>
+
+    <div class="durum" id="durumYazi"></div>
+    <textarea id="sonucAlani" placeholder="Oluşan sitemap burada görünecek..."></textarea>
+  </div>
+
+  <script src="filmler.js"></script>
+  <script>
+    const siteKoku = "https://filmizleful.github.io/filmizleful";
+
+    function satirEkle(xml, url){
+      xml.push(`  <url><loc>${url}</loc></url>`);
+    }
+
+    function sitemapOlustur(){
+      const sonucAlani = document.getElementById("sonucAlani");
+      const durumYazi = document.getElementById("durumYazi");
+
+      if(typeof FILMLER === "undefined" || !Array.isArray(FILMLER)){
+        durumYazi.style.color = "#fca5a5";
+        durumYazi.textContent = "Hata: filmler.js okunamadı.";
+        return;
+      }
+
+      const gorulenIdler = new Set();
+
+      const xml = [];
+      xml.push('<?xml version="1.0" encoding="UTF-8"?>');
+      xml.push('<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">');
+      xml.push("");
+
+      satirEkle(xml, `${siteKoku}/`);
+      satirEkle(xml, `${siteKoku}/index.html`);
+      satirEkle(xml, `${siteKoku}/aksiyon.html`);
+      satirEkle(xml, `${siteKoku}/korku.html`);
+      satirEkle(xml, `${siteKoku}/bilimkurgu.html`);
+      satirEkle(xml, `${siteKoku}/macera.html`);
+      satirEkle(xml, `${siteKoku}/vip.html`);
+      satirEkle(xml, `${siteKoku}/vip-room.html`);
+
+      xml.push("");
+
+      FILMLER.forEach(film => {
+        if(!film || !film.id) return;
+
+        const id = String(film.id).trim();
+
+        if(!id) return;
+        if(gorulenIdler.has(id)) return;
+
+        gorulenIdler.add(id);
+        satirEkle(xml, `${siteKoku}/film-detay.html?id=${encodeURIComponent(id)}`);
+      });
+
+      xml.push("");
+      xml.push("</urlset>");
+
+      const sitemapMetni = xml.join("\n");
+      sonucAlani.value = sitemapMetni;
+
+      durumYazi.style.color = "#86efac";
+      durumYazi.textContent = `Tamamdır. ${gorulenIdler.size} film linki eklendi.`;
+    }
+
+    function sitemapIndir(){
+      const metin = document.getElementById("sonucAlani").value.trim();
+      const durumYazi = document.getElementById("durumYazi");
+
+      if(!metin){
+        durumYazi.style.color = "#fca5a5";
+        durumYazi.textContent = "Önce Sitemap Oluştur butonuna bas.";
+        return;
+      }
+
+      const blob = new Blob([metin], { type: "application/xml;charset=utf-8" });
+      const url = URL.createObjectURL(blob);
+
+      const a = document.createElement("a");
+      a.href = url;
+      a.download = "sitemap.xml";
+      document.body.appendChild(a);
+      a.click();
+      document.body.removeChild(a);
+
+      URL.revokeObjectURL(url);
+
+      durumYazi.style.color = "#86efac";
+      durumYazi.textContent = "sitemap.xml indirildi.";
+    }
+  </script>
+</body>
+</html>

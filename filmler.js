@@ -741,7 +741,6 @@ hakkinda2:"Çok ünlü animasyon.",
 fragman:"https://www.youtube.com/watch?v=TbQm5doF_Uc",
 izle:"#"
 },
-
 {
 id:"findingnemo", isim:"Finding Nemo", tur:"animasyon", yil:"2003", puan:"8.2",
 afis:"https://image.tmdb.org/t/p/w500/4m1Au3YkjqsxF8iwQy0fPYSxE0h.jpg",
@@ -752,9 +751,21 @@ hakkinda1:"Pixar klasiği.",
 hakkinda2:"Aile dostu çok sevilen animasyon.",
 fragman:"https://www.youtube.com/watch?v=9oQ628Seb9w",
 izle:"#"
+},
+
+{
+id:"doomsday",
+isim:"Doomsday",
+tur:"aksiyon",
+yil:"2026",
+puan:"8.5",
+afis:"https://via.placeholder.com/300x450",
+ara:"doomsday marvel",
+meta:"Aksiyon • IMDb 8.5",
+ozet:"Doctor Doom'un çoklu evreni tehdit ettiği büyük savaş.",
+hakkinda1:"Avengers, X-Men ve Fantastik Dörtlü birleşiyor.",
+hakkinda2:"Multiverse Saga finali.",
+fragman:"https://www.youtube.com/watch?v=G1QSQkUyzjc",
+izle:"#"
 }
 ];
-
-function filmBul(id){
-  return FILMLER.find(film => film.id === id);
-}

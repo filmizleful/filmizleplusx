@@ -1,0 +1,338 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Admin Panel - Filmizleplusx</title>
+
+<style>
+*{
+    box-sizing:border-box;
+}
+
+body{
+    margin:0;
+    font-family:Arial, sans-serif;
+    background:radial-gradient(circle at top, #1d1a33 0%, #0b0b14 55%, #000 100%);
+    color:white;
+}
+
+.ustbar{
+    background:rgba(10,10,16,0.95);
+    padding:18px 28px;
+    display:flex;
+    justify-content:space-between;
+    align-items:center;
+    flex-wrap:wrap;
+    gap:12px;
+    border-bottom:1px solid rgba(255,255,255,0.06);
+}
+
+.logo{
+    font-size:28px;
+    color:#ff6d7a;
+    font-weight:bold;
+}
+
+.menu{
+    display:flex;
+    gap:12px;
+    flex-wrap:wrap;
+}
+
+.menu a{
+    color:white;
+    text-decoration:none;
+    padding:8px 14px;
+    border-radius:10px;
+    background:rgba(255,255,255,0.06);
+    font-weight:bold;
+}
+
+.kapsayici{
+    max-width:1100px;
+    margin:30px auto;
+    padding:0 20px 40px;
+}
+
+.baslik{
+    text-align:center;
+    font-size:34px;
+    margin-bottom:12px;
+}
+
+.aciklama{
+    text-align:center;
+    color:#cfd0df;
+    margin-bottom:28px;
+}
+
+.panel{
+    display:grid;
+    grid-template-columns:1fr 1fr;
+    gap:24px;
+}
+
+.kutu{
+    background:rgba(255,255,255,0.05);
+    border:1px solid rgba(255,255,255,0.08);
+    border-radius:22px;
+    padding:22px;
+    box-shadow:0 10px 25px rgba(0,0,0,0.18);
+}
+
+.kutu h2{
+    margin-top:0;
+    margin-bottom:18px;
+    font-size:24px;
+}
+
+.form-alan{
+    display:flex;
+    flex-direction:column;
+    gap:12px;
+}
+
+.input,
+.textarea,
+.select{
+    width:100%;
+    padding:14px;
+    border:none;
+    border-radius:12px;
+    background:#1f2937;
+    color:white;
+    font-size:15px;
+    outline:none;
+}
+
+.textarea{
+    min-height:110px;
+    resize:vertical;
+}
+
+.buton{
+    border:none;
+    border-radius:12px;
+    padding:14px 18px;
+    font-size:15px;
+    font-weight:bold;
+    cursor:pointer;
+    transition:0.2s;
+}
+
+.buton-ekle{
+    background:#e50914;
+    color:white;
+}
+
+.buton-ekle:hover{
+    opacity:0.95;
+}
+
+.buton-sil{
+    background:#374151;
+    color:white;
+}
+
+.buton-sil:hover{
+    opacity:0.95;
+}
+
+.film-listesi{
+    display:flex;
+    flex-direction:column;
+    gap:14px;
+}
+
+.film-item{
+    background:#1f2937;
+    border-radius:14px;
+    padding:14px;
+    display:flex;
+    justify-content:space-between;
+    align-items:center;
+    gap:14px;
+    flex-wrap:wrap;
+}
+
+.film-sol{
+    display:flex;
+    flex-direction:column;
+    gap:6px;
+}
+
+.film-ad{
+    font-size:18px;
+    font-weight:bold;
+}
+
+.film-detay{
+    color:#cfd0df;
+    font-size:14px;
+}
+
+.mesaj{
+    margin-top:14px;
+    font-weight:bold;
+    color:#86efac;
+}
+
+.bos{
+    color:#aaa;
+    text-align:center;
+    padding:16px;
+    background:#1f2937;
+    border-radius:14px;
+}
+
+@media(max-width:900px){
+    .panel{
+        grid-template-columns:1fr;
+    }
+}
+</style>
+</head>
+<body>
+
+<div class="ustbar">
+    <div class="logo">🎬 Filmizleplusx Admin</div>
+    <div class="menu">
+        <a href="index.html">Ana Sayfa</a>
+        <a href="admin.html">Admin</a>
+    </div>
+</div>
+
+<div class="kapsayici">
+    <div class="baslik">Film Yönetim Paneli</div>
+    <div class="aciklama">Buradan test amaçlı film ekleyebilir ve silebilirsin.</div>
+
+    <div class="panel">
+        <div class="kutu">
+            <h2>Yeni Film Ekle</h2>
+
+            <div class="form-alan">
+                <input id="filmId" class="input" placeholder="Film ID (örnek: john-wick-4)">
+                <input id="filmIsim" class="input" placeholder="Film adı">
+                <input id="filmTur" class="input" placeholder="Tür (örnek: Aksiyon)">
+                <input id="filmYil" class="input" placeholder="Yıl">
+                <input id="filmPuan" class="input" placeholder="Puan (örnek: 8.1)">
+                <input id="filmAfis" class="input" placeholder="Afiş linki">
+                <input id="filmFragman" class="input" placeholder="Fragman linki">
+                <textarea id="filmOzet" class="textarea" placeholder="Film özeti"></textarea>
+
+                <button class="buton buton-ekle" onclick="filmEkle()">➕ Filmi Kaydet</button>
+                <div class="mesaj" id="mesajAlani"></div>
+            </div>
+        </div>
+
+        <div class="kutu">
+            <h2>Eklenen Filmler</h2>
+            <div class="film-listesi" id="filmListesi"></div>
+        </div>
+    </div>
+</div>
+
+<script>
+function filmleriAl(){
+    return JSON.parse(localStorage.getItem("admin_filmler")) || [];
+}
+
+function filmleriKaydet(liste){
+    localStorage.setItem("admin_filmler", JSON.stringify(liste));
+}
+
+function mesajYaz(yazi, renk="#86efac"){
+    const alan = document.getElementById("mesajAlani");
+    alan.innerText = yazi;
+    alan.style.color = renk;
+}
+
+function alanlariTemizle(){
+    document.getElementById("filmId").value = "";
+    document.getElementById("filmIsim").value = "";
+    document.getElementById("filmTur").value = "";
+    document.getElementById("filmYil").value = "";
+    document.getElementById("filmPuan").value = "";
+    document.getElementById("filmAfis").value = "";
+    document.getElementById("filmFragman").value = "";
+    document.getElementById("filmOzet").value = "";
+}
+
+function filmEkle(){
+    const id = document.getElementById("filmId").value.trim();
+    const isim = document.getElementById("filmIsim").value.trim();
+    const tur = document.getElementById("filmTur").value.trim();
+    const yil = document.getElementById("filmYil").value.trim();
+    const puan = document.getElementById("filmPuan").value.trim();
+    const afis = document.getElementById("filmAfis").value.trim();
+    const fragman = document.getElementById("filmFragman").value.trim();
+    const ozet = document.getElementById("filmOzet").value.trim();
+
+    if(!id || !isim){
+        mesajYaz("ID ve film adı zorunlu.", "#fca5a5");
+        return;
+    }
+
+    let filmler = filmleriAl();
+
+    const varMi = filmler.find(film => film.id === id);
+    if(varMi){
+        mesajYaz("Bu ID zaten kayıtlı.", "#fca5a5");
+        return;
+    }
+
+    filmler.push({
+        id:id,
+        isim:isim,
+        tur:tur,
+        yil:yil,
+        puan:puan,
+        afis:afis,
+        fragman:fragman,
+        ozet:ozet,
+        meta:"Admin Panel"
+    });
+
+    filmleriKaydet(filmler);
+    alanlariTemizle();
+    mesajYaz("Film başarıyla eklendi.");
+    listeyiGoster();
+}
+
+function filmSil(id){
+    let filmler = filmleriAl();
+    filmler = filmler.filter(film => film.id !== id);
+    filmleriKaydet(filmler);
+    listeyiGoster();
+}
+
+function listeyiGoster(){
+    const liste = document.getElementById("filmListesi");
+    const filmler = filmleriAl();
+
+    if(filmler.length === 0){
+        liste.innerHTML = '<div class="bos">Henüz panelden film eklenmedi.</div>';
+        return;
+    }
+
+    liste.innerHTML = "";
+
+    filmler.forEach(film => {
+        liste.innerHTML += `
+            <div class="film-item">
+                <div class="film-sol">
+                    <div class="film-ad">${film.isim}</div>
+                    <div class="film-detay">ID: ${film.id} • ${film.tur || "-"} • ${film.yil || "-"}</div>
+                </div>
+                <button class="buton buton-sil" onclick="filmSil('${film.id}')">🗑 Sil</button>
+            </div>
+        `;
+    });
+}
+
+listeyiGoster();
+</script>
+
+</body>
+</html>

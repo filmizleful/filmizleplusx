@@ -919,6 +919,8 @@ if (typeof FILMLER !== "undefined") {
 <div class="baslik" id="filmler">🎟️ Popüler Filmler</div>
 
 <div class="filmler">
+
+<div id="panelFilmler"></div>
     <div class="film arama-ogesi" data-link="film-detay.html?id=john-wick" data-ara="john wick aksiyon 2014 keanu reeves">
         <img src="https://image.tmdb.org/t/p/w500/fZPSd91yGE9fCcCe6OoQr6E3Bev.jpg" alt="John Wick">
         <h3>John Wick</h3>
@@ -1022,6 +1024,7 @@ function filmleriAra() {
     document.getElementById("sonucYok").style.display = gorunen === 0 ? "block" : "none";
 }
 </script>
+
 
 <script>
 let ad = localStorage.getItem("kullanici");
@@ -1246,11 +1249,32 @@ function filmOner(){
 filmKartlariniHazirla();
 </script>
 
-filmKartlariniHazirla();
 </script>
 <footer style="text-align:center; padding:20px; background:#000; margin-top:40px;">
   <a href="gizlilik.html" style="color:white; margin:10px;">Gizlilik Politikası</a>
   <a href="iletisim.html" style="color:white; margin:10px;">İletişim</a>
 </footer>
+<script>
+function panelFilmleriniGoster(){
+    const panelFilmler = JSON.parse(localStorage.getItem("admin_filmler")) || [];
+    const alan = document.getElementById("panelFilmler");
+
+    if(!alan || panelFilmler.length === 0) return;
+
+    panelFilmler.forEach(film => {
+        alan.innerHTML += `
+            <div class="film arama-ogesi" data-link="film-detay.html?id=${film.id}">
+                <img src="${film.afis || ''}" alt="${film.isim}">
+                <h3>${film.isim}</h3>
+                <div class="film-bilgi">${film.tur || '-'} • ${film.yil || '-'}</div>
+                <div class="film-puan">⭐ ${film.puan || '-'}</div>
+                <a href="film-detay.html?id=${film.id}">İzle</a>
+            </div>
+        `;
+    });
+}
+
+panelFilmleriniGoster();
+</script>
 </body>
 </html>

@@ -972,7 +972,8 @@
           </div>
 
           <div class="sag">
-            <h1 class="film-baslik">${film.isim}</h1>
+            <h1 class="film-baslik">${film.isim} Fragman İzle</h1>
+            <p id="seoYazi" style="margin-top:20px; line-height:1.6; color:#ccc;"></p>
 
             <div class="etiketler">
               <span class="etiket">${film.tur || "Film"}</span>
@@ -997,7 +998,8 @@
           </div>
         </div>
       `;
-
+       document.getElementById("seoYazi").innerText =
+film.isim + " fragmanını izleyebileceğiniz bu sayfada film konusu, oyuncular ve detaylı bilgiler yer almaktadır. Filmizleplusx üzerinden en yeni filmleri keşfedebilirsiniz.";
       izledimSisteminiBaslat(film);
       puanSisteminiBaslat(film);
       yorumSisteminiBaslat(film);

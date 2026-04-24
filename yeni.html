@@ -1,0 +1,142 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>Yeni Eklenen Filmler - Filmizleplusx</title>
+<meta name="description" content="Filmizleplusx ile en yeni eklenen filmleri keşfedin. Güncel film fragmanları ve en son içerikler burada.">
+
+<style>
+body{
+    margin:0;
+    font-family:Arial, sans-serif;
+    background:#0b0b14;
+    color:white;
+}
+
+.geri{
+    display:inline-block;
+    margin:20px;
+    padding:10px 16px;
+    background:#ff4d6d;
+    color:white;
+    border-radius:10px;
+    text-decoration:none;
+    font-weight:bold;
+}
+
+.baslik{
+    font-size:26px;
+    margin:20px;
+    font-weight:bold;
+}
+
+.aciklama{
+    padding:0 20px;
+    color:#ccc;
+    line-height:1.6;
+}
+
+.filmler{
+    display:grid;
+    grid-template-columns:repeat(auto-fill,minmax(170px,1fr));
+    gap:18px;
+    padding:20px;
+}
+
+.film{
+    background:#111827;
+    padding:12px;
+    border-radius:12px;
+    text-align:center;
+    cursor:pointer;
+    transition:0.3s;
+}
+
+.film:hover{
+    transform:scale(1.05);
+}
+
+.film img{
+    width:100%;
+    height:240px;
+    object-fit:cover;
+    border-radius:10px;
+    background:#1f2937;
+}
+
+.film h3{
+    font-size:16px;
+    margin:10px 0 5px;
+}
+
+.film p{
+    color:#ccc;
+    font-size:13px;
+    margin:0;
+}
+</style>
+</head>
+
+<body>
+
+<a href="index.html" class="geri">← Ana Sayfa</a>
+
+<div class="baslik">🆕 Yeni Eklenen Filmler</div>
+
+<p class="aciklama">
+Filmizleplusx üzerinde en son eklenen filmleri bu sayfada bulabilirsiniz. Sürekli güncellenen içerikler ile yeni çıkan ve popüler filmleri takip edebilirsiniz.
+</p>
+
+<div id="filmListe" class="filmler"></div>
+
+<!-- Firebase -->
+<script src="https://www.gstatic.com/firebasejs/10.12.2/firebase-app-compat.js"></script>
+<script src="https://www.gstatic.com/firebasejs/10.12.2/firebase-firestore-compat.js"></script>
+
+<script>
+const firebaseConfig = {
+  apiKey: "AIzaSyBmSzMlnTX94BKdUuHDPiVRqwu8of1RqHw",
+  authDomain: "filmizleplusx.firebaseapp.com",
+  projectId: "filmizleplusx",
+  storageBucket: "filmizleplusx.firebasestorage.app",
+  messagingSenderId: "296091084316",
+  appId: "1:296091084316:web:aba2def23f6ce2b03761d9",
+  measurementId: "G-SFQ2RQQH19"
+};
+
+firebase.initializeApp(firebaseConfig);
+const db = firebase.firestore();
+
+const alan = document.getElementById("filmListe");
+
+db.collection("filmler").orderBy("tarih", "desc").get()
+.then((snapshot) => {
+
+    if(snapshot.empty){
+        alan.innerHTML = "<p style='padding:20px'>Henüz film eklenmedi.</p>";
+        return;
+    }
+
+    snapshot.forEach((doc) => {
+        const film = doc.data();
+
+        alan.innerHTML += `
+            <div class="film" onclick="window.location.href='film-detay.html?id=${film.id}'">
+                <img src="${film.afis || ''}" alt="${film.isim || ''}">
+                <h3>${film.isim || 'Film'}</h3>
+                <p>${film.tur || ''} ${film.yil ? "• " + film.yil : ""}</p>
+            </div>
+        `;
+    });
+
+})
+.catch((error) => {
+    console.error(error);
+    alan.innerHTML = "<p style='padding:20px'>Filmler yüklenemedi.</p>";
+});
+</script>
+
+</body>
+</html>

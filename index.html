@@ -793,6 +793,15 @@ body{
     color:#ffe0a8;
     font-weight:bold;
 }
+.yeni-kutu{
+    background: linear-gradient(135deg, #00c6ff, #0072ff);
+    box-shadow: 0 0 20px rgba(0, 114, 255, 0.6);
+    transform: scale(1.05);
+}
+
+.yeni-kutu:hover{
+    transform: scale(1.1);
+}
 </style>
 </head>
 <body>
@@ -878,6 +887,16 @@ if (typeof FILMLER !== "undefined") {
 <div class="baslik">🎭 Kategoriler</div>
 
 <div class="kategoriler">
+
+    <a href="yeni.html" class="kategori arama-ogesi yeni-kutu" style="position:relative;" data-ara="yeni filmler yeni eklenenler">
+    <span style="position:absolute; top:8px; right:8px; background:red; color:white; font-size:10px; padding:2px 6px; border-radius:5px;">
+        NEW
+    </span>
+    <div class="ikon">🆕</div>
+    <div class="ad">Yeni Eklenenler 🔥</div>
+    <div class="yazi">Son eklenen filmler</div>
+</a>
+
     <a href="korku.html" class="kategori korku arama-ogesi" data-ara="korku gerilim korku filmleri conjuring nun it insidious">
         <div class="ikon">👻</div>
         <div class="ad">Korku</div>
@@ -1255,7 +1274,7 @@ function panelFilmleriniGoster(){
             alan.style.padding = "0 20px 40px";
 
             alan.innerHTML = `
-                <div class="baslik">🆕 Yeni Eklenenler</div>
+                <div class="baslik" id="yeni">🆕 Yeni Eklenenler</div>
                 <div id="panelFilmGrid" class="filmler"></div>
             `;
 
@@ -1308,7 +1327,6 @@ function panelFilmleriniGoster(){
 }
 
 document.addEventListener("DOMContentLoaded", function(){
-    panelFilmleriniGoster();
     filmKartlariniHazirla();
     favoriButonlariniHazirla();
 });

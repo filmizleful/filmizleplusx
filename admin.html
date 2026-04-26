@@ -253,7 +253,7 @@
     function filmKaydet(){
       let id = guvenliIdYap(filmIdInput.value);
       const isim = filmIsimInput.value.trim();
-      const tur = filmTurInput.value.trim();
+      const tur = filmTurInput.value.toLowerCase().trim();
       const yil = filmYilInput.value.trim();
       const puan = filmPuanInput.value.trim();
       const afis = filmAfisInput.value.trim();

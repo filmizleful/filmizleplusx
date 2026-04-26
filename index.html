@@ -1060,9 +1060,10 @@ function bilgi(){
 
 <div class="kategoriler">
     <a href="yeni.html" class="kategori" style="background:linear-gradient(135deg,#00c6ff,#0072ff); position:relative;">
-    <div class="ikon">🆕</div>
-    <div class="ad">Yeni Eklenenler</div>
-    <div class="yazi" style="font-size:16px;">🔥 Vizyona girecek ve yeni çıkan filmleri keşfet</div>
+        <div class="ikon">🎬</div>
+        <div class="ad">Vizyona Girecek Filmler</div>
+        <div class="yazi" style="font-size:16px;">🔥 Yakında vizyona girecek filmleri keşfet</div>
+    </a>
 
     <span style="
         position:absolute;
@@ -1529,7 +1530,10 @@ document.addEventListener("DOMContentLoaded", function(){
 <script src="https://www.gstatic.com/firebasejs/10.12.2/firebase-app-compat.js"></script>
 <script src="https://www.gstatic.com/firebasejs/10.12.2/firebase-firestore-compat.js"></script>
 
-<script>
+    if(!alan || !grid) return;
+
+    const simdi = new Date();
+    const yediGunOnce = new Date(simd<script>
 const firebaseConfig = {
   apiKey: "AIzaSyBmSzMlnTX94BKdUuHDPiVRqwu8of1RqHw",
   authDomain: "filmizleplusx.firebaseapp.com",
@@ -1544,38 +1548,53 @@ firebase.initializeApp(firebaseConfig);
 const db = firebase.firestore();
 </script>
 <script>
-function anaSayfaSon3FilmGoster(){
+function anaSayfaTrendFilmler(){
+
     const alan = document.getElementById("sonEklenenKisaAlan");
     const grid = document.getElementById("sonEklenenKisaGrid");
 
-    if(!alan || !grid) return;
+const simdi = new Date();
+const yediGunOnce = new Date(simdi.getTime() - (30 * 24 * 60 * 60 * 1000));
 
     db.collection("filmler")
     .orderBy("tarih", "desc")
-    .limit(3)
     .get()
     .then((snapshot) => {
 
-        if(snapshot.empty){
-            alan.style.display = "none";
-            return;
-        }
-
         grid.innerHTML = "";
-        alan.style.display = "block";
+        let sayac = 0;
 
         snapshot.forEach((doc) => {
             const film = doc.data();
 
-            grid.innerHTML += `
-                <div class="film">
-                    <img src="${film.afis || ""}">
-                    <h3>${film.isim || "Film"}</h3>
-                    <div class="film-bilgi">${film.tur || ""} ${film.yil ? "• " + film.yil : ""}</div>
-                    <a href="film-detay.html?id=${film.id}">🎬 Fragmanı İzle</a>
-                </div>
-            `;
+            if(!film.tarih) return;
+
+            const filmTarihi = film.tarih.toDate ? film.tarih.toDate() : new Date(film.tarih);
+
+            // 🔥 SADECE SON 7 GÜN
+            if(filmTarihi >= yediGunOnce){
+
+                if(sayac >= 6) return; // max 12 film
+
+                grid.innerHTML += `
+                    <div class="film">
+                        <img src="${film.afis || ""}">
+                        <h3>${film.isim || "Film"}</h3>
+                        <div class="film-bilgi">${film.tur || ""} ${film.yil ? "• " + film.yil : ""}</div>
+                        <a href="film-detay.html?id=${film.id}">🎬 Fragmanı İzle</a>
+                    </div>
+                `;
+
+                sayac++;
+            }
         });
+
+        // hiç film yoksa gizle
+        if(sayac === 0){
+            alan.style.display = "none";
+        } else {
+            alan.style.display = "block";
+        }
 
     })
     .catch((error) => {
@@ -1584,10 +1603,9 @@ function anaSayfaSon3FilmGoster(){
 }
 
 document.addEventListener("DOMContentLoaded", function(){
-    setTimeout(anaSayfaSon3FilmGoster, 500);
+    setTimeout(anaSayfaTrendFilmler, 500);
 });
 </script>
-
 <script>
 function mutluluk(){
     const sozler = [

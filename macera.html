@@ -207,6 +207,7 @@ body{
 
 <div class="baslik">🎬 Macera Listesi</div>
 
+<div class="filmler" id="filmListesiFirebase"></div>
 <div class="filmler" id="filmListesi"></div>
 
 <div class="sonuc-yok" id="sonucYok">Film bulunamadı</div>
@@ -252,6 +253,51 @@ function filmleriAra(){
 }
 
 maceralariYukle();
+</script>
+<script src="https://www.gstatic.com/firebasejs/8.10.0/firebase-app.js"></script>
+<script src="https://www.gstatic.com/firebasejs/8.10.0/firebase-firestore.js"></script>
+
+<script>
+const firebaseConfig = {
+  apiKey: "AIzaSyBmSzMlnTX94BKdUuHDPiVRqwu8of1RqHw",
+  authDomain: "filmizleplusx.firebaseapp.com",
+  projectId: "filmizleplusx",
+  storageBucket: "filmizleplusx.firebasestorage.app",
+  messagingSenderId: "296091084316",
+  appId: "1:296091084316:web:aba2def23f6ce2b03761d9",
+  measurementId: "G-SFQ2RQQH19"
+};
+
+firebase.initializeApp(firebaseConfig);
+const db = firebase.firestore();
+
+function firebaseMaceralariYukle(){
+    const alan = document.getElementById("filmListesiFirebase");
+    if(!alan) return;
+
+    db.collection("filmler")
+    .where("tur", "==", "macera")
+    .get()
+    .then((snapshot) => {
+        snapshot.forEach((doc) => {
+            const film = doc.data();
+
+            const card = `
+            <div class="film arama-ogesi">
+                <img src="${film.afis}">
+                <h3>${film.isim}</h3>
+                <div class="film-bilgi">${film.yil}</div>
+                <div class="film-puan">⭐ ${film.puan}</div>
+                <a href="film-detay.html?id=${doc.id}">İzle</a>
+            </div>
+            `;
+
+            alan.innerHTML = card + alan.innerHTML;
+        });
+    });
+}
+
+firebaseMaceralariYukle();
 </script>
 
 </body>

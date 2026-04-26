@@ -227,6 +227,26 @@ body{
     }
 }
 </style>
+
+<!-- 🔥 BURAYA KOY -->
+<script src="https://www.gstatic.com/firebasejs/10.12.2/firebase-app-compat.js"></script>
+<script src="https://www.gstatic.com/firebasejs/10.12.2/firebase-firestore-compat.js"></script>
+
+<script>
+const firebaseConfig = {
+  apiKey: "AIzaSyBmSzMlnTX94BKdUuHDPiVRqwu8of1RqHw",
+  authDomain: "filmizleplusx.firebaseapp.com",
+  projectId: "filmizleplusx",
+  storageBucket: "filmizleplusx.firebasestorage.app",
+  messagingSenderId: "296091084316",
+  appId: "1:296091084316:web:aba2def23f6ce2b03761d9",
+  measurementId: "G-SFQ2RQQH19"
+};
+
+firebase.initializeApp(firebaseConfig);
+const db = firebase.firestore();
+</script>
+
 </head>
 <body>
 
@@ -255,6 +275,7 @@ body{
 
 <div class="baslik">🎬 Korku Listesi</div>
 
+<div class="filmler" id="filmListesiFirebase"></div>
 <div class="filmler" id="filmListesi"></div>
 
 <div class="sonuc-yok" id="sonucYok">Aramana uygun korku filmi bulunamadı.</div>
@@ -302,6 +323,40 @@ function filmleriAra(){
 }
 
 korkulariYukle();
+</script>
+<script>
+function firebaseKorkulariYukle(){
+    const alan = document.getElementById("filmListesiFirebase");
+    if(!alan) return;
+
+    db.collection("filmler")
+    .where("tur", "==", "korku")
+    .get()
+    .then((snapshot) => {
+
+        if(snapshot.empty) return;
+
+        snapshot.forEach((doc) => {
+            const film = doc.data();
+
+            alan.innerHTML = `
+                <div class="film">
+                    <img src="${film.afis || ""}">
+                    <h3>${film.isim || "Film"}</h3>
+                    <div class="film-bilgi">${film.yil || ""}</div>
+                    <div class="film-puan">⭐ ${film.puan || ""}</div>
+                    <a href="film-detay.html?id=${film.id}">İzle</a>
+                </div>
+            ` + alan.innerHTML;
+        });
+
+    })
+    .catch((err) => {
+        console.log("Firebase hata:", err);
+    });
+}
+
+firebaseKorkulariYukle();
 </script>
 
 </body>

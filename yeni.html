@@ -84,10 +84,10 @@ body{
 
 <a href="index.html" class="geri">← Ana Sayfa</a>
 
-<div class="baslik">🆕 Yeni Eklenen Filmler</div>
+<div class="baslik">🎬 Vizyona Girecek Filmler</div>
 
 <p class="aciklama">
-Filmizleplusx üzerinde en son eklenen filmleri bu sayfada bulabilirsiniz. Sürekli güncellenen içerikler ile yeni çıkan ve popüler filmleri takip edebilirsiniz.
+🔥 Yakında vizyona girecek filmleri bu sayfada keşfedebilirsiniz. Sürekli güncellenen içerikler ile yeni çıkan ve popüler filmleri takip edebilirsiniz.
 </p>
 
 <div id="filmListe" class="filmler"></div>
@@ -112,9 +112,10 @@ const db = firebase.firestore();
 
 const alan = document.getElementById("filmListe");
 
-db.collection("filmler").orderBy("tarih", "desc").get()
+db.collection("filmler")
+.where("tur", "==", "vizyon")
+.get()
 .then((snapshot) => {
-
     if(snapshot.empty){
         alan.innerHTML = "<p style='padding:20px'>Henüz film eklenmedi.</p>";
         return;

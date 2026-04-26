@@ -4,10 +4,13 @@
   <!-- ANA SAYFALAR -->
   <url><loc>https://filmizleplusx.com/</loc></url>
   <url><loc>https://filmizleplusx.com/index.html</loc></url>
+  <url><loc>https://filmizleplusx.com/yeni.html</loc></url>
   <url><loc>https://filmizleplusx.com/aksiyon.html</loc></url>
   <url><loc>https://filmizleplusx.com/korku.html</loc></url>
   <url><loc>https://filmizleplusx.com/bilimkurgu.html</loc></url>
   <url><loc>https://filmizleplusx.com/macera.html</loc></url>
+  <url><loc>https://filmizleplusx.com/vip.html</loc></url>
+  <url><loc>https://filmizleplusx.com/vip-room.html</loc></url>
 
   <!-- FİLMLER -->
   <url><loc>https://filmizleplusx.com/film-detay.html?id=john-wick</loc></url>
@@ -72,5 +75,6 @@
   <url><loc>https://filmizleplusx.com/film-detay.html?id=shrek</loc></url>
   <url><loc>https://filmizleplusx.com/film-detay.html?id=cars</loc></url>
   <url><loc>https://filmizleplusx.com/film-detay.html?id=frozen</loc></url>
+  <url><loc>https://filmizleplusx.com/film-detay.html?id=johnwick1</loc></url>
 
 </urlset>

@@ -519,6 +519,7 @@ let gucKullan = false;
 let gucHazir = false;
 let spin = 0;
 let rol = "";
+rol = prompt("Rolün ne? (sol / sag)");
 let solSkor = 0;
 let sagSkor = 0;
 
@@ -674,20 +675,24 @@ function topaVur(oyuncu, yon){
     }
 }
 function oyunDongusu(){
-solOyuncu.style.left = sol.x + "px";
 
-// 🔥 SOL oyuncu konumu gönder
-odaRef.child("sol").set({
-    x: sol.x,
-    y: sol.y
-});
-    sagOyuncu.style.left = sag.x + "px";
+    solOyuncu.style.left = sol.x + "px";
 
-    // 🔥 SAĞ oyuncu konumu gönder
+if(rol === "sol"){
+    odaRef.child("sol").set({
+        x: sol.x,
+        y: sol.y
+    });
+}
+
+sagOyuncu.style.left = sag.x + "px";
+
+if(rol === "sag"){
     odaRef.child("sag").set({
         x: sag.x,
         y: sag.y
     });
+}
     if(oyunAktif){
 
         sol.x = Math.max(20, Math.min(sol.x, saha.clientWidth - 100));

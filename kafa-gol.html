@@ -1,0 +1,818 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Kafa Gol Arena - Filmizleplusx</title>
+
+<style>
+*{box-sizing:border-box}
+
+body{
+    margin:0;
+    background:#07111f;
+    color:white;
+    font-family:Arial, sans-serif;
+}
+
+.header{
+    text-align:center;
+    padding:25px 10px 10px;
+}
+
+.header h1{
+    margin:0;
+    font-size:38px;
+}
+
+.header p{
+    color:#b8c0cc;
+}
+
+.ust-panel{
+    max-width:1200px;
+    margin:15px auto;
+    display:grid;
+    grid-template-columns:repeat(auto-fit,minmax(180px,1fr));
+    gap:12px;
+    padding:0 15px;
+}
+
+.bilgi-kutu{
+    background:#111827;
+    border:1px solid rgba(255,255,255,0.1);
+    border-radius:18px;
+    padding:14px;
+    text-align:center;
+}
+
+.bilgi-kutu span{
+    display:block;
+    color:#9ca3af;
+    font-size:13px;
+}
+
+.bilgi-kutu strong{
+    font-size:22px;
+}
+
+.container{
+    max-width:1200px;
+    margin:20px auto;
+    display:grid;
+    grid-template-columns:2fr 1fr;
+    gap:20px;
+    padding:0 15px;
+}
+
+.oyun{
+    background:#111827;
+    border-radius:22px;
+    padding:15px;
+}
+
+.saha{
+    height:460px;
+    position:relative;
+    overflow:hidden;
+    border-radius:22px;
+    background:linear-gradient(#1f8f46,#11612f);
+    border:4px solid rgba(255,255,255,0.2);
+
+    transform:perspective(900px) rotateX(20deg);
+    transform-origin:center;
+}
+
+.orta-cizgi{
+    position:absolute;
+    left:50%;
+    top:0;
+    width:4px;
+    height:100%;
+    background:rgba(255,255,255,0.35);
+}
+
+.orta-yuvarlak{
+    position:absolute;
+    left:50%;
+    top:50%;
+    width:120px;
+    height:120px;
+    border:4px solid rgba(255,255,255,0.35);
+    border-radius:50%;
+    transform:translate(-50%,-50%);
+}
+
+.kale{
+    position:absolute;
+    bottom:0;
+    width:70px;
+    height:180px;
+    background:rgba(255,255,255,0.12);
+    border:5px solid #f8fafc;
+}
+
+.sol-kale{
+    left:0;
+    border-left:none;
+}
+
+.sag-kale{
+    right:0;
+    border-right:none;
+}
+
+.oyuncu{
+    position:absolute;
+    width:78px;
+    height:125px;
+    bottom:20px;
+}
+
+.sol{
+    left:120px;
+}
+
+.sag{
+     right:120px;
+}
+
+.kafa{
+    width:64px;
+    height:64px;
+    background:#ffd29d;
+    border:4px solid white;
+    border-radius:50%;
+    margin:0 auto;
+    position:relative;
+    z-index:2;
+}
+
+.kafa:before{
+    content:"";
+    position:absolute;
+    top:23px;
+    left:15px;
+    width:8px;
+    height:8px;
+    background:#111;
+    border-radius:50%;
+    box-shadow:25px 0 #111;
+}
+
+.kafa:after{
+    content:"";
+    position:absolute;
+    bottom:13px;
+    left:23px;
+    width:18px;
+    height:8px;
+    border-bottom:3px solid #111;
+    border-radius:50%;
+}
+
+.sac{
+    position:absolute;
+    top:-8px;
+    left:10px;
+    width:42px;
+    height:20px;
+    background:#3b2417;
+    border-radius:50% 50% 20% 20%;
+}
+
+.govde{
+    width:58px;
+    height:50px;
+    border-radius:16px 16px 10px 10px;
+    margin:-5px auto 0;
+    border:3px solid white;
+}
+
+.sol .govde{
+    background:#ff5c7a;
+}
+
+.sag .govde{
+    background:#58a6ff;
+}
+
+.kollar{
+    width:88px;
+    position:absolute;
+    left:-5px;
+    top:67px;
+    display:flex;
+    justify-content:space-between;
+}
+
+.kol{
+    width:15px;
+    height:42px;
+    background:#ffd29d;
+    border-radius:10px;
+}
+
+.bacaklar{
+    width:54px;
+    margin:0 auto;
+    display:flex;
+    justify-content:space-between;
+}
+
+.bacak{
+    width:20px;
+    height:34px;
+    background:#e5e7eb;
+    border-radius:0 0 12px 12px;
+}
+
+.top{
+    position:absolute;
+    left:50%;
+    top:45%;
+    width:38px;
+    height:38px;
+    background:white;
+    border-radius:50%;
+    transform:translate(-50%,-50%);
+    box-shadow:0 0 18px rgba(255,255,255,0.9);
+}
+
+.top:before{
+    content:"⚽";
+    position:absolute;
+    font-size:35px;
+    left:1px;
+    top:0;
+}
+
+.kontrol-panel{
+    margin-top:14px;
+    display:flex;
+    flex-wrap:wrap;
+    gap:10px;
+    justify-content:center;
+}
+
+.kontrol-panel button{
+    border:none;
+    border-radius:14px;
+    padding:12px 18px;
+    color:white;
+    font-weight:bold;
+    cursor:pointer;
+}
+
+.btn-sol{background:#ff5c7a}
+.btn-sag{background:#58a6ff}
+.btn-izle{background:#22c55e}
+.btn-baslat{background:#f59e0b}
+
+.sag-panel{
+    display:flex;
+    flex-direction:column;
+    gap:15px;
+}
+
+.chat,.izleyici{
+    background:#111827;
+    border-radius:20px;
+    border:1px solid rgba(255,255,255,0.1);
+    overflow:hidden;
+}
+
+.panel-baslik{
+    padding:14px;
+    font-weight:bold;
+    border-bottom:1px solid rgba(255,255,255,0.1);
+}
+
+.mesajlar{
+    height:290px;
+    padding:12px;
+    overflow-y:auto;
+}
+
+.mesaj{
+    background:#0b1020;
+    padding:9px;
+    border-radius:10px;
+    margin-bottom:8px;
+    font-size:14px;
+}
+
+.input{
+    display:flex;
+    border-top:1px solid rgba(255,255,255,0.1);
+}
+
+.input input{
+    flex:1;
+    padding:12px;
+    border:none;
+    outline:none;
+    background:#0b1020;
+    color:white;
+}
+
+.input button{
+    border:none;
+    background:#ff5c7a;
+    color:white;
+    padding:12px 16px;
+    cursor:pointer;
+}
+
+.izleyici-icerik{
+    padding:14px;
+}
+
+.takimlar{
+    display:flex;
+    gap:10px;
+    margin-top:12px;
+}
+
+.takimlar button{
+    flex:1;
+    padding:11px;
+    border:none;
+    border-radius:12px;
+    color:white;
+    cursor:pointer;
+}
+
+@media(max-width:850px){
+    .container{
+        grid-template-columns:1fr;
+    }
+
+    .saha{
+        height:360px;
+    }
+}
+.gol-yazi{
+    position:fixed;
+    top:40%;
+    left:50%;
+    transform:translate(-50%,-50%);
+    font-size:70px;
+    color:white;
+    font-weight:bold;
+    z-index:9999;
+}
+.saha{
+    perspective:900px;
+    box-shadow:inset 0 40px 80px rgba(255,255,255,0.08),
+               inset 0 -60px 100px rgba(0,0,0,0.35),
+               0 20px 40px rgba(0,0,0,0.5);
+}
+
+.oyuncu{
+    filter:drop-shadow(0 18px 10px rgba(0,0,0,0.45));
+}
+
+.top{
+    box-shadow:0 18px 18px rgba(0,0,0,0.45),
+               0 0 18px rgba(255,255,255,0.9);
+}
+
+.kale{
+    box-shadow:inset 0 0 20px rgba(255,255,255,0.25),
+               0 12px 20px rgba(0,0,0,0.45);
+}
+.saha{
+    transform:perspective(900px) rotateX(10deg);
+    transform-origin:center;
+}
+.guc-aktif{
+    box-shadow:0 0 20px gold, 0 0 40px orange;
+    border-radius:50%;
+}
+</style>
+<!-- Firebase -->
+<script src="https://www.gstatic.com/firebasejs/10.12.2/firebase-app-compat.js"></script>
+<script src="https://www.gstatic.com/firebasejs/10.12.2/firebase-database-compat.js"></script>
+</head>
+
+<body>
+
+<div class="header">
+    <h1>⚽ Kafa Gol Arena</h1>
+    <p>2 oyuncu oynar, diğerleri izler ve sohbet eder.</p>
+</div>
+
+<div class="ust-panel">
+
+    <div class="bilgi-kutu">
+        <span>Oda Kodu</span>
+        <strong>KG-1234</strong>
+    </div>
+
+    <div class="bilgi-kutu">
+        <span>Skor</span>
+        <strong id="skor">0 - 0</strong>
+    </div>
+
+    <div class="bilgi-kutu">
+        <span>Rolün</span>
+        <strong id="rolYazi">Seçilmedi</strong>
+    </div>
+
+    <div class="bilgi-kutu">
+        <span>İzleyici</span>
+        <strong>14 kişi</strong>
+    </div>
+
+    <div class="bilgi-kutu">
+        <span>Süre</span>
+        <strong id="sure">90</strong>
+    </div>
+
+</div>
+
+<div class="container">
+
+    <div class="oyun">
+
+        <div class="saha" id="saha">
+            <div class="orta-cizgi"></div>
+            <div class="orta-yuvarlak"></div>
+
+            <div class="kale sol-kale"></div>
+            <div class="kale sag-kale"></div>
+
+            <div class="oyuncu sol" id="solOyuncu">
+                <div class="kafa"><div class="sac"></div></div>
+                <div class="kollar"><div class="kol"></div><div class="kol"></div></div>
+                <div class="govde"></div>
+                <div class="bacaklar"><div class="bacak"></div><div class="bacak"></div></div>
+            </div>
+
+            <div class="oyuncu sag" id="sagOyuncu">
+                <div class="kafa"><div class="sac"></div></div>
+                <div class="kollar"><div class="kol"></div><div class="kol"></div></div>
+                <div class="govde"></div>
+                <div class="bacaklar"><div class="bacak"></div><div class="bacak"></div></div>
+            </div>
+
+            <div class="top" id="top"></div>
+        </div>
+
+        <div class="kontrol-panel">
+            <button class="btn-sol" onclick="rolSec('sol')">Sol Oyuncu Ol</button>
+            <button class="btn-sag" onclick="rolSec('sag')">Sağ Oyuncu Ol</button>
+            <button class="btn-izle" onclick="rolSec('izleyici')">İzleyici Ol</button>
+            <button class="btn-baslat" onclick="oyunuBaslat()">Maçı Başlat</button>
+        </div>
+
+    </div>
+
+    <div class="sag-panel">
+
+        <div class="chat">
+            <div class="panel-baslik">💬 Canlı Sohbet</div>
+            <div class="mesajlar" id="mesajlar">
+                <div class="mesaj">Sistem: Odaya hoş geldin.</div>
+            </div>
+            <div class="input">
+                <input id="mesajInput" placeholder="Mesaj yaz...">
+                <button onclick="mesajGonder()">Gönder</button>
+            </div>
+        </div>
+
+        <div class="izleyici">
+            <div class="panel-baslik">📣 Takım Desteği</div>
+            <div class="izleyici-icerik">
+                Hangi tarafı destekliyorsun?
+                <div class="takimlar">
+                    <button class="btn-sol" onclick="destekVer('Sol Takım')">Sol Takım</button>
+                    <button class="btn-sag" onclick="destekVer('Sağ Takım')">Sağ Takım</button>
+                </div>
+            </div>
+        </div>
+
+    </div>
+
+</div>
+
+<script>
+// 🔥 Firebase başlat
+const firebaseConfig = {
+  apiKey: "AIzaSyAuNyB17voPilu3O_QjS4DiLlS9lk_ReD0",
+  authDomain: "kafa-gol.firebaseapp.com",
+  databaseURL: "https://kafa-gol-default-rtdb.firebaseio.com",
+  projectId: "kafa-gol",
+  storageBucket: "kafa-gol.firebasestorage.app",
+  messagingSenderId: "818503707760",
+  appId: "1:818503707760:web:16e49ecc64425593f0d8b5",
+  measurementId: "G-KQPNDG7FWJ"
+};
+
+firebase.initializeApp(firebaseConfig);
+const db = firebase.database();
+
+const odaKodu = "KG-1234";
+const odaRef = db.ref("odalar/" + odaKodu);
+let gucKullan = false;
+let gucHazir = false;
+let spin = 0;
+let rol = "";
+let solSkor = 0;
+let sagSkor = 0;
+
+let oyunAktif = true;
+let kalanSure = 90;
+let sayac;
+
+let sol = {x:120, y:20, vy:0};
+let sag = {x:650, y:20, vy:0};
+let topObj = {x:500, y:210, vx:0, vy:0};
+
+const saha = document.getElementById("saha");
+const solOyuncu = document.getElementById("solOyuncu");
+const sagOyuncu = document.getElementById("sagOyuncu");
+const topEl = document.getElementById("top");
+
+function mesajYaz(yazi){
+    const mesajlar = document.getElementById("mesajlar");
+    const yeniMesaj = document.createElement("div");
+    yeniMesaj.className = "mesaj";
+    yeniMesaj.textContent = yazi;
+    mesajlar.appendChild(yeniMesaj);
+    mesajlar.scrollTop = mesajlar.scrollHeight;
+}
+
+function mesajGonder(){
+    const input = document.getElementById("mesajInput");
+    if(input.value.trim() === "") return;
+    mesajYaz("Sen: " + input.value);
+    input.value = "";
+}
+
+function destekVer(takim){
+    mesajYaz("Sistem: Sen " + takim + " destekliyorsun.");
+}
+
+function rolSec(secim){
+    rol = secim;
+    if(secim === "sol") rolYazi.textContent = "Sol Oyuncu";
+    if(secim === "sag") rolYazi.textContent = "Sağ Oyuncu";
+    if(secim === "izleyici") rolYazi.textContent = "İzleyici";
+    mesajYaz("Sistem: Rol seçildi.");
+}
+
+function oyunuBaslat(){
+
+    // skor sıfırla
+    solSkor = 0;
+    sagSkor = 0;
+    document.getElementById("skor").textContent = "0 - 0";
+
+    mesajYaz("Sistem: Maç başladı!");
+
+    oyunAktif = true;
+    kalanSure = 90;
+
+    document.getElementById("sure").textContent = kalanSure;
+
+    if(sayac) clearInterval(sayac);
+
+    sayac = setInterval(function(){
+
+        kalanSure--;
+        if(kalanSure % 10 === 0){
+    gucHazir = true;
+    mesajYaz("⚡ Özel güç hazır!");
+}
+        document.getElementById("sure").textContent = kalanSure;
+
+        if(kalanSure <= 0){
+            clearInterval(sayac);
+            oyunAktif = false;
+
+            mesajYaz("⏱ Maç bitti!");
+
+            if(solSkor > sagSkor){
+                mesajYaz("🏆 Sol takım kazandı!");
+            }else if(sagSkor > solSkor){
+                mesajYaz("🏆 Sağ takım kazandı!");
+            }else{
+                mesajYaz("🤝 Berabere!");
+            }
+        }
+
+    }, 1000);
+
+    // top sıfırla
+    topObj.x = saha.clientWidth / 2;
+    topObj.y = 180;
+    topObj.vx = 4;
+    topObj.vy = -4;
+}
+
+document.addEventListener("keydown", function(e){
+
+    // Space tuşu buton basmasın
+    if(e.code === "Space") e.preventDefault();
+
+    if(!oyunAktif) return;
+
+    // 🔥 E = güç aktif et
+    if(e.key === "e" && gucHazir){
+        gucKullan = true;
+        mesajYaz("⚡ Güç aktif!");
+    }
+
+    // SOL oyuncu
+    if(e.key === "a") sol.x -= 15;
+    if(e.key === "d") sol.x += 15;
+    if(e.key === "w" && sol.y === 20) sol.vy = 16;
+
+    // SAĞ oyuncu
+    if(e.key === "ArrowLeft") sag.x -= 15;
+    if(e.key === "ArrowRight") sag.x += 15;
+    if(e.key === "ArrowUp" && sag.y === 20) sag.vy = 16;
+
+    // SPACE = zıplama (sadece sol)
+    if(e.code === "Space"){
+        if(sol.y === 20) sol.vy = 16;
+    }   
+
+}); // 🔥 BU EKSİKTİ
+function topaVur(oyuncu, yon){
+    const oyuncuX = oyuncu.x + 40;
+    const oyuncuY = saha.clientHeight - oyuncu.y - 90;
+
+    const dx = topObj.x - oyuncuX;
+    const dy = topObj.y - oyuncuY;
+
+    const mesafe = Math.sqrt(dx*dx + dy*dy);
+
+    if(mesafe < 75){
+
+        if(gucHazir && gucKullan){
+    topObj.vx = yon * 14;
+    topObj.vy = -16;
+
+    gucHazir = false;
+    gucKullan = false;
+
+    mesajYaz("💥 SÜPER ŞUT!");
+    return;
+}
+        topObj.vx = yon * 5;
+        spin = yon * 0.10;
+
+        // Oyuncu zıplarken vurursa daha sert şut
+        if(oyuncu.y > 40){
+            topObj.vy = -11;
+        }else{
+            topObj.vy = -7;
+        }
+    }
+}
+function oyunDongusu(){
+solOyuncu.style.left = sol.x + "px";
+
+// 🔥 SOL oyuncu konumu gönder
+odaRef.child("sol").set({
+    x: sol.x,
+    y: sol.y
+});
+    sagOyuncu.style.left = sag.x + "px";
+
+    // 🔥 SAĞ oyuncu konumu gönder
+    odaRef.child("sag").set({
+        x: sag.x,
+        y: sag.y
+    });
+    if(oyunAktif){
+
+        sol.x = Math.max(20, Math.min(sol.x, saha.clientWidth - 100));
+        sag.x = Math.max(20, Math.min(sag.x, saha.clientWidth - 100));
+
+        sol.y += sol.vy;
+        sag.y += sag.vy;
+
+        sol.vy -= 0.8;
+        sag.vy -= 0.8;
+
+        if(sol.y < 20){ sol.y = 20; sol.vy = 0; }
+        if(sag.y < 20){ sag.y = 20; sag.vy = 0; }
+
+        topObj.x += topObj.vx;
+        topObj.y += topObj.vy;
+        topObj.vy += 0.3;
+
+        topObj.x += topObj.vx + spin;
+topObj.y += topObj.vy;
+topObj.vy += 0.3;
+
+spin *= 0.98; // yavaş yavaş azalır
+
+topaVur(sol, 1);
+topaVur(sag, -1);
+        // GOL
+        if(topObj.x < 30 && topObj.y > saha.clientHeight - 170){
+            sagSkor++;
+            document.getElementById("skor").textContent = solSkor + " - " + sagSkor;
+            mesajYaz("⚽ Gol! Sağ takım attı.");
+            document.getElementById("gol").style.display = "block";
+setTimeout(()=>document.getElementById("gol").style.display = "none",1000);
+            topObj.x = saha.clientWidth / 2;
+            topObj.y = 180;
+            topObj.vx = 0;
+            topObj.vy = 0;
+        }
+
+        if(topObj.x > saha.clientWidth - 30 && topObj.y > saha.clientHeight - 170){
+            solSkor++;
+            document.getElementById("skor").textContent = solSkor + " - " + sagSkor;
+            mesajYaz("⚽ Gol! Sol takım attı.");
+            document.getElementById("gol").style.display = "block";
+setTimeout(()=>document.getElementById("gol").style.display = "none",1000);
+            topObj.x = saha.clientWidth / 2;
+            topObj.y = 180;
+            topObj.vx = 0;
+            topObj.vy = 0;
+        }
+
+        if(topObj.y > saha.clientHeight - 35){
+            topObj.y = saha.clientHeight - 35;
+            topObj.vy *= -0.7;
+        }
+
+        if(topObj.y < 20){
+            topObj.y = 20;
+            topObj.vy *= -1;
+        }
+
+        if(topObj.x < 20 || topObj.x > saha.clientWidth - 20){
+            topObj.vx *= -1;
+        }
+    }
+
+solOyuncu.style.left = sol.x + "px";
+solOyuncu.style.bottom = sol.y + "px";
+
+sagOyuncu.style.left = sag.x + "px";
+sagOyuncu.style.right = "auto";
+sagOyuncu.style.bottom = sag.y + "px";
+
+// 🔥 güç efekti (EN DOĞRU YER)
+if(gucHazir){
+    solOyuncu.classList.add("guc-aktif");
+    sagOyuncu.classList.add("guc-aktif");
+}else{
+    solOyuncu.classList.remove("guc-aktif");
+    sagOyuncu.classList.remove("guc-aktif");
+}
+
+topEl.style.left = topObj.x + "px";
+topEl.style.top = topObj.y + "px";
+    // 🔥 3D hissi (yukarı çıkınca küçülme)
+let solScale = 1 - (sol.y / 600);
+let sagScale = 1 - (sag.y / 600);
+let topScale = 1 - (topObj.y / 800);
+
+solOyuncu.style.transform = "scale(" + solScale + ")";
+sagOyuncu.style.transform = "scale(" + sagScale + ")";
+topEl.style.transform = "scale(" + topScale + ")";
+
+    requestAnimationFrame(oyunDongusu);
+}
+
+function yenidenBaslat(){
+    solSkor = 0;
+    sagSkor = 0;
+
+    document.getElementById("skor").textContent = "0 - 0";
+
+    oyunuBaslat();
+    mesajYaz("🔄 Oyun yeniden başladı!");
+}
+// 🔥 SOL oyuncuyu dinle
+odaRef.child("sol").on("value", (snap) => {
+    const veri = snap.val();
+    if(veri){
+        sol.x = veri.x;
+        sol.y = veri.y;
+    }
+});
+
+// 🔥 SAĞ oyuncuyu dinle
+odaRef.child("sag").on("value", (snap) => {
+    const veri = snap.val();
+    if(veri){
+        sag.x = veri.x;
+        sag.y = veri.y;
+    }
+});
+oyunDongusu();
+</script>
+<div id="gol" style="display:none;" class="gol-yazi">GOOOL!!!</div>
+
+</body>
+</html>

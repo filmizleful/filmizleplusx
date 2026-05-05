@@ -390,6 +390,40 @@ body{
     box-shadow:0 0 20px gold, 0 0 40px orange;
     border-radius:50%;
 }
+
+/* MOBİL KONTROL BUTONLARI */
+.mobil-kontrol{
+    display:flex;
+    justify-content:center;
+    gap:10px;
+    margin-top:15px;
+    flex-wrap:wrap;
+}
+
+.mobil-kontrol button{
+    width:58px;
+    height:52px;
+    font-size:22px;
+    border:none;
+    border-radius:14px;
+    background:#1f2937;
+    color:white;
+    font-weight:bold;
+    cursor:pointer;
+    box-shadow:0 8px 18px rgba(0,0,0,0.35);
+}
+
+.mobil-kontrol button:active{
+    transform:scale(0.95);
+    background:#374151;
+}
+
+@media(min-width:851px){
+    .mobil-kontrol{
+        display:none;
+    }
+}
+
 </style>
 <!-- Firebase -->
 <script src="https://www.gstatic.com/firebasejs/10.12.2/firebase-app-compat.js"></script>
@@ -458,6 +492,14 @@ body{
             </div>
 
             <div class="top" id="top"></div>
+        </div>
+
+
+        <div class="mobil-kontrol">
+            <button onclick="solGit()">◀</button>
+            <button onclick="ziplama()">⤴</button>
+            <button onclick="sagGit()">▶</button>
+            <button onclick="gucVur()">⚡</button>
         </div>
 
         <div class="kontrol-panel">
@@ -674,6 +716,33 @@ function topaVur(oyuncu, yon){
         }
     }
 }
+
+function solGit(){
+    if(!oyunAktif) return;
+    if(rol === "sol") sol.x -= 20;
+    if(rol === "sag") sag.x -= 20;
+}
+
+function sagGit(){
+    if(!oyunAktif) return;
+    if(rol === "sol") sol.x += 20;
+    if(rol === "sag") sag.x += 20;
+}
+
+function ziplama(){
+    if(!oyunAktif) return;
+    if(rol === "sol" && sol.y === 20) sol.vy = 16;
+    if(rol === "sag" && sag.y === 20) sag.vy = 16;
+}
+
+function gucVur(){
+    if(!oyunAktif) return;
+    if(gucHazir){
+        gucKullan = true;
+        mesajYaz("⚡ Güç aktif!");
+    }
+}
+
 function oyunDongusu(){
 
     solOyuncu.style.left = sol.x + "px";

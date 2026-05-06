@@ -1,0 +1,285 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Spor Oyunları - Filmizleplusx</title>
+
+<style>
+*{
+    margin:0;
+    padding:0;
+    box-sizing:border-box;
+}
+
+body{
+    font-family:Arial, sans-serif;
+    background:#0f172a;
+    color:white;
+}
+
+header{
+    background:#111827;
+    padding:18px 30px;
+    display:flex;
+    justify-content:space-between;
+    align-items:center;
+    box-shadow:0 4px 20px rgba(0,0,0,0.4);
+}
+
+.logo{
+    font-size:24px;
+    font-weight:bold;
+    color:#facc15;
+}
+
+nav a{
+    color:white;
+    text-decoration:none;
+    margin-left:18px;
+    font-size:15px;
+}
+
+nav a:hover{
+    color:#facc15;
+}
+
+.hero{
+    text-align:center;
+    padding:45px 20px 25px;
+}
+
+.hero h1{
+    font-size:38px;
+    margin-bottom:12px;
+}
+
+.hero p{
+    color:#cbd5e1;
+    font-size:17px;
+}
+
+.oyunlar{
+    max-width:1200px;
+    margin:25px auto;
+    padding:20px;
+    display:grid;
+    grid-template-columns:repeat(auto-fit,minmax(220px,1fr));
+    gap:22px;
+}
+
+.oyun-kart{
+    background:#1e293b;
+    border-radius:18px;
+    overflow:hidden;
+    cursor:pointer;
+    box-shadow:0 8px 25px rgba(0,0,0,0.35);
+    transition:0.25s;
+    border:1px solid rgba(255,255,255,0.08);
+}
+
+.oyun-kart:hover{
+    transform:scale(1.04);
+    border-color:#facc15;
+}
+
+.oyun-kart img{
+    width:100%;
+    height:145px;
+    object-fit:cover;
+    display:block;
+}
+
+.oyun-kart h3{
+    padding:14px;
+    font-size:16px;
+    text-align:center;
+}
+
+#oyunAlani{
+    max-width:1100px;
+    margin:30px auto 60px;
+    padding:20px;
+    display:none;
+}
+
+.oyun-baslik{
+    display:flex;
+    justify-content:space-between;
+    align-items:center;
+    gap:15px;
+    margin-bottom:15px;
+}
+
+.oyun-baslik h2{
+    color:#facc15;
+    font-size:24px;
+}
+
+.kapat-btn{
+    background:#ef4444;
+    color:white;
+    border:none;
+    padding:10px 16px;
+    border-radius:10px;
+    cursor:pointer;
+    font-weight:bold;
+}
+
+.kapat-btn:hover{
+    background:#dc2626;
+}
+
+.iframe-kutu{
+    width:100%;
+    background:#020617;
+    border-radius:18px;
+    padding:12px;
+    box-shadow:0 10px 30px rgba(0,0,0,0.45);
+}
+
+.iframe-kutu iframe{
+    width:100%;
+    height:620px;
+    border:0;
+    border-radius:12px;
+    background:#000;
+}
+
+.not{
+    text-align:center;
+    color:#94a3b8;
+    font-size:14px;
+    margin-top:10px;
+}
+
+@media(max-width:768px){
+    header{
+        flex-direction:column;
+        gap:12px;
+    }
+
+    nav a{
+        margin:0 8px;
+    }
+
+    .hero h1{
+        font-size:30px;
+    }
+
+    .iframe-kutu iframe{
+        height:430px;
+    }
+}
+</style>
+</head>
+
+<body>
+
+<header>
+    <div class="logo">🎮 Filmizleplusx Oyunlar</div>
+    <nav>
+        <a href="index.html">Ana Sayfa</a>
+        <a href="oyunlar.html">Oyunlar</a>
+    </nav>
+</header>
+
+<section class="hero">
+    <h1>⚽ Spor Oyunları</h1>
+    <p>Futbol, yarış, bilardo, golf, okçuluk ve motor oyunları burada.</p>
+</section>
+
+<section class="oyunlar">
+
+    <div class="oyun-kart" onclick="oyunAc('Football Legends 2026', 'https://html5.gamedistribution.com/13eabea86f7c4cd993a156258420e9ec/?gd_sdk_referrer_url=https://www.example.com/games/{game-path}')">
+        <img src="resimler/Football Legends 2026.png" alt="Football Legends 2026">
+        <h3>Football Legends 2026</h3>
+    </div>
+
+    <div class="oyun-kart" onclick="oyunAc('Pool Master', 'https://html5.gamedistribution.com/cfe752f3ab0742bbaa481bd558591c48/?gd_sdk_referrer_url=https://www.example.com/games/{game-path}')">
+        <img src="resimler/pool Master.png" alt="Pool Master">
+        <h3>Pool Master</h3>
+    </div>
+
+    <div class="oyun-kart" onclick="oyunAc('Golf Mini', 'https://html5.gamedistribution.com/c6a4e6717eee482d96d06fea5e24ce7c/?gd_sdk_referrer_url=https://www.example.com/games/{game-path}')">
+        <img src="resimler/Golf Mini.png" alt="Golf Mini">
+        <h3>Golf Mini</h3>
+    </div>
+
+    <div class="oyun-kart" onclick="oyunAc('Racing Game King HP', 'https://html5.gamedistribution.com/d132f5f8eab94506828f58ef0c5b1e29/?gd_sdk_referrer_url=https://www.example.com/games/{game-path}')">
+        <img src="resimler/Racing Game King HP.png" alt="Racing Game King HP">
+        <h3>Racing Game King HP</h3>
+    </div>
+
+    <div class="oyun-kart" onclick="oyunAc('Formula Racing Games Car Game', 'https://html5.gamedistribution.com/f597ef614f4f42768bf4f566d76021bc/?gd_sdk_referrer_url=https://www.example.com/games/{game-path}')">
+        <img src="resimler/Formula Racing.png" alt="Formula Racing Games Car Game">
+        <h3>Formula Racing Games Car Game</h3>
+    </div>
+
+    <div class="oyun-kart" onclick="oyunAc('Football Stars Championship', 'https://html5.gamedistribution.com/707382e2c419409680e85fb1834b5156/?gd_sdk_referrer_url=https://www.example.com/games/{game-path}')">
+        <img src="resimler/Football Stars.png" alt="Football Stars Championship">
+        <h3>Football Stars Championship</h3>
+    </div>
+
+    <div class="oyun-kart" onclick="oyunAc('Real Motorbike Simulator Race 3D', 'https://html5.gamedistribution.com/5c39b3ef7a4b4ac58f0e504f41654a62/?gd_sdk_referrer_url=https://www.example.com/games/{game-path}')">
+        <img src="resimler/Real Motorbike Simulator Race 3D.png" alt="Real Motorbike Simulator Race 3D">
+        <h3>Real Motorbike Simulator Race 3D</h3>
+    </div>
+
+    <div class="oyun-kart" onclick="oyunAc('Archery King', 'https://html5.gamedistribution.com/08aeb21f51414d839a1a91d73f080fd8/?gd_sdk_referrer_url=https://www.example.com/games/{game-path}')">
+        <img src="resimler/Archery King.png" alt="Archery King">
+        <h3>Archery King</h3>
+    </div>
+
+    <div class="oyun-kart" onclick="oyunAc('Pool 8 Ball', 'https://html5.gamedistribution.com/56ad5360675740b3b5d588b64b6e24b0/?gd_sdk_referrer_url=https://www.example.com/games/{game-path}')">
+        <img src="resimler/Pool 8 Ball.png" alt="Pool 8 Ball">
+        <h3>Pool 8 Ball</h3>
+    </div>
+
+    <div class="oyun-kart" onclick="oyunAc('World Cup 2026 Soccer Game', 'https://html5.gamedistribution.com/ad37a85f16e246fabdc818f375a5eb45/?gd_sdk_referrer_url=https://www.example.com/games/{game-path}')">
+        <img src="resimler/World Cup 2026.png" alt="World Cup 2026 Soccer Game">
+        <h3>World Cup 2026 Soccer Game</h3>
+    </div>
+
+</section>
+
+<section id="oyunAlani">
+    <div class="oyun-baslik">
+        <h2 id="aktifOyunBaslik">Oyun</h2>
+        <button class="kapat-btn" onclick="oyunKapat()">Oyunu Kapat</button>
+    </div>
+
+    <div class="iframe-kutu" id="iframeKutu"></div>
+
+    <p class="not">Oyun açılmazsa birkaç saniye bekle. Bazı oyunlar ilk yüklemede geç açılabilir.</p>
+</section>
+
+<script>
+function oyunAc(ad, link){
+    const oyunAlani = document.getElementById("oyunAlani");
+    const baslik = document.getElementById("aktifOyunBaslik");
+    const iframeKutu = document.getElementById("iframeKutu");
+
+    baslik.innerText = ad;
+
+    iframeKutu.innerHTML = `
+        <iframe 
+            src="${link}" 
+            scrolling="none" 
+            frameborder="0" 
+            allowfullscreen>
+        </iframe>
+    `;
+
+    oyunAlani.style.display = "block";
+    oyunAlani.scrollIntoView({behavior:"smooth"});
+}
+
+function oyunKapat(){
+    document.getElementById("iframeKutu").innerHTML = "";
+    document.getElementById("oyunAlani").style.display = "none";
+}
+</script>
+
+</body>
+</html>

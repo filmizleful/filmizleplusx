@@ -1,0 +1,331 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Aksiyon Oyunları - Filmizleplusx</title>
+
+<style>
+*{
+    margin:0;
+    padding:0;
+    box-sizing:border-box;
+}
+
+body{
+    font-family:Arial,sans-serif;
+    background:#0f172a;
+    color:white;
+}
+
+header{
+    background:#111827;
+    padding:18px 30px;
+    display:flex;
+    justify-content:space-between;
+    align-items:center;
+    box-shadow:0 4px 20px rgba(0,0,0,0.4);
+}
+
+.logo{
+    font-size:24px;
+    font-weight:bold;
+    color:#ef4444;
+}
+
+nav a{
+    color:white;
+    text-decoration:none;
+    margin-left:18px;
+    font-size:15px;
+}
+
+nav a:hover{
+    color:#ef4444;
+}
+
+.hero{
+    text-align:center;
+    padding:45px 20px 25px;
+}
+
+.hero h1{
+    font-size:38px;
+    margin-bottom:12px;
+}
+
+.hero p{
+    color:#cbd5e1;
+    font-size:17px;
+}
+
+.oyunlar{
+    max-width:1300px;
+    margin:25px auto;
+    padding:20px;
+    display:grid;
+    grid-template-columns:repeat(auto-fit,minmax(230px,1fr));
+    gap:22px;
+}
+
+.oyun-kart{
+    background:#1e293b;
+    border-radius:18px;
+    overflow:hidden;
+    cursor:pointer;
+    box-shadow:0 8px 25px rgba(0,0,0,0.35);
+    transition:0.25s;
+    border:1px solid rgba(255,255,255,0.08);
+}
+
+.oyun-kart:hover{
+    transform:scale(1.04);
+    border-color:#ef4444;
+}
+
+.oyun-kart img{
+    width:100%;
+    height:150px;
+    object-fit:cover;
+    display:block;
+}
+
+.oyun-kart h3{
+    padding:14px;
+    font-size:15px;
+    text-align:center;
+}
+
+#oyunAlani{
+    max-width:1200px;
+    margin:30px auto 60px;
+    padding:20px;
+    display:none;
+}
+
+.oyun-baslik{
+    display:flex;
+    justify-content:space-between;
+    align-items:center;
+    margin-bottom:15px;
+    gap:15px;
+}
+
+.oyun-baslik h2{
+    color:#ef4444;
+    font-size:24px;
+}
+
+.kapat-btn{
+    background:#ef4444;
+    color:white;
+    border:none;
+    padding:10px 16px;
+    border-radius:10px;
+    cursor:pointer;
+    font-weight:bold;
+}
+
+.kapat-btn:hover{
+    background:#dc2626;
+}
+
+.iframe-kutu{
+    width:100%;
+    background:#020617;
+    border-radius:18px;
+    padding:12px;
+    box-shadow:0 10px 30px rgba(0,0,0,0.45);
+}
+
+.iframe-kutu iframe{
+    width:100%;
+    height:650px;
+    border:0;
+    border-radius:12px;
+    background:#000;
+}
+
+.not{
+    text-align:center;
+    color:#94a3b8;
+    font-size:14px;
+    margin-top:10px;
+}
+
+@media(max-width:768px){
+
+header{
+    flex-direction:column;
+    gap:12px;
+}
+
+.hero h1{
+    font-size:30px;
+}
+
+.iframe-kutu iframe{
+    height:430px;
+}
+
+}
+</style>
+</head>
+
+<body>
+
+<header>
+    <div class="logo">🔥 Filmizleplusx Aksiyon Oyunları</div>
+
+    <nav>
+        <a href="index.html">Ana Sayfa</a>
+        <a href="oyunlar.html">Oyunlar</a>
+    </nav>
+</header>
+
+<section class="hero">
+    <h1>🔫 Aksiyon Oyunları</h1>
+    <p>Savaş, dövüş, silah, ninja, tank ve aksiyon dolu oyunlar burada.</p>
+</section>
+
+<section class="oyunlar">
+
+<div class="oyun-kart" onclick="oyunAc('Office Knight 3D: Castle Defense','https://html5.gamedistribution.com/1fc5b3cb598b4d52802bb5003e4f1e79/?gd_sdk_referrer_url=https://www.example.com/games/{game-path}')">
+<img src="resimler/Office Knight 3D.png">
+<h3>Office Knight 3D: Castle Defense</h3>
+</div>
+
+<div class="oyun-kart" onclick="oyunAc('Duo Family Santa','https://html5.gamedistribution.com/fc03dd1d102445f682db4f25284ac990/?gd_sdk_referrer_url=https://www.example.com/games/{game-path}')">
+<img src="resimler/Duo Family Santa.png">
+<h3>Duo Family Santa</h3>
+</div>
+
+<div class="oyun-kart" onclick="oyunAc('Match Fighter','https://html5.gamedistribution.com/56b5cb9b86014d5f8bf726ca5c4ff06e/?gd_sdk_referrer_url=https://www.example.com/games/{game-path}')">
+<img src="resimler/Match Fighter.png">
+<h3>Match Fighter</h3>
+</div>
+
+<div class="oyun-kart" onclick="oyunAc('Get To The Chopper','https://html5.gamedistribution.com/32ba9ee1361648f2abf104bfa088ea3f/?gd_sdk_referrer_url=https://www.example.com/games/{game-path}')">
+<img src="resimler/Get To The Chopper.png">
+<h3>Get To The Chopper</h3>
+</div>
+
+<div class="oyun-kart" onclick="oyunAc('Garden Guardians','https://html5.gamedistribution.com/9dc10bd82d1b4819859247602b19b802/?gd_sdk_referrer_url=https://www.example.com/games/{game-path}')">
+<img src="resimler/Garden Guardians.png">
+<h3>Garden Guardians</h3>
+</div>
+
+<div class="oyun-kart" onclick="oyunAc('War Robots Battles','https://html5.gamedistribution.com/c5837294dd8d4b29a415bc430d8e6226/?gd_sdk_referrer_url=https://www.example.com/games/{game-path}')">
+<img src="resimler/War Robots Battles.png">
+<h3>War Robots Battles</h3>
+</div>
+
+<div class="oyun-kart" onclick="oyunAc('Warfare 1942 - online shooter','https://html5.gamedistribution.com/8cc62e5427cf443dab15634e5dfe7937/?gd_sdk_referrer_url=https://www.example.com/games/{game-path}')">
+<img src="resimler/Warfare 1942 - online shooter.png">
+<h3>Warfare 1942 - online shooter</h3>
+</div>
+
+<div class="oyun-kart" onclick="oyunAc('Strategy of war. Tanks and helicopters','https://html5.gamedistribution.com/bf7c408186694fcf9f63024901828d81/?gd_sdk_referrer_url=https://www.example.com/games/{game-path}')">
+<img src="resimler/Tanks and helicopters.png">
+<h3>Strategy of war. Tanks and helicopters</h3>
+</div>
+
+<div class="oyun-kart" onclick="oyunAc('Valley of Wolves Ambush','https://html5.gamedistribution.com/f921f37779634c868acf3979a48eb7a6/?gd_sdk_referrer_url=https://www.example.com/games/{game-path}')">
+<img src="resimler/Valley of Wolves Ambush.png">
+<h3>Valley of Wolves Ambush</h3>
+</div>
+
+<div class="oyun-kart" onclick="oyunAc('Stick War Ninja Duel','https://html5.gamedistribution.com/9901faca212845c3a5629c36fc80d6f1/?gd_sdk_referrer_url=https://www.example.com/games/{game-path}')">
+<img src="resimler/Stick War Ninja Duel.png">
+<h3>Stick War Ninja Duel</h3>
+</div>
+
+<div class="oyun-kart" onclick="oyunAc('Real Boxing Fighting Game','https://html5.gamedistribution.com/89870ceb041946bea337b13582c25356/?gd_sdk_referrer_url=https://www.example.com/games/{game-path}')">
+<img src="resimler/Real Boxing Fighting Game.png">
+<h3>Real Boxing Fighting Game</h3>
+</div>
+
+<div class="oyun-kart" onclick="oyunAc('Counter Combat Multiplayer','https://html5.gamedistribution.com/c49a084b24424b219b2ea20c94d5e4c4/?gd_sdk_referrer_url=https://www.example.com/games/{game-path}')">
+<img src="resimler/Counter Combat Multiplayer.png">
+<h3>Counter Combat Multiplayer</h3>
+</div>
+
+<div class="oyun-kart" onclick="oyunAc('Biker Battle 3D','https://html5.gamedistribution.com/43c0c5e9f66f42989b61cb54e2a53d85/?gd_sdk_referrer_url=https://www.example.com/games/{game-path}')">
+<img src="resimler/Biker Battle 3D.png">
+<h3>Biker Battle 3D</h3>
+</div>
+
+<div class="oyun-kart" onclick="oyunAc('Drunken Fighters','https://html5.gamedistribution.com/d0c31b0603f24b43b33e4b93d13d64bf/?gd_sdk_referrer_url=https://www.example.com/games/{game-path}')">
+<img src="resimler/Drunken Fighters.png">
+<h3>Drunken Fighters</h3>
+</div>
+
+<div class="oyun-kart" onclick="oyunAc('Plane Chase','https://html5.gamedistribution.com/7da1d1f0bbe64db08338b05e9a697290/?gd_sdk_referrer_url=https://www.example.com/games/{game-path}')">
+<img src="resimler/Plane Chase.png">
+<h3>Plane Chase</h3>
+</div>
+
+<div class="oyun-kart" onclick="oyunAc('Carnage Battle Arena','https://html5.gamedistribution.com/50d128ddf56542d3a53589121fff975e/?gd_sdk_referrer_url=https://www.example.com/games/{game-path}')">
+<img src="resimler/Carnage Battle Arena.png">
+<h3>Carnage Battle Arena</h3>
+</div>
+
+</section>
+
+<section id="oyunAlani">
+
+<div class="oyun-baslik">
+<h2 id="aktifOyunBaslik">Oyun</h2>
+
+<button class="kapat-btn" onclick="oyunKapat()">
+Oyunu Kapat
+</button>
+</div>
+
+<div class="iframe-kutu" id="iframeKutu"></div>
+
+<p class="not">
+Bazı oyunlar ilk açılışta birkaç saniye geç yüklenebilir.
+</p>
+
+</section>
+
+<script>
+
+function oyunAc(ad, link){
+
+const oyunAlani = document.getElementById("oyunAlani");
+const baslik = document.getElementById("aktifOyunBaslik");
+const iframeKutu = document.getElementById("iframeKutu");
+
+baslik.innerText = ad;
+
+iframeKutu.innerHTML = `
+<iframe 
+src="${link}" 
+scrolling="none"
+frameborder="0"
+allowfullscreen>
+</iframe>
+`;
+
+oyunAlani.style.display = "block";
+
+oyunAlani.scrollIntoView({
+behavior:"smooth"
+});
+
+}
+
+function oyunKapat(){
+
+document.getElementById("iframeKutu").innerHTML = "";
+
+document.getElementById("oyunAlani").style.display = "none";
+
+}
+
+</script>
+
+</body>
+</html>

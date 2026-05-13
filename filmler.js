@@ -577,6 +577,99 @@ izle:"#"
 },
 
 {
+id:"hzsuleyman", isim:"Hz Suleyman", tur:"dini", yil:"-", puan:"-",
+afis:"resimler/hz-suleyman.jpg",
+ara:"hz suleyman dini film",
+meta:"Dini Film",
+ozet:"Hz Süleyman'ın hayatını anlatır.",
+hakkinda1:"Dini içerik.",
+hakkinda2:"Tarihi anlatım.",
+fragman:"https://www.youtube.com/watch?v=TZEgcntD4Mc",
+izle:"#"
+},
+
+{
+id:"cagri", isim:"Cagrı", tur:"dini", yil:"1976", puan:"8.5",
+afis:"resimler/cagri.jpg",
+meta:"Dini • IMDb 8.5",
+ozet:"İslam'ın doğuşunu anlatan klasik film.",
+hakkinda1:"En bilinen dini yapım.",
+hakkinda2:"Uluslararası kaliteli film.",
+fragman:"https://www.youtube.com/watch?v=kp1XTsmfvsQ",
+izle:"#"
+},
+
+{
+id:"hzmusa", isim:"Hz Musa", tur:"dini", yil:"-", puan:"-",
+afis:"resimler/hz-musa.jpg",
+ara:"hz musa dini film",
+meta:"Dini Film",
+ozet:"Hz Musa'nın hayatını anlatır.",
+hakkinda1:"Dini içerik.",
+hakkinda2:"Tarihi anlatım.",
+fragman:"https://www.youtube.com/watch?v=1i7_aQaxq2s",
+izle:"#"
+},
+
+{
+id:"hzmuhammet", isim:"Hz Muhamet", tur:"dini", yil:"-", puan:"-",
+afis:"resimler/hz-muhamet.jpg",
+ara:"hz muhammet dini film",
+meta:"Dini Film",
+ozet:"Hz Muhammed'in hayatı.",
+hakkinda1:"Dini içerik.",
+hakkinda2:"Tarihi anlatım.",
+fragman:"https://www.youtube.com/watch?v=9DieMoGAPkk",
+izle:"#"
+},
+
+{
+id:"hzomer", isim:"Hz Ömerin Hayatı", tur:"dini", yil:"-", puan:"-",
+afis:"resimler/hz-omer.jpg",
+ara:"hz omer dini film",
+meta:"Dini Film",
+ozet:"Hz Ömer'in hayatı.",
+hakkinda1:"Dini içerik.",
+hakkinda2:"Tarihi anlatım.",
+fragman:"https://www.youtube.com/watch?v=xZzWeOgPdfk",
+izle:"#"
+},
+
+{
+id:"hzyusuf", isim:"Hz Yusuf", tur:"dini", yil:"-", puan:"-",
+afis:"resimler/hz-yusuf.jpg",
+meta:"Dini Film",
+ozet:"Hz Yusuf'un hayatı.",
+hakkinda1:"Dini içerik.",
+hakkinda2:"Tarihi anlatım.",
+fragman:"https://www.youtube.com/watch?v=7loRubAeJ58",
+izle:"#"
+},
+
+{
+id:"hzali", isim:"Hz Alinin Hayatı", tur:"dini", yil:"-", puan:"-",
+afis:"resimler/hz-ali.jpg",
+ara:"hz ali dini film",
+meta:"Dini Film",
+ozet:"Hz Ali'nin hayatı.",
+hakkinda1:"Dini içerik.",
+hakkinda2:"Tarihi anlatım.",
+fragman:"https://www.youtube.com/watch?v=zd3TM0f2bQ8",
+izle:"#"
+},
+
+{
+id:"hzebubekir", isim:"Hz Ebubekirin Hayatı", tur:"dini", yil:"-", puan:"-",
+afis:"resimler/hz-ebubekir.jpg",
+ara:"hz ebubekir dini film",
+meta:"Dini Film",
+ozet:"Hz Ebubekir'in hayatı.",
+hakkinda1:"Dini içerik.",
+hakkinda2:"Tarihi anlatım.",
+fragman:"https://www.youtube.com/watch?v=KqYinYJEIx",
+izle:"#"
+},
+
 {
 id:"findingnemo", isim:"Finding Nemo", tur:"animasyon", yil:"2003", puan:"8.2",
 afis:"https://image.tmdb.org/t/p/w500/4m1Au3YkjqsxF8iwQy0fPYSxE0h.jpg",

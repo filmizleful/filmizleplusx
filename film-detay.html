@@ -629,10 +629,6 @@
         `;
       }
 
-      let izleButonu = "";
-      if(izleLinki && izleLinki !== "#"){
-        izleButonu = `<a class="btn btn-kirmizi" href="${izleLinki}" target="_blank" rel="noopener">Filmi Aç</a>`;
-      }
 
       return `
         <div class="oynatma-kutu">
@@ -656,7 +652,7 @@
           <div class="izledim-durum" id="izledimDurum"></div>
 
           <div class="uyari">
-            Filmizleplusx yalnızca fragman, tanıtım ve film bilgi içerikleri sunmaktadır.
+            Filmizleplusx yalnızca fragman ve tanıtım içerikleri sunmaktadır.
           </div>
         </div>
       `;

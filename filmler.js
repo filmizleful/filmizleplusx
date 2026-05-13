@@ -584,7 +584,7 @@ meta:"Dini Film",
 ozet:"Hz Süleyman'ın hayatını anlatır.",
 hakkinda1:"Dini içerik.",
 hakkinda2:"Tarihi anlatım.",
-fragman:"https://www.youtube.com/watch?v=TZEgcntD4Mc",
+fragman:"https://www.youtube.com/watch?v=pOBwmC5XaGA",
 izle:"#"
 },
 
@@ -595,7 +595,7 @@ meta:"Dini • IMDb 8.5",
 ozet:"İslam'ın doğuşunu anlatan klasik film.",
 hakkinda1:"En bilinen dini yapım.",
 hakkinda2:"Uluslararası kaliteli film.",
-fragman:"https://www.youtube.com/watch?v=kp1XTsmfvsQ",
+fragman:"https://www.youtube.com/watch?v=wKrAywTeuBA",
 izle:"#"
 },
 
@@ -607,7 +607,7 @@ meta:"Dini Film",
 ozet:"Hz Musa'nın hayatını anlatır.",
 hakkinda1:"Dini içerik.",
 hakkinda2:"Tarihi anlatım.",
-fragman:"https://www.youtube.com/watch?v=1i7_aQaxq2s",
+fragman:"https://www.youtube.com/watch?v=7DwcF5Glj3w",
 izle:"#"
 },
 
@@ -619,7 +619,7 @@ meta:"Dini Film",
 ozet:"Hz Muhammed'in hayatı.",
 hakkinda1:"Dini içerik.",
 hakkinda2:"Tarihi anlatım.",
-fragman:"https://www.youtube.com/watch?v=9DieMoGAPkk",
+fragman:"https://www.youtube.com/watch?v=oIxRC_Z7KTU",
 izle:"#"
 },
 
@@ -631,7 +631,7 @@ meta:"Dini Film",
 ozet:"Hz Ömer'in hayatı.",
 hakkinda1:"Dini içerik.",
 hakkinda2:"Tarihi anlatım.",
-fragman:"https://www.youtube.com/watch?v=xZzWeOgPdfk",
+fragman:"https://www.youtube.com/watch?v=wQ8VIEb_RE8",
 izle:"#"
 },
 
@@ -642,7 +642,7 @@ meta:"Dini Film",
 ozet:"Hz Yusuf'un hayatı.",
 hakkinda1:"Dini içerik.",
 hakkinda2:"Tarihi anlatım.",
-fragman:"https://www.youtube.com/watch?v=7loRubAeJ58",
+fragman:"https://www.youtube.com/watch?v=SkaE1vnnCvg",
 izle:"#"
 },
 
@@ -654,7 +654,7 @@ meta:"Dini Film",
 ozet:"Hz Ali'nin hayatı.",
 hakkinda1:"Dini içerik.",
 hakkinda2:"Tarihi anlatım.",
-fragman:"https://www.youtube.com/watch?v=zd3TM0f2bQ8",
+fragman:"https://www.youtube.com/watch?v=5oBQz-Fic6I&t=40s",
 izle:"#"
 },
 
@@ -666,7 +666,7 @@ meta:"Dini Film",
 ozet:"Hz Ebubekir'in hayatı.",
 hakkinda1:"Dini içerik.",
 hakkinda2:"Tarihi anlatım.",
-fragman:"https://www.youtube.com/watch?v=KqYinYJEIx",
+fragman:"https://www.youtube.com/watch?v=Yf4oQuYuLq0&t=14s",
 izle:"#"
 },
 

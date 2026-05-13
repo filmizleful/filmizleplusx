@@ -1176,7 +1176,7 @@ function bilgi(){
         <h3>John Wick</h3>
         <div class="film-bilgi">Aksiyon • 2014</div>
         <div class="film-puan">⭐ IMDb 7.4</div>
-        <a href="film-detay.html?id=john-wick">İzle</a>
+        <a href="film-detay.html?id=john-wick">Fragmanı İzle</a>
         <button class="favori-buton" onclick="event.stopPropagation(); favoriEkle(this,'john-wick','John Wick','Aksiyon • 2014','https://image.tmdb.org/t/p/w500/fZPSd91yGE9fCcCe6OoQr6E3Bev.jpg')">❤️ Favoriye Ekle</button>
     </div>
 
@@ -1185,7 +1185,7 @@ function bilgi(){
         <h3>Batman</h3>
         <div class="film-bilgi">Aksiyon • 2022</div>
         <div class="film-puan">⭐ IMDb 7.8</div>
-        <a href="film-detay.html?id=batman">İzle</a>
+        <a href="film-detay.html?id=batman">Fragmanı İzle</a>
         <button class="favori-buton" onclick="event.stopPropagation(); favoriEkle(this,'batman','Batman','Aksiyon • 2022','https://image.tmdb.org/t/p/w500/74xTEgt7R36Fpooo50r9T25onhq.jpg')">❤️ Favoriye Ekle</button>
     </div>
 
@@ -1194,7 +1194,7 @@ function bilgi(){
         <h3>Mad Max</h3>
         <div class="film-bilgi">Aksiyon • 2015</div>
         <div class="film-puan">⭐ IMDb 8.1</div>
-        <a href="film-detay.html?id=madmax">İzle</a>
+        <a href="film-detay.html?id=madmax">Fragmanı İzle</a>
         <button class="favori-buton" onclick="event.stopPropagation(); favoriEkle(this,'madmax','Mad Max','Aksiyon • 2015','https://image.tmdb.org/t/p/w500/8tZYtuWezp8JbcsvHYO0O46tFbo.jpg')">❤️ Favoriye Ekle</button>
     </div>
 
@@ -1203,7 +1203,7 @@ function bilgi(){
         <h3>Interstellar</h3>
         <div class="film-bilgi">Bilim Kurgu • 2014</div>
         <div class="film-puan">⭐ IMDb 8.7</div>
-        <a href="film-detay.html?id=interstellar">İzle</a>
+        <a href="film-detay.html?id=interstellar">Fragmanı İzle</a>
         <button class="favori-buton" onclick="event.stopPropagation(); favoriEkle(this,'interstellar','Interstellar','Bilim Kurgu • 2014','https://image.tmdb.org/t/p/w500/gEU2QniE6E77NI6lCU6MxlNBvIx.jpg')">❤️ Favoriye Ekle</button>
     </div>
 
@@ -1221,7 +1221,7 @@ function bilgi(){
         <h3>Avatar</h3>
         <div class="film-bilgi">Macera • 2009</div>
         <div class="film-puan">⭐ IMDb 7.9</div>
-        <a href="film-detay.html?id=avatar">İzle</a>
+        <a href="film-detay.html?id=avatar">>Fragman Fragman İzle<</a>
         <button class="favori-buton" onclick="event.stopPropagation(); favoriEkle(this,'avatar','Avatar','Macera • 2009','https://image.tmdb.org/t/p/w500/kyeqWdyUXW608qlYkRqosgbbJyK.jpg')">❤️ Favoriye Ekle</button>
     </div>
 </div>
@@ -1541,7 +1541,7 @@ function panelFilmleriniGoster(){
                     <h3>${film.isim || "Adsız Film"}</h3>
                     <div class="film-bilgi">${film.tur || "Film"}${film.yil ? " • " + film.yil : ""}</div>
                     <div class="film-puan">⭐ Yeni Eklendi</div>
-                    <a href="film-detay.html?id=${encodeURIComponent(film.id || "")}">İzle</a>
+                    <a href="film-detay.html?id=${encodeURIComponent(film.id || "")}">Fragman İzle</a>
                 `;
 
                 grid.appendChild(kart);
